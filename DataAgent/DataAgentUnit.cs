@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DataAgent
 {
     public class DataAgentUnit
@@ -17,12 +18,12 @@ namespace DataAgent
             GetSynchronizerStatus();
         }
 
-        public List<Ingredient> QueryAllIngredients()
+        public List<SharedDataTypes.Ingredient> QueryAllIngredients()
         {
             GetSynchronizerStatus();
             if (connected)
             {
-                return synchronizer.QueryAllIngredients().Select(i => new Ingredient() {
+                return synchronizer.QueryAllIngredients().Select(i => new SharedDataTypes.Ingredient() {
                     IngredientId = i.IngredientId,
                     Name = i.Name,
                     Description = i.Description,
