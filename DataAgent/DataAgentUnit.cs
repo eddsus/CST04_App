@@ -27,7 +27,7 @@ namespace DataAgent
                     IngredientId = i.IngredientId,
                     Name = i.Name,
                     Description = i.Description,
-                    Available = i.Available,
+                    //Available = i.Available,
                     Price = i.Price,
                     Type = i.Type,
                     UnitType = i.UnitType
