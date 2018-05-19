@@ -31,13 +31,14 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public IngredientsVm()
         {
-            IngredientList = new ObservableCollection<Ingredient>();
+            IngredientList = new ObservableCollection<Ingredient>(dataagent.QueryAllIngredients());
             //IngredientList=dataagent.QueryAllIngredients();
 
-            foreach (var item in dataagent.QueryAllIngredients())
-            {
-                IngredientList.Add(item);
-            }
+
+            //foreach (var item in dataagent.QueryAllIngredients())
+            //{
+            //    IngredientList.Add(item);
+            //}
         }
     }
 }

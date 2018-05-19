@@ -17,7 +17,7 @@ namespace DataAgent
             GetSynchronizerStatus();
         }
 
-        public List<Ingredient> QueryAllIngredients()
+        public List<SharedDataTypes.Ingredient> QueryAllIngredients()
         {
             GetSynchronizerStatus();
             if (connected)

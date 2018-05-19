@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDashboard", "WPFDashboar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAgent", "DataAgent\DataAgent.csproj", "{30265273-10C7-4035-A133-82D401CF94F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDataTypes", "..\CC_Synchronizer\SharedDataTypes\SharedDataTypes.csproj", "{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDataTypes", "..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj", "{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
