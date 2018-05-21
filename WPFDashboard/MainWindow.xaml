@@ -37,6 +37,12 @@
                     <TextBlock Text="Packages" HorizontalAlignment="Center"/>
                 </Grid>
             </Button>
+            <Button Width="130" Margin="5" Foreground="White" Command="{Binding BtnCreationsView}">
+                <Grid Width="110">
+                    <materialDesign:PackIcon Kind="Creation" VerticalAlignment="Center"/>
+                    <TextBlock Text="Creations" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
             <Button Width="130" Margin="5" Foreground="White" Command="{Binding BtnIngredientsView}">
                 <Grid Width="110">
                     <materialDesign:PackIcon Kind="Receipt" VerticalAlignment="Center"/>
@@ -49,17 +55,11 @@
                     <TextBlock Text="Comments" HorizontalAlignment="Center"/>
                 </Grid>
             </Button>
-            <Button Width="130" Margin="5" Foreground="White" Command="{Binding BtnCreationsView}">
-                <Grid Width="110">
-                    <materialDesign:PackIcon Kind="Creation" VerticalAlignment="Center"/>
-                    <TextBlock Text="Creations" HorizontalAlignment="Center"/>
-                </Grid>
-            </Button>
 
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="Connected" FontSize="15" FontWeight="Bold"/>
-            <Ellipse Width="20" Height="20" Fill="{Binding ConnectStatus, Converter={StaticResource BoolToBrushConverter}}"/>
+            <Ellipse Width="20" Height="20" Margin="10 0" Fill="{Binding ConnectStatus, Converter={StaticResource BoolToBrushConverter}}"/>
         </StackPanel>
 
 
@@ -72,14 +72,14 @@
                 <DataTemplate DataType="{x:Type viewmodels:PackagesVm}">
                     <views:PackagesView></views:PackagesView>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:CreationsVm}">
+                    <views:CreationsView></views:CreationsView>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:IngredientsVm}">
                     <views:IngredientsView></views:IngredientsView>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:CommentsVm}">
                     <views:CommentsView></views:CommentsView>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:CreationsVm}">
-                    <views:CreationsView></views:CreationsView>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

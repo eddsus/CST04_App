@@ -31,15 +31,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public IngredientsVm()
         {
-            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(dataagent.QueryAllIngredients().Select(i => new SharedDataTypes.Ingredient() {
-               IngredientId = i.IngredientId,
-               Name = i.Name,
-               Description = i.Description,
-               Available = i.Available,
-               Price = i.Price,
-               Type = i.Type,
-               UnitType = i.UnitType
-            }).ToList());
+            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(dataagent.QueryAllIngredients());
             //IngredientList=dataagent.QueryAllIngredients();
 
             //foreach (var item in dataagent.QueryAllIngredients())
