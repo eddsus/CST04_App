@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHandler", "DataHandler\DataHandler.csproj", "{170D6FA8-ABF6-4B9E-9798-B7519F565045}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalDataHandling", "DataHandler\LocalDataHandling.csproj", "{170D6FA8-ABF6-4B9E-9798-B7519F565045}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{65FF6901-C802-42AF-8078-E498ECBCA89E}"
 EndProject
