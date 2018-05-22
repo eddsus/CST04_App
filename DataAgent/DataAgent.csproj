@@ -52,9 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\SR_Synchronizer\DataAgent.SR_Synchronizer.Ingredient.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
+    <None Include="Properties\DataSources\SharedDataTypes.Ingredient.datasource" />
+    <None Include="Properties\DataSources\SharedDataTypes.Order.datasource" />
+    <None Include="Properties\DataSources\SharedDataTypes.Shape.datasource" />
+    <None Include="Properties\DataSources\SharedDataTypes.Wrapping.datasource" />
     <None Include="Service References\SR_Synchronizer\service.wsdl" />
     <None Include="Service References\SR_Synchronizer\service.xsd">
       <SubType>Designer</SubType>
@@ -83,6 +84,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CC_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+      <Project>{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}</Project>
+      <Name>SharedDataTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

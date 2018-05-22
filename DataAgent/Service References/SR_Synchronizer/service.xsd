@@ -13,15 +13,51 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="QueryAllIngredients">
+  <xs:element name="QueryOrders">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="QueryAllIngredientsResponse">
+  <xs:element name="QueryOrdersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SharedDataTypes" minOccurs="0" name="QueryAllIngredientsResult" nillable="true" type="q1:ArrayOfIngredient" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SharedDataTypes" minOccurs="0" name="QueryOrdersResult" nillable="true" type="q1:ArrayOfOrder" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryIngredients">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryIngredientsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SharedDataTypes" minOccurs="0" name="QueryIngredientsResult" nillable="true" type="q2:ArrayOfIngredient" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryShapes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryShapesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SharedDataTypes" minOccurs="0" name="QueryShapesResult" nillable="true" type="q3:ArrayOfShape" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryWrappings">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QueryWrappingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SharedDataTypes" minOccurs="0" name="QueryWrappingsResult" nillable="true" type="q4:ArrayOfWrapping" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

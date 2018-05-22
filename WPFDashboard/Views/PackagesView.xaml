@@ -8,6 +8,6 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=Packages}">
     <Grid Background="LightYellow">
-            
+        <DataGrid ItemsSource="{Binding Shapes}"/>
     </Grid>
 </UserControl>

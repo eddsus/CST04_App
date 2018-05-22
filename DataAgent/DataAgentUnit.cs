@@ -1,4 +1,5 @@
 ﻿using DataAgent.SR_Synchronizer;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,32 +13,11 @@ namespace DataAgent
         bool connected = false;
         AppServiceServiceClient synchronizer = new AppServiceServiceClient();
 
+
         public DataAgentUnit()
         {
             GetSynchronizerStatus();
         }
-
-        public List<Ingredient> QueryAllIngredients()
-        {
-            GetSynchronizerStatus();
-            if (connected)
-            {
-                return synchronizer.QueryAllIngredients().Select(i => new Ingredient() {
-                    IngredientId = i.IngredientId,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Available = i.Available,
-                    Price = i.Price,
-                    Type = i.Type,
-                    UnitType = i.UnitType
-                }).ToList();
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public bool GetSynchronizerStatus()
         {
             try
@@ -50,5 +30,47 @@ namespace DataAgent
             }
             return connected;
         }
+
+        public List<Ingredient> QueryIngredients()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return synchronizer.QueryIngredients();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<Shape> QueryShapes()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return synchronizer.QueryShapes();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<Wrapping> QueryWrappings()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return synchronizer.QueryWrappings();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+
     }
 }

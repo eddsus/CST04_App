@@ -9,150 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace DataAgent.SR_Synchronizer {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Ingredient", Namespace="http://schemas.datacontract.org/2004/07/SharedDataTypes")]
-    [System.SerializableAttribute()]
-    public partial class Ingredient : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool AvailableField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid IngredientIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double PriceField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TypeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnitTypeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Available {
-            get {
-                return this.AvailableField;
-            }
-            set {
-                if ((this.AvailableField.Equals(value) != true)) {
-                    this.AvailableField = value;
-                    this.RaisePropertyChanged("Available");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid IngredientId {
-            get {
-                return this.IngredientIdField;
-            }
-            set {
-                if ((this.IngredientIdField.Equals(value) != true)) {
-                    this.IngredientIdField = value;
-                    this.RaisePropertyChanged("IngredientId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Price {
-            get {
-                return this.PriceField;
-            }
-            set {
-                if ((this.PriceField.Equals(value) != true)) {
-                    this.PriceField = value;
-                    this.RaisePropertyChanged("Price");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Type {
-            get {
-                return this.TypeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
-                    this.TypeField = value;
-                    this.RaisePropertyChanged("Type");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnitType {
-            get {
-                return this.UnitTypeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnitTypeField, value) != true)) {
-                    this.UnitTypeField = value;
-                    this.RaisePropertyChanged("UnitType");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SR_Synchronizer.IAppServiceService")]
@@ -164,11 +21,29 @@ namespace DataAgent.SR_Synchronizer {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/IsAlive", ReplyAction="http://tempuri.org/IAppServiceService/IsAliveResponse")]
         System.Threading.Tasks.Task<bool> IsAliveAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryAllIngredients", ReplyAction="http://tempuri.org/IAppServiceService/QueryAllIngredientsResponse")]
-        System.Collections.ObjectModel.ObservableCollection<DataAgent.SR_Synchronizer.Ingredient> QueryAllIngredients();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryOrders", ReplyAction="http://tempuri.org/IAppServiceService/QueryOrdersResponse")]
+        System.Collections.Generic.List<SharedDataTypes.Order> QueryOrders();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryAllIngredients", ReplyAction="http://tempuri.org/IAppServiceService/QueryAllIngredientsResponse")]
-        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<DataAgent.SR_Synchronizer.Ingredient>> QueryAllIngredientsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryOrders", ReplyAction="http://tempuri.org/IAppServiceService/QueryOrdersResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Order>> QueryOrdersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryIngredients", ReplyAction="http://tempuri.org/IAppServiceService/QueryIngredientsResponse")]
+        System.Collections.Generic.List<SharedDataTypes.Ingredient> QueryIngredients();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryIngredients", ReplyAction="http://tempuri.org/IAppServiceService/QueryIngredientsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Ingredient>> QueryIngredientsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryShapes", ReplyAction="http://tempuri.org/IAppServiceService/QueryShapesResponse")]
+        System.Collections.Generic.List<SharedDataTypes.Shape> QueryShapes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryShapes", ReplyAction="http://tempuri.org/IAppServiceService/QueryShapesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Shape>> QueryShapesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryWrappings", ReplyAction="http://tempuri.org/IAppServiceService/QueryWrappingsResponse")]
+        System.Collections.Generic.List<SharedDataTypes.Wrapping> QueryWrappings();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAppServiceService/QueryWrappings", ReplyAction="http://tempuri.org/IAppServiceService/QueryWrappingsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Wrapping>> QueryWrappingsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -206,12 +81,36 @@ namespace DataAgent.SR_Synchronizer {
             return base.Channel.IsAliveAsync();
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<DataAgent.SR_Synchronizer.Ingredient> QueryAllIngredients() {
-            return base.Channel.QueryAllIngredients();
+        public System.Collections.Generic.List<SharedDataTypes.Order> QueryOrders() {
+            return base.Channel.QueryOrders();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<DataAgent.SR_Synchronizer.Ingredient>> QueryAllIngredientsAsync() {
-            return base.Channel.QueryAllIngredientsAsync();
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Order>> QueryOrdersAsync() {
+            return base.Channel.QueryOrdersAsync();
+        }
+        
+        public System.Collections.Generic.List<SharedDataTypes.Ingredient> QueryIngredients() {
+            return base.Channel.QueryIngredients();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Ingredient>> QueryIngredientsAsync() {
+            return base.Channel.QueryIngredientsAsync();
+        }
+        
+        public System.Collections.Generic.List<SharedDataTypes.Shape> QueryShapes() {
+            return base.Channel.QueryShapes();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Shape>> QueryShapesAsync() {
+            return base.Channel.QueryShapesAsync();
+        }
+        
+        public System.Collections.Generic.List<SharedDataTypes.Wrapping> QueryWrappings() {
+            return base.Channel.QueryWrappings();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SharedDataTypes.Wrapping>> QueryWrappingsAsync() {
+            return base.Channel.QueryWrappingsAsync();
         }
     }
 }

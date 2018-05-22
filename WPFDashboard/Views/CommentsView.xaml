@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WPFDashboard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource Locator}, Path=Comments}">
+             DataContext="{Binding Comments, Mode=OneWay, Source={StaticResource Locator}}">
     <Grid Background="LightGreen">
-            
+        <DataGrid ItemsSource="{Binding Wraps}"/>
     </Grid>
 </UserControl>

@@ -46,20 +46,50 @@
   <wsdl:message name="IAppServiceService_IsAlive_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsAliveResponse" />
   </wsdl:message>
-  <wsdl:message name="IAppServiceService_QueryAllIngredients_InputMessage">
-    <wsdl:part name="parameters" element="tns:QueryAllIngredients" />
+  <wsdl:message name="IAppServiceService_QueryOrders_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryOrders" />
   </wsdl:message>
-  <wsdl:message name="IAppServiceService_QueryAllIngredients_OutputMessage">
-    <wsdl:part name="parameters" element="tns:QueryAllIngredientsResponse" />
+  <wsdl:message name="IAppServiceService_QueryOrders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryIngredients_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryIngredients" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryIngredients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryIngredientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryShapes_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryShapes" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryShapes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryShapesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryWrappings_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryWrappings" />
+  </wsdl:message>
+  <wsdl:message name="IAppServiceService_QueryWrappings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryWrappingsResponse" />
   </wsdl:message>
   <wsdl:portType name="IAppServiceService">
     <wsdl:operation name="IsAlive">
       <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/IsAlive" message="tns:IAppServiceService_IsAlive_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/IsAliveResponse" message="tns:IAppServiceService_IsAlive_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="QueryAllIngredients">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/QueryAllIngredients" message="tns:IAppServiceService_QueryAllIngredients_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/QueryAllIngredientsResponse" message="tns:IAppServiceService_QueryAllIngredients_OutputMessage" />
+    <wsdl:operation name="QueryOrders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/QueryOrders" message="tns:IAppServiceService_QueryOrders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/QueryOrdersResponse" message="tns:IAppServiceService_QueryOrders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIngredients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/QueryIngredients" message="tns:IAppServiceService_QueryIngredients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/QueryIngredientsResponse" message="tns:IAppServiceService_QueryIngredients_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryShapes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/QueryShapes" message="tns:IAppServiceService_QueryShapes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/QueryShapesResponse" message="tns:IAppServiceService_QueryShapes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryWrappings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAppServiceService/QueryWrappings" message="tns:IAppServiceService_QueryWrappings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAppServiceService/QueryWrappingsResponse" message="tns:IAppServiceService_QueryWrappings_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IAppServiceService" type="tns:IAppServiceService">
@@ -75,8 +105,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QueryAllIngredients">
-      <soap12:operation soapAction="http://tempuri.org/IAppServiceService/QueryAllIngredients" style="document" />
+    <wsdl:operation name="QueryOrders">
+      <soap12:operation soapAction="http://tempuri.org/IAppServiceService/QueryOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIngredients">
+      <soap12:operation soapAction="http://tempuri.org/IAppServiceService/QueryIngredients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryShapes">
+      <soap12:operation soapAction="http://tempuri.org/IAppServiceService/QueryShapes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryWrappings">
+      <soap12:operation soapAction="http://tempuri.org/IAppServiceService/QueryWrappings" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
