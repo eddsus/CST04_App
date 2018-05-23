@@ -1,6 +1,7 @@
 ﻿using DataAgent;
 using DataAgent.SR_Synchronizer;
 using GalaSoft.MvvmLight;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     
     public class IngredientsVm:ViewModelBase
     {
-        DataAgentUnit dataagent = new DataAgentUnit();
+        DataAgentUnit dataAgent = new DataAgentUnit();
 
         private ObservableCollection<SharedDataTypes.Ingredient> ingredientList;
 
@@ -31,21 +32,13 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public IngredientsVm()
         {
-            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(dataagent.QueryAllIngredients().Select(i => new SharedDataTypes.Ingredient() {
-               IngredientId = i.IngredientId,
-               Name = i.Name,
-               Description = i.Description,
-               Available = i.Available,
-               Price = i.Price,
-               Type = i.Type,
-               UnitType = i.UnitType
-            }).ToList());
+            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(dataagent.QueryAllIngredients());
             //IngredientList=dataagent.QueryAllIngredients();
 
-            //foreach (var item in dataagent.QueryAllIngredients())
-            //{
-            //    IngredientList.Add(item);
-            //}
+            foreach (var item in dataAgent.QueryIngredients())
+            {
+                IngredientList.Add(item);
+            }
         }
     }
 }
