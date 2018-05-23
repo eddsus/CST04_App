@@ -3,8 +3,6 @@ using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataAgent
@@ -50,15 +48,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return synchronizer.QueryAllIngredients().Select(i => new Ingredient() {
-                    IngredientId = i.IngredientId,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Available = i.Available,
-                    Price = i.Price,
-                    Type = i.Type,
-                    UnitType = i.UnitType
-                }).ToList();
+                return synchronizer.QueryShapes();
             }
             else
             {

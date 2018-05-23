@@ -9,6 +9,6 @@ namespace DataHandler
 {
     public class DataHandler
     {
-        Database_test
+        //Database_test
     }
 }
