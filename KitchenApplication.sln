@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHandler", "DataHandler\DataHandler.csproj", "{170D6FA8-ABF6-4B9E-9798-B7519F565045}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalDataHandling", "DataHandler\LocalDataHandling.csproj", "{170D6FA8-ABF6-4B9E-9798-B7519F565045}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{65FF6901-C802-42AF-8078-E498ECBCA89E}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDashboard", "WPFDashboar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAgent", "DataAgent\DataAgent.csproj", "{30265273-10C7-4035-A133-82D401CF94F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDataTypes", "..\CC_Synchronizer\SharedDataTypes\SharedDataTypes.csproj", "{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDataTypes", "..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj", "{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

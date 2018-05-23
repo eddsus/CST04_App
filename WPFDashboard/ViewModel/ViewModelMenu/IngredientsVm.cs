@@ -16,9 +16,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     {
         DataAgentUnit dataAgent = new DataAgentUnit();
 
-        private ObservableCollection<Ingredient> ingredientList;
+        private ObservableCollection<SharedDataTypes.Ingredient> ingredientList;
 
-        public ObservableCollection<Ingredient> IngredientList
+        public ObservableCollection<SharedDataTypes.Ingredient> IngredientList
         {
             get { return ingredientList; }
             set
@@ -32,7 +32,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public IngredientsVm()
         {
-            IngredientList = new ObservableCollection<Ingredient>();
+            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(dataagent.QueryAllIngredients());
             //IngredientList=dataagent.QueryAllIngredients();
 
             foreach (var item in dataAgent.QueryIngredients())
