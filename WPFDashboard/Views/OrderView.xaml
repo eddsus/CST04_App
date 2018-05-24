@@ -19,22 +19,26 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
-            <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Content="some Data" Width="100" Foreground="Black" VerticalAlignment="Center"/>
-                <Button Content="Show me Details" Width="150" Command="{Binding BtnShowdetails}"/>
-            </StackPanel>
-            <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Content="some Data" Width="100" Foreground="Black" VerticalAlignment="Center"/>
-                <Button Content="Show me Details" Width="150" Command="{Binding BtnShowdetails}"/>
-            </StackPanel>
-            <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Content="some Data" Width="100" Foreground="Black" VerticalAlignment="Center"/>
-                <Button Content="Show me Details" Width="150" Command="{Binding BtnShowdetails}"/>
-            </StackPanel>
-        </StackPanel>
+        
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Name"/>
+                <DataGridTextColumn Header="Order Date"/>
+                <DataGridTextColumn Header="Due Date"/>
+                <DataGridTextColumn Header="State"/>
+                <DataGridTemplateColumn Header="Take action">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                                <Button Content="Edit order" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        
         <!--OrderDeatailspage-->
-            <ContentControl Grid.Column="1" Content="{Binding OrderDetailsView}">
+            <ContentControl Grid.Row="1" Content="{Binding OrderDetailsView}">
            
                 <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
@@ -42,6 +46,6 @@
                 </DataTemplate>
             </ContentControl.Resources>
            
-        </ContentControl>
+            </ContentControl>
     </Grid>
 </UserControl>

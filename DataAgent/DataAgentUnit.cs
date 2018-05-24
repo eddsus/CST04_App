@@ -69,6 +69,19 @@ namespace DataAgent
             }
         }
 
+        public List<Order> QueryOrders()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return synchronizer.QueryOrders();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
 
 
     }
