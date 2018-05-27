@@ -18,7 +18,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private ObservableCollection<Ingredient> ingredientList;
 
-        public ObservableCollection<SharedDataTypes.Ingredient> IngredientList
+        public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
             set
