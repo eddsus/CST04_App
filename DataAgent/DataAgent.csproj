@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -43,47 +46,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAgentUnit.cs" />
+    <Compile Include="ServiceHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\SR_Synchronizer\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\SharedDataTypes.Ingredient.datasource" />
     <None Include="Properties\DataSources\SharedDataTypes.Order.datasource" />
     <None Include="Properties\DataSources\SharedDataTypes.Shape.datasource" />
     <None Include="Properties\DataSources\SharedDataTypes.Wrapping.datasource" />
-    <None Include="Service References\SR_Synchronizer\service.wsdl" />
-    <None Include="Service References\SR_Synchronizer\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SR_Synchronizer\service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SR_Synchronizer\SharedDataTypes.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\SR_Synchronizer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SR_Synchronizer\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SR_Synchronizer\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SR_Synchronizer\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">

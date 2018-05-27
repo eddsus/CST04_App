@@ -31,10 +31,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             Wraps = new ObservableCollection<Wrapping>();
 
-            foreach (var item in dataAgent.QueryWrappings())
-            {
-                Wraps.Add(item);
-            }
+            //foreach (var item in dataAgent.QueryWrappings())
+            //{
+            //    Wraps.Add(item);
+            //}
         }
 
 
