@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFDashboard.Views.OrderViews
+namespace WPFDashboard.Views.DetailViews
 {
     /// <summary>
-    /// Interaction logic for OrderDetailsView.xaml
+    /// Interaction logic for PackageDetailView.xaml
     /// </summary>
-    public partial class OrderDetailsView : UserControl
+    public partial class PackageDetailView : UserControl
     {
-        public OrderDetailsView()
+        public PackageDetailView()
         {
             InitializeComponent();
         }

@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using WPFDashboard.ViewModel.DetailViewModels;
 using WPFDashboard.ViewModel.OrderVModels;
 using WPFDashboard.ViewModel.ViewModelMenu;
 
@@ -38,12 +39,22 @@ namespace WPFDashboard.ViewModel
             SimpleIoc.Default.Register<IngredientsVm>();
 
             //Order has inner Views
-            //Make a views for order page
+            //Make a detail views for all pages
             SimpleIoc.Default.Register<OrderDetailsVm>();
+            SimpleIoc.Default.Register<PackageDetailVm>();
 
         }
+        
+        //Detail Views
+        public PackageDetailVm PackageDetail
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PackageDetailVm>();
+            }
+        }
 
-       //Order Page View
+        //Order Page View
         public OrderDetailsVm OrderDetails
         {
             get

@@ -6,46 +6,49 @@
              xmlns:local="clr-namespace:WPFDashboard.Views"
              xmlns:views="clr-namespace:WPFDashboard.Views.OrderViews"
              xmlns:viewmodels="clr-namespace:WPFDashboard.ViewModel.OrderVModels"
+             xmlns:detailviewmodels="clr-namespace:WPFDashboard.ViewModel.DetailViewModels"
+             xmlns:detailviews="clr-namespace:WPFDashboard.Views.DetailViews"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1080"
              DataContext="{Binding Source={StaticResource Locator}, Path=Orders}">
     <Grid Background="LightBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Customer Name"/>
-                <DataGridTextColumn Header="Order Date"/>
-                <DataGridTextColumn Header="Due Date"/>
-                <DataGridTextColumn Header="State"/>
-                <DataGridTemplateColumn Header="Take action">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                                <Button Content="Edit order" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
 
-            </DataGrid.Columns>
-        </DataGrid>
-        
+       
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Customer Name"/>
+                    <DataGridTextColumn Header="Order Date"/>
+                    <DataGridTextColumn Header="Due Date"/>
+                    <DataGridTextColumn Header="State"/>
+                    <DataGridTemplateColumn Header="Take action">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit order" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+     
         <!--OrderDeatailspage-->
-            <ContentControl Grid.Row="1" Content="{Binding OrderDetailsView}">
-           
-                <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
-                    <views:OrderDetailsView></views:OrderDetailsView>
-                </DataTemplate>
-            </ContentControl.Resources>
-           
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding OrderDetailsView}">
+               <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
+                        <views:OrderDetailsView></views:OrderDetailsView>
+                    </DataTemplate>
+                </ContentControl.Resources>
+
             </ContentControl>
+
+           
+        </Grid>
+        
     </Grid>
 </UserControl>
