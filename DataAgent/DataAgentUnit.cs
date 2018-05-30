@@ -1,29 +1,33 @@
-﻿using DataAgent.SR_Synchronizer;
+﻿using Newtonsoft.Json;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Net;
+using System.Runtime.Serialization.Json;
+using System.ServiceModel;
 
 namespace DataAgent
 {
     public class DataAgentUnit
     {
         bool connected = false;
-        AppServiceServiceClient synchronizer = new AppServiceServiceClient();
+        ServiceHandler serviceHandler;
 
 
         public DataAgentUnit()
         {
+            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
             GetSynchronizerStatus();
         }
+
         public bool GetSynchronizerStatus()
         {
             try
             {
-                connected = synchronizer.IsAlive();
+                connected = ((bool)serviceHandler.CallService<bool>(@"IsAlive"));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 connected = false;
             }
@@ -35,7 +39,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return synchronizer.QueryIngredients();
+                return (List<Ingredient>)serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
             }
             else
             {
@@ -43,44 +47,44 @@ namespace DataAgent
             }
         }
 
-        public List<Shape> QueryShapes()
-        {
-            GetSynchronizerStatus();
-            if (connected)
-            {
-                return synchronizer.QueryShapes();
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //public List<Shape> QueryShapes()
+        //{
+        //    GetSynchronizerStatus();
+        //    if (connected)
+        //    {
+        //        return sync.QueryShapes();
+        //    }
+        //    else
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public List<Wrapping> QueryWrappings()
-        {
-            GetSynchronizerStatus();
-            if (connected)
-            {
-                return synchronizer.QueryWrappings();
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //public List<Wrapping> QueryWrappings()
+        //{
+        //    GetSynchronizerStatus();
+        //    if (connected)
+        //    {
+        //        return sync.QueryWrappings();
+        //    }
+        //    else
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public List<Order> QueryOrders()
-        {
-            GetSynchronizerStatus();
-            if (connected)
-            {
-                return synchronizer.QueryOrders();
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //public List<Order> QueryOrders()
+        //{
+        //    GetSynchronizerStatus();
+        //    if (connected)
+        //    {
+        //        return sync.QueryOrders();
+        //    }
+        //    else
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
 
 

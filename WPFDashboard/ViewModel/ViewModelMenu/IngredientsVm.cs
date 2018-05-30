@@ -1,5 +1,4 @@
 ﻿using DataAgent;
-using DataAgent.SR_Synchronizer;
 using GalaSoft.MvvmLight;
 using SharedDataTypes;
 using System;
@@ -14,11 +13,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     
     public class IngredientsVm:ViewModelBase
     {
-        DataAgentUnit DataAgent = new DataAgentUnit();
+        private readonly DataAgentUnit DataAgent = new DataAgentUnit();
 
         private ObservableCollection<Ingredient> ingredientList;
 
-        public ObservableCollection<SharedDataTypes.Ingredient> IngredientList
+        public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
             set

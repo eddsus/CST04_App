@@ -33,10 +33,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             Shapes = new ObservableCollection<Shape>();
 
-            foreach (var item in dataAgent.QueryShapes())
-            {
-                Shapes.Add(item);
-            }
+            //foreach (var item in dataAgent.QueryShapes())
+            //{
+            //    Shapes.Add(item);
+            //}
         }
     }
 }
