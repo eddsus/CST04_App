@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,13 +26,10 @@ namespace DataAgent
             Response = Request.GetResponse();
 
             string json;
-
             using (var sr = new System.IO.StreamReader(Response.GetResponseStream()))
             {
-
-                json = sr.ReadToEnd().Normalize();
+                json = sr.ReadToEnd();
             }
-
             return JsonConvert.DeserializeObject<T>(json);
         }
 
