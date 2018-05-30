@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAgent
 {
@@ -20,7 +16,7 @@ namespace DataAgent
         }
 
 
-        public object CallService<T>(string serviceCall)
+        public Object CallService<T>(string serviceCall)
         {
             Request = WebRequest.Create(BaseUrl + serviceCall);
             Response = Request.GetResponse();
@@ -30,7 +26,8 @@ namespace DataAgent
             {
                 json = sr.ReadToEnd();
             }
-            return JsonConvert.DeserializeObject<T>(json);
+            var temp = JsonConvert.DeserializeObject<T>(json);
+            return temp;
         }
 
     }
