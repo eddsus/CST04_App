@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.ViewModel.DetailViewModels;
 using WPFDashboard.ViewModel.OrderVModels;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
@@ -46,11 +47,13 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             }
         }
 
+        
 
         public OrdersVm()
         {
             BtnShowdetails = new RelayCommand(()=> {OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
             OrdersList = new ObservableCollection<Order>();
+
             //foreach (var item in dataAgent.QueryOrders())
             //{
             //    OrdersList.Add(item);

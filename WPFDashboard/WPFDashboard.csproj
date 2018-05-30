@@ -84,8 +84,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
+    <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\OrderVModels\OrderDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CommentsVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CreationsVm.cs" />
@@ -98,13 +100,16 @@
     <Compile Include="Views\CreationsView.xaml.cs">
       <DependentUpon>CreationsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DetailViews\PackageDetailView.xaml.cs">
+      <DependentUpon>PackageDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IngredientsView.xaml.cs">
       <DependentUpon>IngredientsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrderViews\OrderDetailsView.xaml.cs">
+    <Compile Include="Views\DetailViews\OrderDetailsView.xaml.cs">
       <DependentUpon>OrderDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PackagesView.xaml.cs">
@@ -130,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DetailViews\PackageDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\IngredientsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,7 +147,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrderViews\OrderDetailsView.xaml">
+    <Page Include="Views\DetailViews\OrderDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

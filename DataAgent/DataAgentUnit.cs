@@ -25,7 +25,7 @@ namespace DataAgent
         {
             try
             {
-                connected = ((IsAlive)serviceHandler.CallService<IsAlive>(@"IsAlive")).IsAliveResult;
+                connected = ((bool)serviceHandler.CallService<bool>(@"IsAlive"));
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return new List<Ingredient>((List<Ingredient>)serviceHandler.CallService<Ingredient[]>(@"QueryIngredients"));
+                return (List<Ingredient>)serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
             }
             else
             {
