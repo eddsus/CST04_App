@@ -54,10 +54,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             BtnShowdetails = new RelayCommand(()=> {OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
             OrdersList = new ObservableCollection<Order>();
 
-            //foreach (var item in dataAgent.QueryOrders())
-            //{
-            //    OrdersList.Add(item);
-            //}
+            foreach (var item in dataAgent.QueryOrders())
+            {
+                OrdersList.Add(item);
+            }
 
             //BtnViewDetails = new RelayCommand<Order>(()=> {});
         }

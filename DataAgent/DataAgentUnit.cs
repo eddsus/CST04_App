@@ -47,44 +47,44 @@ namespace DataAgent
             }
         }
 
-        //public List<Shape> QueryShapes()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryShapes();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public List<Shape> QueryShapes()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Shape>)serviceHandler.CallService<List<Shape>>(@"QueryShapes");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        //public List<Wrapping> QueryWrappings()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryWrappings();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public List<Wrapping> QueryWrappings()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Wrapping>)serviceHandler.CallService<List<Wrapping>>(@"QueryWrappings");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        //public List<Order> QueryOrders()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryOrders();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public List<Order> QueryOrders()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Order>)serviceHandler.CallService<List<Order>>(@"QueryOrders");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
 
 
 
