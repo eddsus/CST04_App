@@ -1,24 +1,32 @@
-﻿using Newtonsoft.Json;
-using SharedDataTypes;
+﻿using SharedDataTypes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.ServiceModel;
+using DataHandler;
+using LocalSynchronization;
 
 namespace DataAgent
 {
     public class DataAgentUnit
     {
-        bool connected = false;
-        ServiceHandler serviceHandler;
+        private bool connected = false;
+        private ServiceHandler serviceHandler;
+        private LocalDataHandler localDH = new LocalDataHandler();
+        private LocalSynchronizer sync;
 
 
         public DataAgentUnit()
         {
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
             GetSynchronizerStatus();
+        }
+
+        public void Syncronize()
+        {
+            if (connected)
+            {
+                sync = new LocalSynchronizer();
+                sync.StartSyncing();
+            }
         }
 
         public bool GetSynchronizerStatus()
@@ -43,7 +51,7 @@ namespace DataAgent
             }
             else
             {
-                throw new NotImplementedException();
+                return localDH.QueryIngredients();
             }
         }
 
@@ -56,7 +64,7 @@ namespace DataAgent
             }
             else
             {
-                throw new NotImplementedException();
+                return new List<Shape>();
             }
         }
 
@@ -69,7 +77,7 @@ namespace DataAgent
             }
             else
             {
-                throw new NotImplementedException();
+                return new List<Wrapping>();
             }
         }
 
@@ -82,7 +90,7 @@ namespace DataAgent
             }
             else
             {
-                throw new NotImplementedException();
+                return new List<Order>();
             }
         }
 
