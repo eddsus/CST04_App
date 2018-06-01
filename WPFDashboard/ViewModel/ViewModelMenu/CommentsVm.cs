@@ -15,7 +15,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         //testing wraps
 
-        DataAgentUnit dataAgent = new DataAgentUnit();
+        DataAgentUnit dataAgent = new DataAgentUnit(NewCommentArrived);
+
 
         private ObservableCollection<Wrapping> wraps;
 
@@ -35,6 +36,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //{
             //    Wraps.Add(item);
             //}
+        }
+        private static void NewCommentArrived()
+        {
+            throw new NotImplementedException();
         }
 
 

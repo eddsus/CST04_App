@@ -9,7 +9,7 @@ namespace WPFDashboard.ViewModel
     
     public class MainViewModel : ViewModelBase
     {
-        DataAgentUnit dataAgent = new DataAgentUnit();
+        DataAgentUnit dataAgent;
         private ViewModelBase currentView;
 
         public ViewModelBase CurrentView
@@ -39,6 +39,7 @@ namespace WPFDashboard.ViewModel
 
         public MainViewModel()
         {
+            dataAgent = new DataAgentUnit(GetConnectionStatus);
             GetConnectionStatus();
             CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();
             BtnOrdersView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>(); GetConnectionStatus(); });
@@ -46,7 +47,7 @@ namespace WPFDashboard.ViewModel
             BtnIngredientsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<IngredientsVm>(); GetConnectionStatus(); });
             BtnCommentsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<CommentsVm>(); GetConnectionStatus(); });
             BtnCreationsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<CreationsVm>(); GetConnectionStatus(); });
-            dataAgent.Syncronize();
+
         }
 
         private void GetConnectionStatus()

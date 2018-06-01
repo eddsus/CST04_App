@@ -19,7 +19,14 @@ namespace DataAgent
         public Object CallService<T>(string serviceCall)
         {
             Request = WebRequest.Create(BaseUrl + serviceCall);
-            Response = Request.GetResponse();
+            try
+            {
+                Response = Request.GetResponse();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
             string json;
             using (var sr = new System.IO.StreamReader(Response.GetResponseStream()))

@@ -24,7 +24,8 @@ namespace DataHandler
                 Available = i.Availability,
                 Price = i.Price,
                 Type = i.Type,
-                UnitType = i.UnitType
+                UnitType = i.UnitType,
+                DatedModified = i.ModifyDate
             }).ToList();
             return temp;
         }

@@ -15,7 +15,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     
     public class IngredientsVm:ViewModelBase
     {
-        private readonly DataAgentUnit DataAgent = new DataAgentUnit();
+        private DataAgentUnit DataAgent;
         private MainViewModel mainViewModel { get; set; }
 
         private ObservableCollection<Ingredient> ingredientList;
@@ -32,10 +32,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public RelayCommand BtnRefresh { get; set; }
 
-        //public ObservableCollection<Ingredient> IngredientList { get; set; }
-
         public IngredientsVm()
         {
+            DataAgent = new DataAgentUnit(IngredientAdded);
             IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
             mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>();
             BtnRefresh = new RelayCommand(() => {
@@ -43,6 +42,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 mainViewModel.ConnectStatus = DataAgent.GetSynchronizerStatus();
                 DataAgent.Syncronize();
             });
+        }
+
+        public void IngredientAdded()
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
         }
     }
 }

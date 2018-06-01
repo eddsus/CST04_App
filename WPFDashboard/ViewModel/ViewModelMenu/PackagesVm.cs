@@ -15,7 +15,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         //testing shapes
 
-        DataAgentUnit dataAgent = new DataAgentUnit();
+        DataAgentUnit dataAgent;
 
         private ObservableCollection<Shape> shapes;
 
@@ -32,11 +32,17 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public PackagesVm()
         {
             Shapes = new ObservableCollection<Shape>();
+            dataAgent = new DataAgentUnit(DataSynchronized);
 
             //foreach (var item in dataAgent.QueryShapes())
             //{
             //    Shapes.Add(item);
             //}
+        }
+
+        private void DataSynchronized()
+        {
+            throw new NotImplementedException();
         }
     }
 }

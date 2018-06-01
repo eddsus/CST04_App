@@ -13,18 +13,17 @@ namespace DataAgent
         private LocalDataHandler localDH = new LocalDataHandler();
         private LocalSynchronizer sync;
 
-
-        public DataAgentUnit()
+        public DataAgentUnit(Action ingredientAdded)
         {
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
             GetSynchronizerStatus();
+            sync = new LocalSynchronizer(ingredientAdded);
         }
 
         public void Syncronize()
         {
             if (connected)
             {
-                sync = new LocalSynchronizer();
                 sync.StartSyncing();
             }
         }
