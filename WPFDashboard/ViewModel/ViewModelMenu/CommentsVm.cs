@@ -15,8 +15,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         //testing wraps
 
-        DataAgentUnit dataAgent = new DataAgentUnit(NewCommentArrived);
-
+        public DataAgentUnit DataAgent { get; set; }
 
         private ObservableCollection<Wrapping> wraps;
 
@@ -30,14 +29,20 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public CommentsVm()
         {
+            //LEAVE ME EMPTY AND USE initializevm instead!!!
+        }
+
+        public void InitializeVm()
+        {
             Wraps = new ObservableCollection<Wrapping>();
 
-            //foreach (var item in dataAgent.QueryWrappings())
+            //foreach (var item in DataAgent.QueryWrappings())
             //{
             //    Wraps.Add(item);
             //}
         }
-        private static void NewCommentArrived()
+
+        public void CommentsSynchronized()
         {
             throw new NotImplementedException();
         }

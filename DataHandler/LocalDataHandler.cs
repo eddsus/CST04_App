@@ -12,7 +12,7 @@ namespace DataHandler
     {
         LocalDbEntities localDb = new LocalDbEntities();
 
-        #region Query
+        #region QUERIES
 
         public List<Ingredient> QueryIngredients()
         {
@@ -25,14 +25,14 @@ namespace DataHandler
                 Price = i.Price,
                 Type = i.Type,
                 UnitType = i.UnitType,
-                DatedModified = i.ModifyDate
+                Modified = i.ModifyDate
             }).ToList();
             return temp;
         }
 
         #endregion
 
-        #region INSERT
+        #region INSERTS
 
         public bool AddIngredient(Ingredient toBeAdded)
         {

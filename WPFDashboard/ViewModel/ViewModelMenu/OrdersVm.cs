@@ -16,7 +16,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 {
     public class OrdersVm:ViewModelBase
     {
-        DataAgentUnit dataAgent;
+        public DataAgentUnit DataAgent { get; set; }
         public RelayCommand BtnShowdetails { get; set; }
         private ViewModelBase orderDetailsView;
 
@@ -49,15 +49,18 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public OrdersVm()
         {
-            dataAgent = new DataAgentUnit(OrdersSynchronized);
-            BtnShowdetails = new RelayCommand(()=> {OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
-            OrdersList =  new ObservableCollection<Order>(dataAgent.QueryOrders());
-
+            //LEAVE ME EMPTY AND USE initializevm instead!!!
         }
 
-        private void OrdersSynchronized()
+        public void InitializeVm()
         {
-            OrdersList = new ObservableCollection<Order>(dataAgent.QueryOrders());
+            BtnShowdetails = new RelayCommand(() => { OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
+            OrdersList = new ObservableCollection<Order>(DataAgent.QueryOrders());
+        }
+
+        public void OrdersSynchronized()
+        {
+            OrdersList = new ObservableCollection<Order>(DataAgent.QueryOrders());
         }
     }
 }

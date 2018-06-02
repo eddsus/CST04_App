@@ -20,7 +20,7 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
                 <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}"/>
                 <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
             </DataGrid.Columns>
         </DataGrid>

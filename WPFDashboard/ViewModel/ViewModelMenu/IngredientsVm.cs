@@ -15,11 +15,13 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     
     public class IngredientsVm:ViewModelBase
     {
-        private DataAgentUnit DataAgent;
-        private MainViewModel mainViewModel { get; set; }
-
+        #region FIELDS
         private ObservableCollection<Ingredient> ingredientList;
+        #endregion
 
+        #region PROPERTIES
+        public DataAgentUnit DataAgent { get; set; }
+        private MainViewModel MainViewModel { get; set; }
         public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
@@ -29,22 +31,28 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-
         public RelayCommand BtnRefresh { get; set; }
+        #endregion
 
         public IngredientsVm()
         {
-            DataAgent = new DataAgentUnit(IngredientAdded);
+            //LEAVE ME EMPTY AND USE initializevm instead!!!
+        }
+
+        public void InitializeVm()
+        {
             IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
-            mainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>();
-            BtnRefresh = new RelayCommand(() => {
+            
+
+            BtnRefresh = new RelayCommand(() =>
+            {
                 IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
-                mainViewModel.ConnectStatus = DataAgent.GetSynchronizerStatus();
-                DataAgent.Syncronize();
+                MainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>();
+                MainViewModel.ConnectStatus = DataAgent.GetSynchronizerStatus();
             });
         }
 
-        public void IngredientAdded()
+        public void IngredientsSynchronized()
         {
             IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
         }

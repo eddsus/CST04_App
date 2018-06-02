@@ -11,37 +11,75 @@ namespace LocalSynchronization
 {
     public class LocalSynchronizer
     {
+        #region FIELDS
         private readonly LocalDataHandler dataHandler;
         private readonly ServiceHandler serviceHandler;
-        private Action JustSyncronized;
-
-        public LocalSynchronizer(Action informer)
+        private readonly Action OrderInformer;
+        private readonly Action PackageInformer;
+        private readonly Action CreationInformer;
+        private readonly Action IngredientInformer;
+        private readonly Action CommentsInformer;
+        private bool connected = false;
+        #endregion
+        public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer)
         {
             dataHandler = new LocalDataHandler();
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
-            this.JustSyncronized = informer;
+            OrderInformer = orderInformer;
+            PackageInformer = packageInformer;
+            CreationInformer = creationInformer;
+            IngredientInformer = ingredientInformer;
+            CommentsInformer = commentsInformer;
+
         }
 
-        internal void StartSyncing()
+        #region INITIALIZATION
+        private bool Connected()
+        {
+            try
+            {
+                connected = (bool)serviceHandler.CallService<bool>("IsAlive");
+            }
+            catch (Exception)
+            {
+                connected = false;
+            }
+            return connected;
+        }
+        public void StartSyncing()
         {
             Task.Factory.StartNew(StartSynchronizing);
         }
-
         private void StartSynchronizing()
         {
             while (true)
             {
-                SyncronizeIngrdients();
-                //SynchronizeComments();
-                Thread.Sleep(5000);
+                if (Connected())
+                {
+                    //SyncronizeOrders();
+                    //SyncronizePackages();
+                    //SyncronizeCreations();
+                    SyncronizeIngrdients();
+                    //SynchronizeComments();
+                }
+                Thread.Sleep(20000);
             }
         }
+        #endregion
 
-        private void SynchronizeComments()
+        #region SYNC LOCAL DB AND UPDATE GUI
+        private void SyncronizeOrders()
         {
-            throw new NotImplementedException();
+            OrderInformer.Invoke();
         }
-
+        private void SyncronizePackages()
+        {
+            PackageInformer.Invoke();
+        }
+        private void SyncronizeCreations()
+        {
+            CreationInformer.Invoke();
+        }
         private void SyncronizeIngrdients()
         {
             //Get latest Date when the list was synchronized
@@ -55,10 +93,15 @@ namespace LocalSynchronization
                     if (dataHandler.QueryIngredients().Where(p => p.IngredientId.Equals(item.IngredientId)).Count() == 0)
                     {
                         if (dataHandler.AddIngredient(item))
-                            JustSyncronized.Invoke();
+                            IngredientInformer.Invoke();
                     }
                 }
             }
         }
+        private void SynchronizeComments()
+        {
+            CommentsInformer.Invoke();
+        }
+        #endregion
     }
 }

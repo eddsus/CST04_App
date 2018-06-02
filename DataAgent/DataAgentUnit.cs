@@ -11,21 +11,11 @@ namespace DataAgent
         private bool connected = false;
         private ServiceHandler serviceHandler;
         private LocalDataHandler localDH = new LocalDataHandler();
-        private LocalSynchronizer sync;
 
-        public DataAgentUnit(Action ingredientAdded)
+        public DataAgentUnit()
         {
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
             GetSynchronizerStatus();
-            sync = new LocalSynchronizer(ingredientAdded);
-        }
-
-        public void Syncronize()
-        {
-            if (connected)
-            {
-                sync.StartSyncing();
-            }
         }
 
         public bool GetSynchronizerStatus()
@@ -92,8 +82,6 @@ namespace DataAgent
                 return new List<Order>();
             }
         }
-
-
 
     }
 }

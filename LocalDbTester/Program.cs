@@ -27,7 +27,7 @@ namespace LocalDbTester
             {
                 IngredientId = Guid.NewGuid(),
                 Available = true,
-                DatedModified = DateTime.Now,
+                Modified = DateTime.Now,
                 Description = "We rock mothafucker!! Yeeaaaahhh",
                 Name = "The great Banana is back",
                 Price = 9999,

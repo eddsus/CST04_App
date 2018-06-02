@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using DataAgent;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -28,7 +29,6 @@ namespace WPFDashboard.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
          
 
             SimpleIoc.Default.Register<MainViewModel>();
