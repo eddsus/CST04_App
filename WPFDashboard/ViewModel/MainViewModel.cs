@@ -2,6 +2,7 @@ using DataAgent;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using LocalSynchronization;
 using WPFDashboard.ViewModel.ViewModelMenu;
 
@@ -41,6 +42,7 @@ namespace WPFDashboard.ViewModel
         public RelayCommand BtnCreationsView { get; set; }
         public RelayCommand BtnIngredientsView { get; set; }
         public RelayCommand BtnPackagesView { get; set; }
+        public RelayCommand BtnRefresh { get; set; }
         #endregion
 
 
@@ -57,6 +59,12 @@ namespace WPFDashboard.ViewModel
             BtnIngredientsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<IngredientsVm>(); GetConnectionStatus(); });
             BtnCommentsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<CommentsVm>(); GetConnectionStatus(); });
             BtnCreationsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<CreationsVm>(); GetConnectionStatus(); });
+
+            BtnRefresh = new RelayCommand(() =>
+            {
+                GetConnectionStatus();
+                Messenger.Default.Send(new RefreshMessage());
+            });
 
             StartSynchronizer();
         }
@@ -85,9 +93,9 @@ namespace WPFDashboard.ViewModel
                     SimpleIoc.Default.GetInstance<CommentsVm>().CommentsSynchronized);
             localSync.StartSyncing();
         }
-        private void GetConnectionStatus()
+        private bool GetConnectionStatus()
         {
-            ConnectStatus = dataAgent.GetSynchronizerStatus();
+            return ConnectStatus = dataAgent.GetSynchronizerStatus();
         }
     }
 }

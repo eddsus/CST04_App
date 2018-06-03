@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         #region PROPERTIES
         public DataAgentUnit DataAgent { get; set; }
-        private MainViewModel MainViewModel { get; set; }
         public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
@@ -31,7 +31,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand BtnRefresh { get; set; }
         #endregion
 
         public IngredientsVm()
@@ -42,19 +41,21 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public void InitializeVm()
         {
             IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
-            
 
-            BtnRefresh = new RelayCommand(() =>
-            {
-                IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
-                MainViewModel = SimpleIoc.Default.GetInstance<MainViewModel>();
-                MainViewModel.ConnectStatus = DataAgent.GetSynchronizerStatus();
-            });
+            //Register for Refresh Message to know when to refresh
+            Messenger.Default.Register<RefreshMessage>(this, RefreshView);
         }
 
+        private void RefreshView(RefreshMessage obj)
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+        }
+
+        //this message will be called after the synchronizer has succefulyy modified the ingredients list
         public void IngredientsSynchronized()
         {
             IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
         }
+
     }
 }
