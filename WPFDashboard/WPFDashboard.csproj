@@ -185,7 +185,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
       <Project>{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}</Project>
       <Name>SharedDataTypes</Name>
     </ProjectReference>

@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-using SharedDataTypes;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
