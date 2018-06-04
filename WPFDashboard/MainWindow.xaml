@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:WPFDashboard.Converter" x:Class="WPFDashboard.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="940" Width="1080" 
+        Title="Kitchen " Height="940" Width="1080" 
         >
     <Window.Resources>
         <Converter:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
@@ -21,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <!--Buttons-->
@@ -83,5 +84,11 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
+        <Button  Grid.Row="2" Width="130" Margin="20 5" Foreground="White" Command="{Binding BtnRefresh}" HorizontalAlignment="Right">
+            <Grid Width="110">
+                <materialDesign:PackIcon Kind="Reload" VerticalAlignment="Center"/>
+                <TextBlock Text="Refresh" HorizontalAlignment="Center"/>
+            </Grid>
+        </Button>
     </Grid>
 </Window>

@@ -1,19 +1,16 @@
-﻿using Newtonsoft.Json;
-using SharedDataTypes;
+﻿using SharedDataTypes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.ServiceModel;
+using DataHandler;
+using LocalSynchronization;
 
 namespace DataAgent
 {
     public class DataAgentUnit
     {
-        bool connected = false;
-        ServiceHandler serviceHandler;
-
+        private bool connected = false;
+        private ServiceHandler serviceHandler;
+        private LocalDataHandler localDH = new LocalDataHandler();
 
         public DataAgentUnit()
         {
@@ -43,50 +40,48 @@ namespace DataAgent
             }
             else
             {
-                throw new NotImplementedException();
+                return localDH.QueryIngredients();
             }
         }
 
-        //public List<Shape> QueryShapes()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryShapes();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public List<Shape> QueryShapes()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Shape>)serviceHandler.CallService<List<Shape>>(@"QueryShapes");
+            }
+            else
+            {
+                return new List<Shape>();
+            }
+        }
 
-        //public List<Wrapping> QueryWrappings()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryWrappings();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public List<Wrapping> QueryWrappings()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Wrapping>)serviceHandler.CallService<List<Wrapping>>(@"QueryWrappings");
+            }
+            else
+            {
+                return new List<Wrapping>();
+            }
+        }
 
-        //public List<Order> QueryOrders()
-        //{
-        //    GetSynchronizerStatus();
-        //    if (connected)
-        //    {
-        //        return sync.QueryOrders();
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-
+        public List<Order> QueryOrders()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return (List<Order>)serviceHandler.CallService<List<Order>>(@"QueryOrders");
+            }
+            else
+            {
+                return new List<Order>();
+            }
+        }
 
     }
 }

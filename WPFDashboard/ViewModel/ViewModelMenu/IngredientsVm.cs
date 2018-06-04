@@ -1,5 +1,8 @@
 ﻿using DataAgent;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -13,10 +16,12 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     
     public class IngredientsVm:ViewModelBase
     {
-        private readonly DataAgentUnit DataAgent = new DataAgentUnit();
-
+        #region FIELDS
         private ObservableCollection<Ingredient> ingredientList;
+        #endregion
 
+        #region PROPERTIES
+        public DataAgentUnit DataAgent { get; set; }
         public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
@@ -26,12 +31,31 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-
-        //public ObservableCollection<Ingredient> IngredientList { get; set; }
+        #endregion
 
         public IngredientsVm()
         {
-            IngredientList = new ObservableCollection<SharedDataTypes.Ingredient>(DataAgent.QueryIngredients());
+            //LEAVE ME EMPTY AND USE initializevm instead!!!
         }
+
+        public void InitializeVm()
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+
+            //Register for Refresh Message to know when to refresh
+            Messenger.Default.Register<RefreshMessage>(this, RefreshView);
+        }
+
+        private void RefreshView(RefreshMessage obj)
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+        }
+
+        //this message will be called after the synchronizer has succefulyy modified the ingredients list
+        public void IngredientsSynchronized()
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+        }
+
     }
 }

@@ -15,11 +15,20 @@ namespace DataAgent
             BaseUrl = baseUrl;
         }
 
-
+        /***
+         * Returns null if Service is not available, else returns an object that needs to be casted
+         * ***/
         public Object CallService<T>(string serviceCall)
         {
             Request = WebRequest.Create(BaseUrl + serviceCall);
-            Response = Request.GetResponse();
+            try
+            {
+                Response = Request.GetResponse();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
             string json;
             using (var sr = new System.IO.StreamReader(Response.GetResponseStream()))

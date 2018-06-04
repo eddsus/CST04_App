@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFDashboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=Ingredients}">
-    <Grid Background="LightPink">
-        <DataGrid ItemsSource="{Binding IngredientList}">
+    <Grid Background="PapayaWhip">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Available" Binding="{Binding Available}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>

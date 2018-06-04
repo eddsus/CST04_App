@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace DataHandler
+namespace LocalSyncronizer
 {
-    public class DataHandler
+    public class Class1
     {
-        //Database_test
     }
 }

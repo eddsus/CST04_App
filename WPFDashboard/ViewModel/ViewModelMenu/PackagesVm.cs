@@ -12,10 +12,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 {
     public class PackagesVm : ViewModelBase
     {
+        public DataAgentUnit DataAgent { get; set; }
 
         //testing shapes
-
-        DataAgentUnit dataAgent = new DataAgentUnit();
 
         private ObservableCollection<Shape> shapes;
 
@@ -29,14 +28,25 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             }
         }
 
+
         public PackagesVm()
+        {
+            //LEAVE ME EMPTY AND USE initializevm instead!!!
+        }
+
+        public void InitializeVm()
         {
             Shapes = new ObservableCollection<Shape>();
 
-            //foreach (var item in dataAgent.QueryShapes())
+            //foreach (var item in DataAgent.QueryShapes())
             //{
             //    Shapes.Add(item);
             //}
+        }
+
+        public void PackagesSynchronized()
+        {
+            throw new NotImplementedException();
         }
     }
 }
