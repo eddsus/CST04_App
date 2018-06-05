@@ -91,8 +91,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
-    <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\CreationTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\DetailsTestListVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\IngredientTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\PackageDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\PackageTestVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -107,6 +112,9 @@
     </Compile>
     <Compile Include="Views\CreationsView.xaml.cs">
       <DependentUpon>CreationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailViews\CreationDetailsView.xaml.cs">
+      <DependentUpon>CreationDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DetailViews\PackageDetailView.xaml.cs">
       <DependentUpon>PackageDetailView.xaml</DependentUpon>
@@ -140,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailViews\CreationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
