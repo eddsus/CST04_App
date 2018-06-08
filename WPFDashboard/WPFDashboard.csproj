@@ -94,6 +94,13 @@
     <Compile Include="Helpers\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\CreationTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\DetailsTestListVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\IngredientTestVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\PackageDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\DummyVm\PackageTestVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -108,6 +115,9 @@
     </Compile>
     <Compile Include="Views\CreationsView.xaml.cs">
       <DependentUpon>CreationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailViews\CreationDetailsView.xaml.cs">
+      <DependentUpon>CreationDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DetailViews\PackageDetailView.xaml.cs">
       <DependentUpon>PackageDetailView.xaml</DependentUpon>
@@ -141,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailViews\CreationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,7 +210,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
       <Project>{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}</Project>
       <Name>SharedDataTypes</Name>
     </ProjectReference>

@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
-    <Grid Background="LavenderBlush">
+    <Grid Background="LightGoldenrodYellow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -24,30 +24,31 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
 
             <!--======First Line description=============-->
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Label Content="Order ID:" FontWeight="Bold"/>
-                <Label Content="here should be ID"/>
+                <Label Content="Muster ID"/>
             </StackPanel>
 
             <Label Grid.Column="1" Content="Content" Margin="10" FontWeight="Bold" HorizontalAlignment="Left"/>
 
             <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="State" FontWeight="Bold" HorizontalAlignment="Right"/>
-                <ComboBox/>
+                <ComboBox Width="50" Margin="5"/>
             </StackPanel>
 
             <!--=========Content View Data Grid=========-->
             <!--<Viewbox >-->
-            <DataGrid  Grid.Column="1" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrderContents}">
+            <DataGrid Margin="5" Grid.Column="1" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentDetailsList}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Product name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Product name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                    <DataGridTemplateColumn Header="Take action">
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                    <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Viewbox>
@@ -58,10 +59,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Take action">
+                    <DataGridTemplateColumn Header="Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Viewbox DataContext="{Binding Source={StaticResource Locator}}">
+                                <Viewbox>
                                     <Button Command="{Binding DataContext.BtnDetails,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
                                     </Button>
@@ -84,9 +85,9 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Customer Name:" VerticalAlignment="Center"  HorizontalAlignment="Right"/>
-                <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right"/>
-                <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Label Content="Customer Name:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
+                <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
+                <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
                 <!--Content of Customer details-->
                 <Label Content="Max Musterman" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
                 <Label Grid.Row="1" Content="dd.mm.yyyy" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
@@ -105,7 +106,7 @@
                     <Viewbox>
                         <Label Content="Comment" FontWeight="Bold"/>
                     </Viewbox>
-                    <TextBox Grid.Row="1" Margin="5"/>
+                    <TextBox Grid.Row="1" Margin="4"/>
                 </Grid>
             </Viewbox>
             <!--Comment to Pause + Save Button-->
@@ -126,12 +127,15 @@
             </Viewbox>
         </Grid>
 
-        <!--=================PACKAGE OR CHOCOLATE DETAILS==============-->
+        <!--=================PACKAGE OR CREATION DETAILS==============-->
         <!--Package Detailspage-->
-        <ContentControl Grid.Column="1" Content="{Binding PackageDetail}">
+        <ContentControl Grid.Column="1" Content="{Binding CurrentDetail}">
 
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailVm}">
+                <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
+                    <detailview:CreationDetailsView></detailview:CreationDetailsView>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
                     <detailview:PackageDetailView></detailview:PackageDetailView>
                 </DataTemplate>
             </ContentControl.Resources>

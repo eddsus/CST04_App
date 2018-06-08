@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-using SharedDataTypes;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,34 +16,80 @@ namespace WPFDashboard.ViewModel.OrderVModels
     public class OrderDetailsVm:ViewModelBase
 
     {
-        private ViewModelBase packageDetail;
+        #region Properties
+        
+        private ViewModelBase currrentDetail;
 
-        public ViewModelBase PackageDetail
+        public ViewModelBase CurrentDetail
         {
-            get { return packageDetail; }
-            set { packageDetail = value;
+            get { return currrentDetail; }
+            set {
+                currrentDetail = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<TestVm> OrderContents { get; set; }
-        public RelayCommand<TestVm> BtnDelete { get; set; }
-        public RelayCommand BtnDetails { get; set; }
+        public ObservableCollection<PackageTestVm> PackageTestList { get; set; }
+        public ObservableCollection<CreationTestVm> CreationTestList { get; set; }
+        public ObservableCollection<DetailsTestListVm> OrderContentDetailsList { get; set; }
+        public RelayCommand<DetailsTestListVm> BtnDelete { get; set; }
+        public RelayCommand<DetailsTestListVm> BtnDetails { get; set; }
+        #endregion
+
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
-            OrderContents = new ObservableCollection<TestVm>();
-            OrderContents.Add(new TestVm(5,"Chokos"));
-            OrderContents.Add(new TestVm(10, "Nice packages"));
-            BtnDelete = new RelayCommand<TestVm>((p)=> { DeleteItem(p); });
-            BtnDetails = new RelayCommand(()=> { PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>(); });
+            OrderContentDetailsList = new ObservableCollection<DetailsTestListVm>();
+            InitPackage();
+            InitCreation();
+            AddItemsToDetailsList();
+            BtnDelete = new RelayCommand<DetailsTestListVm>((p)=> { DeleteItem(p); });
+            BtnDetails = new RelayCommand<DetailsTestListVm>((p)=> {ShowItemDetails(p);});
         }
 
-       
+        private void ShowItemDetails(DetailsTestListVm p)
+        {       if (p.Type.Contains("package"))
+                {
+                    CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
+                }
+                else
+                {
+                    CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+                }
+         }
 
-        private void DeleteItem(TestVm item)
+        
+
+        private void AddItemsToDetailsList()
         {
-            OrderContents.Remove(item);
+            foreach (var item in CreationTestList)
+            {
+                OrderContentDetailsList.Add(item);
+            }
+
+            foreach (var item in PackageTestList)
+            {
+                OrderContentDetailsList.Add(item);
+            }
+        }
+
+        private void InitCreation()
+        {
+            CreationTestList = new ObservableCollection<CreationTestVm>();
+            CreationTestList.Add(new CreationTestVm(4, "Strawberry dream"));
+            CreationTestList.Add(new CreationTestVm(2,"Marshmellow pillow"));
+        }
+
+        private void InitPackage()
+        {
+            PackageTestList = new ObservableCollection<PackageTestVm>();
+            PackageTestList.Add(new PackageTestVm(5, "Chokos"));
+            PackageTestList.Add(new PackageTestVm(10, "Nice packages"));
+        }
+
+        private void DeleteItem(DetailsTestListVm item)
+        {
+            OrderContentDetailsList.Remove(item); 
         }
     }
 }
