@@ -1,5 +1,6 @@
 ﻿using DataAgent;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.Helpers;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
-    public class PackagesVm : ViewModelBase
+    public class PackagesVm : ViewModelBase, ISynchronizable
     {
-        public DataAgentUnit DataAgent { get; set; }
-
+        //todo: Generate regions for fields and properties
         //testing shapes
 
         private ObservableCollection<Shape> shapes;
@@ -31,10 +32,24 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public PackagesVm()
         {
-            //LEAVE ME EMPTY AND USE initializevm instead!!!
+            InitializePackageList();
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }
 
-        public void InitializeVm()
+        private void Refresh(RefreshMessage obj)
+        {
+            if (GetType() == obj.View)
+            {
+                InitializePackageList();
+            }
+        }
+
+        public void ViewSynchronized()
+        {
+            InitializePackageList();
+        }
+
+        private void InitializePackageList()
         {
             Shapes = new ObservableCollection<Shape>();
 
@@ -44,9 +59,5 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //}
         }
 
-        public void PackagesSynchronized()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

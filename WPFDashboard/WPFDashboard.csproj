@@ -91,6 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
+    <Compile Include="Helpers\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -190,7 +191,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">

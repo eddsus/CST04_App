@@ -1,5 +1,6 @@
 ﻿using DataAgent;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     {
 
         //testing wraps
-
-        public DataAgentUnit DataAgent { get; set; }
-
+        //todo: Generate regions for fields and properties
         private ObservableCollection<Wrapping> wraps;
 
         public ObservableCollection<Wrapping> Wraps
@@ -29,10 +28,23 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public CommentsVm()
         {
-            //LEAVE ME EMPTY AND USE initializevm instead!!!
+            InitializeCommentsList();
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }
 
-        public void InitializeVm()
+        private void Refresh(RefreshMessage obj)
+        {
+            if (GetType() == obj.View)
+            {
+                InitializeCommentsList();
+            }
+        }
+
+        public void ViewSynchronized()
+        {
+            InitializeCommentsList();
+        }
+        public void InitializeCommentsList()
         {
             Wraps = new ObservableCollection<Wrapping>();
 
@@ -40,11 +52,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //{
             //    Wraps.Add(item);
             //}
-        }
-
-        public void CommentsSynchronized()
-        {
-            throw new NotImplementedException();
         }
 
 

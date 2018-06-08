@@ -20,6 +20,7 @@ namespace LocalSynchronization
         private readonly Action IngredientInformer;
         private readonly Action CommentsInformer;
         private bool connected = false;
+        private DateTime LastUpdate;
         #endregion
         public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer)
         {
@@ -38,7 +39,7 @@ namespace LocalSynchronization
         {
             try
             {
-                connected = (bool)serviceHandler.CallService<bool>("IsAlive");
+                connected = serviceHandler.CallService<bool>("IsAlive");
             }
             catch (Exception)
             {
@@ -68,36 +69,68 @@ namespace LocalSynchronization
         #endregion
 
         #region SYNC LOCAL DB AND UPDATE GUI
+        //::TODO::IMPLEMENT
         private void SyncronizeOrders()
         {
             OrderInformer.Invoke();
         }
+        //::TODO::IMPLEMENT
         private void SyncronizePackages()
         {
             PackageInformer.Invoke();
         }
+        //::TODO::IMPLEMENT
         private void SyncronizeCreations()
         {
             CreationInformer.Invoke();
         }
+        /**
+         * Updates local db using the Modiefied date in case of new or updated ingredients
+         * */
         private void SyncronizeIngrdients()
         {
-            //Get latest Date when the list was synchronized
-            //DateTime LastIngredientUpdate = dataHandler.QueryIngredients().OrderByDescending(i => i.DatedModified).Select(j => j.DatedModified).First();
-            //List<Ingredient> newIngredients = ServerIngredients.Where(i => i.DatedModified > LastIngredientUpdate).Select(j => j).ToList
-            List<Ingredient> ServerIngredients = (List<Ingredient>)serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
+            //set date to the past in case of empty table
+            LastUpdate = new DateTime(1983, 11, 20);
+            //get latest Date when the list was synchronized
+            if (dataHandler.QueryIngredients().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryIngredients().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+            List<Ingredient> ServerIngredients = serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
             if (ServerIngredients != null)
             {
-                foreach (var item in ServerIngredients)
+                //save all ingredients which are new or have been updated to newIngredients List
+                List<Ingredient> newIngredients = ServerIngredients.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newIngredients)
                 {
+                    //in case of new ingredients
                     if (dataHandler.QueryIngredients().Where(p => p.IngredientId.Equals(item.IngredientId)).Count() == 0)
                     {
                         if (dataHandler.AddIngredient(item))
                             IngredientInformer.Invoke();
                     }
+                    //incase an existing ingredient has been updated
+                    else
+                    {
+                        //delete modified item from local db
+                        if (dataHandler.RemoveIngredientById(item.IngredientId))
+                        {
+                            //and add the new version
+                            if (dataHandler.AddIngredient(item))
+                                IngredientInformer.Invoke();
+                        }
+                    }
                 }
             }
+
+
+
+
         }
+        /**
+         * ::TODO::IMPLEMENT
+         * */
         private void SynchronizeComments()
         {
             CommentsInformer.Invoke();

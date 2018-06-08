@@ -1,31 +1,43 @@
 ﻿using DataAgent;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.Helpers;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
-    public class CreationsVm:ViewModelBase
+    public class CreationsVm : ViewModelBase, ISynchronizable
     {
-        public DataAgentUnit DataAgent { get; set; }
+        //todo: Generate regions for fields and properties
+
         public CreationsVm()
         {
-            //LEAVE ME EMPTY AND USE initializevm instead!!!
+            InitializeCreationsList();
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }
 
-        public void InitializeVm()
+
+        private void Refresh(RefreshMessage obj)
         {
-
+            if (GetType() == obj.View)
+            {
+                InitializeCreationsList();
+            }
         }
-
-        public void CreationsSynchronized()
+        public void ViewSynchronized()
         {
-            throw new NotImplementedException();
+            InitializeCreationsList();
         }
 
+
+        private void InitializeCreationsList()
+        {
+            //throw new NotImplementedException();
+        }
     }
 
 }

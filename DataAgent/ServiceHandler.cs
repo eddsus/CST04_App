@@ -16,9 +16,9 @@ namespace DataAgent
         }
 
         /***
-         * Returns null if Service is not available, else returns an object that needs to be casted
+         * Returns null if Service is not available, else returns T
          * ***/
-        public Object CallService<T>(string serviceCall)
+        public T CallService<T>(string serviceCall)
         {
             Request = WebRequest.Create(BaseUrl + serviceCall);
             try
@@ -27,7 +27,7 @@ namespace DataAgent
             }
             catch (Exception)
             {
-                return null;
+                return default(T);
             }
 
             string json;
@@ -35,6 +35,7 @@ namespace DataAgent
             {
                 json = sr.ReadToEnd();
             }
+            //::TODO::remove temp and return directly, leaving it now for debugging
             var temp = JsonConvert.DeserializeObject<T>(json);
             return temp;
         }

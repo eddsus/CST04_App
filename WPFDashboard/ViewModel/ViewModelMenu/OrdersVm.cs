@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
 using WPFDashboard.ViewModel.OrderVModels;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
-    public class OrdersVm:ViewModelBase
+    public class OrdersVm:ViewModelBase, ISynchronizable
     {
-        public DataAgentUnit DataAgent { get; set; }
-        public RelayCommand BtnShowdetails { get; set; }
+        #region FIELDS
         private ViewModelBase orderDetailsView;
+        private ObservableCollection<Order> ordersList;
+        private RelayCommand<Order> btnviewDetails;
+        #endregion
 
+        #region PROPERTIES
+        public RelayCommand BtnShowdetails { get; set; }
         public ViewModelBase OrderDetailsView
         {
             get { return orderDetailsView; }
@@ -27,8 +33,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        private ObservableCollection<Order> ordersList;
-
         public ObservableCollection<Order> OrdersList
         {
             get { return ordersList; }
@@ -36,8 +40,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        private RelayCommand<Order> btnviewDetails;
-
         public RelayCommand<Order> BtnViewDetails
         {
             get { return btnviewDetails; }
@@ -46,21 +48,29 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
         public OrdersVm()
         {
-            //LEAVE ME EMPTY AND USE initializevm instead!!!
-        }
-
-        public void InitializeVm()
-        {
             BtnShowdetails = new RelayCommand(() => { OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
-            OrdersList = new ObservableCollection<Order>(DataAgent.QueryOrders());
+            InitializeOrdersList();
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }
 
-        public void OrdersSynchronized()
+        private void Refresh(RefreshMessage obj)
         {
-            OrdersList = new ObservableCollection<Order>(DataAgent.QueryOrders());
+            if (GetType() == obj.View)
+            {
+                InitializeOrdersList();
+            }
+        }
+        public void ViewSynchronized()
+        {
+            InitializeOrdersList();
+        }
+        private void InitializeOrdersList()
+        {
+            OrdersList = new ObservableCollection<Order>(DataAgentUnit.GetInstance().QueryOrders());
         }
     }
 }

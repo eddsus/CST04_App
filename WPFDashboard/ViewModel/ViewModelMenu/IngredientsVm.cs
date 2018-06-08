@@ -10,18 +10,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.Helpers;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
-    
-    public class IngredientsVm:ViewModelBase
+
+    public class IngredientsVm : ViewModelBase, ISynchronizable
     {
         #region FIELDS
         private ObservableCollection<Ingredient> ingredientList;
         #endregion
 
         #region PROPERTIES
-        public DataAgentUnit DataAgent { get; set; }
         public ObservableCollection<Ingredient> IngredientList
         {
             get { return ingredientList; }
@@ -35,26 +35,30 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public IngredientsVm()
         {
-            //LEAVE ME EMPTY AND USE initializevm instead!!!
-        }
-
-        public void InitializeVm()
-        {
-            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+            InitializeIngredientList();
 
             //Register for Refresh Message to know when to refresh
-            Messenger.Default.Register<RefreshMessage>(this, RefreshView);
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }
 
-        private void RefreshView(RefreshMessage obj)
+
+        private void Refresh(RefreshMessage obj)
         {
-            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+            if (GetType() == obj.View)
+            {
+                InitializeIngredientList();
+            }
         }
 
         //this message will be called after the synchronizer has succefulyy modified the ingredients list
-        public void IngredientsSynchronized()
+        public void ViewSynchronized()
         {
-            IngredientList = new ObservableCollection<Ingredient>(DataAgent.QueryIngredients());
+            InitializeIngredientList();
+        }
+
+        private void InitializeIngredientList()
+        {
+            IngredientList = new ObservableCollection<Ingredient>(DataAgentUnit.GetInstance().QueryIngredients());
         }
 
     }

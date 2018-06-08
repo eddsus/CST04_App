@@ -51,5 +51,18 @@ namespace DataHandler
         }
 
         #endregion
+
+        #region REMOVES
+
+        public bool RemoveIngredientById(Guid ingredientId)
+        {
+            //get the item that will be removed
+            var temp = localDb.Ingredients.Where(i => i.ID_Ingredients == ingredientId).Select(j => j).First();
+            if(temp != null)
+                localDb.Ingredients.Remove(temp);
+            return localDb.SaveChanges() > 0;
+        }
+
+        #endregion
     }
 }

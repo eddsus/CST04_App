@@ -12,7 +12,6 @@ namespace WPFDashboard.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region FIELDS
-        private DataAgentUnit dataAgent;
         private LocalSynchronizer localSync;
         private ViewModelBase currentView;
         private bool connectStatus;
@@ -49,9 +48,7 @@ namespace WPFDashboard.ViewModel
 
         public MainViewModel()
         {
-            dataAgent = new DataAgentUnit();
             GetConnectionStatus();
-            InitializeVms();
 
             CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();
             BtnOrdersView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>(); GetConnectionStatus(); });
@@ -63,39 +60,25 @@ namespace WPFDashboard.ViewModel
             BtnRefresh = new RelayCommand(() =>
             {
                 GetConnectionStatus();
-                Messenger.Default.Send(new RefreshMessage());
+                Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
             });
 
             StartSynchronizer();
         }
 
-        private void InitializeVms()
-        {
-            SimpleIoc.Default.GetInstance<OrdersVm>().DataAgent = dataAgent;
-            SimpleIoc.Default.GetInstance<PackagesVm>().DataAgent = dataAgent;
-            SimpleIoc.Default.GetInstance<CreationsVm>().DataAgent = dataAgent;
-            SimpleIoc.Default.GetInstance<IngredientsVm>().DataAgent = dataAgent;
-            SimpleIoc.Default.GetInstance<CommentsVm>().DataAgent = dataAgent;
-
-            SimpleIoc.Default.GetInstance<OrdersVm>().InitializeVm();
-            SimpleIoc.Default.GetInstance<PackagesVm>().InitializeVm();
-            SimpleIoc.Default.GetInstance<CreationsVm>().InitializeVm();
-            SimpleIoc.Default.GetInstance<IngredientsVm>().InitializeVm();
-            SimpleIoc.Default.GetInstance<CommentsVm>().InitializeVm();
-        }
         private void StartSynchronizer()
         {
             localSync = new LocalSynchronizer(
-                SimpleIoc.Default.GetInstance<OrdersVm>().OrdersSynchronized,
-                 SimpleIoc.Default.GetInstance<PackagesVm>().PackagesSynchronized,
-                  SimpleIoc.Default.GetInstance<CreationsVm>().CreationsSynchronized,
-                   SimpleIoc.Default.GetInstance<IngredientsVm>().IngredientsSynchronized,
-                    SimpleIoc.Default.GetInstance<CommentsVm>().CommentsSynchronized);
+                SimpleIoc.Default.GetInstance<OrdersVm>().ViewSynchronized,
+                 SimpleIoc.Default.GetInstance<PackagesVm>().ViewSynchronized,
+                  SimpleIoc.Default.GetInstance<CreationsVm>().ViewSynchronized,
+                   SimpleIoc.Default.GetInstance<IngredientsVm>().ViewSynchronized,
+                    SimpleIoc.Default.GetInstance<CommentsVm>().ViewSynchronized);
             localSync.StartSyncing();
         }
         private bool GetConnectionStatus()
         {
-            return ConnectStatus = dataAgent.GetSynchronizerStatus();
+            return ConnectStatus = DataAgentUnit.GetInstance().GetSynchronizerStatus();
         }
     }
 }

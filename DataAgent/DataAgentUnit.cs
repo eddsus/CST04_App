@@ -10,12 +10,23 @@ namespace DataAgent
     {
         private bool connected = false;
         private ServiceHandler serviceHandler;
-        private LocalDataHandler localDH = new LocalDataHandler();
+        private LocalDataHandler localDH;
+        private static DataAgentUnit dataAgent;
 
-        public DataAgentUnit()
+        private DataAgentUnit()
         {
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            localDH = new LocalDataHandler();
             GetSynchronizerStatus();
+        }
+
+        public static DataAgentUnit GetInstance()
+        {
+            if (dataAgent == null)
+            {
+                dataAgent = new DataAgentUnit();
+            }
+            return dataAgent;
         }
 
         public bool GetSynchronizerStatus()
@@ -36,7 +47,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return (List<Ingredient>)serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
+                return serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
             }
             else
             {
@@ -49,7 +60,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return (List<Shape>)serviceHandler.CallService<List<Shape>>(@"QueryShapes");
+                return serviceHandler.CallService<List<Shape>>(@"QueryShapes");
             }
             else
             {
@@ -62,7 +73,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return (List<Wrapping>)serviceHandler.CallService<List<Wrapping>>(@"QueryWrappings");
+                return serviceHandler.CallService<List<Wrapping>>(@"QueryWrappings");
             }
             else
             {
@@ -75,7 +86,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return (List<Order>)serviceHandler.CallService<List<Order>>(@"QueryOrders");
+                return serviceHandler.CallService<List<Order>>(@"QueryOrders");
             }
             else
             {
