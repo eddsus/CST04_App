@@ -92,8 +92,6 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
     <Compile Include="Helpers\ISynchronizable.cs" />
-    <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\CreationTestVm.cs" />
