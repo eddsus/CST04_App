@@ -4,7 +4,73 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LocalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LocalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StreetName" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="ZIP" Type="int" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HouseNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chocolate">
+          <Key>
+            <PropertyRef Name="ID_Chocolate" />
+          </Key>
+          <Property Name="ID_Chocolate" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Available" Type="bit" Nullable="false" />
+          <Property Name="Shape_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomStyle_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Creator_Customer_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModifyDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Chocolate_has_Ingridients">
+          <Key>
+            <PropertyRef Name="Chocolazte_ID" />
+            <PropertyRef Name="Ingerdient_ID" />
+          </Key>
+          <Property Name="Chocolazte_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ingerdient_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chocolate_has_Wrapping">
+          <Key>
+            <PropertyRef Name="Chocolate_ID" />
+            <PropertyRef Name="Wrapping_ID" />
+          </Key>
+          <Property Name="Chocolate_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Wrapping_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer_has_Address">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Address_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomStyle">
+          <Key>
+            <PropertyRef Name="ID_CustomStyle" />
+          </Key>
+          <Property Name="ID_CustomStyle" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
         <EntityType Name="Ingredients">
           <Key>
             <PropertyRef Name="ID_Ingredients" />
@@ -18,11 +84,457 @@
           <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ModifyDate" Type="date" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DateOfOrder" Type="date" Nullable="false" />
+          <Property Name="DateOfDelivery" Type="date" Nullable="false" />
+          <Property Name="Status_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Note" Type="varchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderContent">
+          <Key>
+            <PropertyRef Name="ID_OrderContent" />
+          </Key>
+          <Property Name="ID_OrderContent" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Order_ID" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderContent_has_Chocolate">
+          <Key>
+            <PropertyRef Name="OrderContent_ID" />
+            <PropertyRef Name="Chocolate_ID" />
+          </Key>
+          <Property Name="OrderContent_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Chocolate_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderContent_has_Package">
+          <Key>
+            <PropertyRef Name="OrderContent_ID" />
+            <PropertyRef Name="Package_ID" />
+          </Key>
+          <Property Name="OrderContent_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Package_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="ID_OrderStatus" />
+          </Key>
+          <Property Name="ID_OrderStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StatusDescription" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="ID_Package" />
+          </Key>
+          <Property Name="ID_Package" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripton" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Wrapping" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Availability" Type="bit" Nullable="false" />
+          <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Package_has_Wrapping">
+          <Key>
+            <PropertyRef Name="Package_ID" />
+            <PropertyRef Name="Wrapping_ID" />
+          </Key>
+          <Property Name="Package_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Wrapping_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID_Rating" />
+          </Key>
+          <Property Name="ID_Rating" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Package_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Chocolate_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Published" Type="bit" Nullable="false" />
+          <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shape">
+          <Key>
+            <PropertyRef Name="ID_Shape" />
+          </Key>
+          <Property Name="ID_Shape" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Image" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wrapping">
+          <Key>
+            <PropertyRef Name="ID_Wrapping" />
+          </Key>
+          <Property Name="ID_Wrapping" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Image" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Chocolate_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="Creator_Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_CustomStyle">
+          <End Role="CustomStyle" Type="Self.CustomStyle" Multiplicity="1" />
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomStyle">
+              <PropertyRef Name="ID_CustomStyle" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="CustomStyle_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Ingridients_Chocolate">
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Chocolate_has_Ingridients" Type="Self.Chocolate_has_Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Ingridients">
+              <PropertyRef Name="Chocolazte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Ingridients_Ingredients">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="Chocolate_has_Ingridients" Type="Self.Chocolate_has_Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ID_Ingredients" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Ingridients">
+              <PropertyRef Name="Ingerdient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Wrapping_Chocolate">
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Chocolate_has_Wrapping" Type="Self.Chocolate_has_Wrapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Wrapping">
+              <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Wrapping_Wrapping">
+          <End Role="Wrapping" Type="Self.Wrapping" Multiplicity="1" />
+          <End Role="Chocolate_has_Wrapping" Type="Self.Chocolate_has_Wrapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wrapping">
+              <PropertyRef Name="ID_Wrapping" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Wrapping">
+              <PropertyRef Name="Wrapping_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_Shape">
+          <End Role="Shape" Type="Self.Shape" Multiplicity="1" />
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shape">
+              <PropertyRef Name="ID_Shape" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="Shape_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_has_Address_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Customer_has_Address" Type="Self.Customer_has_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Customer_has_Address">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_has_Address_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_has_Address" Type="Self.Customer_has_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Customer_has_Address">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_OrderStatus">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="ID_OrderStatus" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Chocolate_Chocolate">
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="OrderContent_has_Chocolate" Type="Self.OrderContent_has_Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Chocolate">
+              <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Chocolate_OrderContent">
+          <End Role="OrderContent" Type="Self.OrderContent" Multiplicity="1" />
+          <End Role="OrderContent_has_Chocolate" Type="Self.OrderContent_has_Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderContent">
+              <PropertyRef Name="ID_OrderContent" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Chocolate">
+              <PropertyRef Name="OrderContent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Package_OrderContent">
+          <End Role="OrderContent" Type="Self.OrderContent" Multiplicity="1" />
+          <End Role="OrderContent_has_Package" Type="Self.OrderContent_has_Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderContent">
+              <PropertyRef Name="ID_OrderContent" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Package">
+              <PropertyRef Name="OrderContent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Package_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="OrderContent_has_Package" Type="Self.OrderContent_has_Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="ID_Package" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Package">
+              <PropertyRef Name="Package_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderContent" Type="Self.OrderContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID_Order" />
+            </Principal>
+            <Dependent Role="OrderContent">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_has_Wrapping_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Package_has_Wrapping" Type="Self.Package_has_Wrapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="ID_Package" />
+            </Principal>
+            <Dependent Role="Package_has_Wrapping">
+              <PropertyRef Name="Package_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_has_Wrapping_Wrapping">
+          <End Role="Wrapping" Type="Self.Wrapping" Multiplicity="1" />
+          <End Role="Package_has_Wrapping" Type="Self.Package_has_Wrapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wrapping">
+              <PropertyRef Name="ID_Wrapping" />
+            </Principal>
+            <Dependent Role="Package_has_Wrapping">
+              <PropertyRef Name="Wrapping_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Chocolate">
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="ID_Package" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Package_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LocalDbModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chocolate" EntityType="Self.Chocolate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chocolate_has_Ingridients" EntityType="Self.Chocolate_has_Ingridients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chocolate_has_Wrapping" EntityType="Self.Chocolate_has_Wrapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_has_Address" EntityType="Self.Customer_has_Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomStyle" EntityType="Self.CustomStyle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderContent" EntityType="Self.OrderContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderContent_has_Chocolate" EntityType="Self.OrderContent_has_Chocolate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderContent_has_Package" EntityType="Self.OrderContent_has_Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package_has_Wrapping" EntityType="Self.Package_has_Wrapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shape" EntityType="Self.Shape" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wrapping" EntityType="Self.Wrapping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Chocolate_Customer" Association="Self.FK_Chocolate_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_CustomStyle" Association="Self.FK_Chocolate_CustomStyle">
+            <End Role="CustomStyle" EntitySet="CustomStyle" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Ingridients_Chocolate" Association="Self.FK_Chocolate_has_Ingridients_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Chocolate_has_Ingridients" EntitySet="Chocolate_has_Ingridients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Ingridients_Ingredients" Association="Self.FK_Chocolate_has_Ingridients_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="Chocolate_has_Ingridients" EntitySet="Chocolate_has_Ingridients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Wrapping_Chocolate" Association="Self.FK_Chocolate_has_Wrapping_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Chocolate_has_Wrapping" EntitySet="Chocolate_has_Wrapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Wrapping_Wrapping" Association="Self.FK_Chocolate_has_Wrapping_Wrapping">
+            <End Role="Wrapping" EntitySet="Wrapping" />
+            <End Role="Chocolate_has_Wrapping" EntitySet="Chocolate_has_Wrapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_Shape" Association="Self.FK_Chocolate_Shape">
+            <End Role="Shape" EntitySet="Shape" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_has_Address_Address" Association="Self.FK_Customer_has_Address_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Customer_has_Address" EntitySet="Customer_has_Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_has_Address_Customer" Association="Self.FK_Customer_has_Address_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Customer_has_Address" EntitySet="Customer_has_Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_OrderStatus" Association="Self.FK_Order_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Chocolate_Chocolate" Association="Self.FK_OrderContent_has_Chocolate_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="OrderContent_has_Chocolate" EntitySet="OrderContent_has_Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Chocolate_OrderContent" Association="Self.FK_OrderContent_has_Chocolate_OrderContent">
+            <End Role="OrderContent" EntitySet="OrderContent" />
+            <End Role="OrderContent_has_Chocolate" EntitySet="OrderContent_has_Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Package_OrderContent" Association="Self.FK_OrderContent_has_Package_OrderContent">
+            <End Role="OrderContent" EntitySet="OrderContent" />
+            <End Role="OrderContent_has_Package" EntitySet="OrderContent_has_Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Package_Package" Association="Self.FK_OrderContent_has_Package_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="OrderContent_has_Package" EntitySet="OrderContent_has_Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_Order" Association="Self.FK_OrderContent_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderContent" EntitySet="OrderContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_has_Wrapping_Package" Association="Self.FK_Package_has_Wrapping_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Package_has_Wrapping" EntitySet="Package_has_Wrapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_has_Wrapping_Wrapping" Association="Self.FK_Package_has_Wrapping_Wrapping">
+            <End Role="Wrapping" EntitySet="Wrapping" />
+            <End Role="Package_has_Wrapping" EntitySet="Package_has_Wrapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Chocolate" Association="Self.FK_Rating_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Customer" Association="Self.FK_Rating_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Package" Association="Self.FK_Rating_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LocalDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -38,10 +550,425 @@
           <Property Name="Availability" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.Chocolate_has_Ingridients" FromRole="Ingredients" ToRole="Chocolate" />
         </EntityType>
         <EntityContainer Name="LocalDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
+          <EntitySet Name="Address" EntityType="LocalDbModel.Address" />
+          <EntitySet Name="Chocolate" EntityType="LocalDbModel.Chocolate" />
+          <EntitySet Name="Customer" EntityType="LocalDbModel.Customer" />
+          <EntitySet Name="CustomStyle" EntityType="LocalDbModel.CustomStyle" />
+          <EntitySet Name="Order" EntityType="LocalDbModel.Order" />
+          <EntitySet Name="OrderContent" EntityType="LocalDbModel.OrderContent" />
+          <EntitySet Name="OrderContent_has_Chocolate" EntityType="LocalDbModel.OrderContent_has_Chocolate" />
+          <EntitySet Name="OrderContent_has_Package" EntityType="LocalDbModel.OrderContent_has_Package" />
+          <EntitySet Name="OrderStatus" EntityType="LocalDbModel.OrderStatus" />
+          <EntitySet Name="Package" EntityType="LocalDbModel.Package" />
+          <EntitySet Name="Rating" EntityType="LocalDbModel.Rating" />
+          <EntitySet Name="Shape" EntityType="LocalDbModel.Shape" />
+          <EntitySet Name="Wrapping" EntityType="LocalDbModel.Wrapping" />
+          <AssociationSet Name="FK_Chocolate_Customer" Association="LocalDbModel.FK_Chocolate_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_CustomStyle" Association="LocalDbModel.FK_Chocolate_CustomStyle">
+            <End Role="CustomStyle" EntitySet="CustomStyle" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_Shape" Association="LocalDbModel.FK_Chocolate_Shape">
+            <End Role="Shape" EntitySet="Shape" />
+            <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Chocolate_Chocolate" Association="LocalDbModel.FK_OrderContent_has_Chocolate_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="OrderContent_has_Chocolate" EntitySet="OrderContent_has_Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Chocolate" Association="LocalDbModel.FK_Rating_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="LocalDbModel.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Customer" Association="LocalDbModel.FK_Rating_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_OrderStatus" Association="LocalDbModel.FK_Order_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_Order" Association="LocalDbModel.FK_OrderContent_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderContent" EntitySet="OrderContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Chocolate_OrderContent" Association="LocalDbModel.FK_OrderContent_has_Chocolate_OrderContent">
+            <End Role="OrderContent" EntitySet="OrderContent" />
+            <End Role="OrderContent_has_Chocolate" EntitySet="OrderContent_has_Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Package_OrderContent" Association="LocalDbModel.FK_OrderContent_has_Package_OrderContent">
+            <End Role="OrderContent" EntitySet="OrderContent" />
+            <End Role="OrderContent_has_Package" EntitySet="OrderContent_has_Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderContent_has_Package_Package" Association="LocalDbModel.FK_OrderContent_has_Package_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="OrderContent_has_Package" EntitySet="OrderContent_has_Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Package" Association="LocalDbModel.FK_Rating_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="Chocolate_has_Ingridients" Association="LocalDbModel.Chocolate_has_Ingridients">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Ingredients" EntitySet="Ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="Chocolate_has_Wrapping" Association="LocalDbModel.Chocolate_has_Wrapping">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Wrapping" EntitySet="Wrapping" />
+          </AssociationSet>
+          <AssociationSet Name="Customer_has_Address" Association="LocalDbModel.Customer_has_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="Package_has_Wrapping" Association="LocalDbModel.Package_has_Wrapping">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Wrapping" EntitySet="Wrapping" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="Guid" Nullable="false" />
+          <Property Name="StreetName" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="ZIP" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="LocalDbModel.Customer_has_Address" FromRole="Address" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Chocolate">
+          <Key>
+            <PropertyRef Name="ID_Chocolate" />
+          </Key>
+          <Property Name="ID_Chocolate" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <Property Name="Shape_ID" Type="Guid" Nullable="false" />
+          <Property Name="CustomStyle_ID" Type="Guid" Nullable="false" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Creator_Customer_ID" Type="Guid" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="LocalDbModel.FK_Chocolate_Customer" FromRole="Chocolate" ToRole="Customer" />
+          <NavigationProperty Name="CustomStyle" Relationship="LocalDbModel.FK_Chocolate_CustomStyle" FromRole="Chocolate" ToRole="CustomStyle" />
+          <NavigationProperty Name="Shape" Relationship="LocalDbModel.FK_Chocolate_Shape" FromRole="Chocolate" ToRole="Shape" />
+          <NavigationProperty Name="OrderContent_has_Chocolate" Relationship="LocalDbModel.FK_OrderContent_has_Chocolate_Chocolate" FromRole="Chocolate" ToRole="OrderContent_has_Chocolate" />
+          <NavigationProperty Name="Rating" Relationship="LocalDbModel.FK_Rating_Chocolate" FromRole="Chocolate" ToRole="Rating" />
+          <NavigationProperty Name="Ingredients" Relationship="LocalDbModel.Chocolate_has_Ingridients" FromRole="Chocolate" ToRole="Ingredients" />
+          <NavigationProperty Name="Wrapping" Relationship="LocalDbModel.Chocolate_has_Wrapping" FromRole="Chocolate" ToRole="Wrapping" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.FK_Chocolate_Customer" FromRole="Customer" ToRole="Chocolate" />
+          <NavigationProperty Name="Order" Relationship="LocalDbModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="Rating" Relationship="LocalDbModel.FK_Rating_Customer" FromRole="Customer" ToRole="Rating" />
+          <NavigationProperty Name="Address" Relationship="LocalDbModel.Customer_has_Address" FromRole="Customer" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="CustomStyle">
+          <Key>
+            <PropertyRef Name="ID_CustomStyle" />
+          </Key>
+          <Property Name="ID_CustomStyle" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.FK_Chocolate_CustomStyle" FromRole="CustomStyle" ToRole="Chocolate" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfOrder" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status_ID" Type="Guid" Nullable="false" />
+          <Property Name="Customer_ID" Type="Guid" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="LocalDbModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="OrderStatus" Relationship="LocalDbModel.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
+          <NavigationProperty Name="OrderContent" Relationship="LocalDbModel.FK_OrderContent_Order" FromRole="Order" ToRole="OrderContent" />
+        </EntityType>
+        <EntityType Name="OrderContent">
+          <Key>
+            <PropertyRef Name="ID_OrderContent" />
+          </Key>
+          <Property Name="ID_OrderContent" Type="Guid" Nullable="false" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="LocalDbModel.FK_OrderContent_Order" FromRole="OrderContent" ToRole="Order" />
+          <NavigationProperty Name="OrderContent_has_Chocolate" Relationship="LocalDbModel.FK_OrderContent_has_Chocolate_OrderContent" FromRole="OrderContent" ToRole="OrderContent_has_Chocolate" />
+          <NavigationProperty Name="OrderContent_has_Package" Relationship="LocalDbModel.FK_OrderContent_has_Package_OrderContent" FromRole="OrderContent" ToRole="OrderContent_has_Package" />
+        </EntityType>
+        <EntityType Name="OrderContent_has_Chocolate">
+          <Key>
+            <PropertyRef Name="OrderContent_ID" />
+            <PropertyRef Name="Chocolate_ID" />
+          </Key>
+          <Property Name="OrderContent_ID" Type="Guid" Nullable="false" />
+          <Property Name="Chocolate_ID" Type="Guid" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.FK_OrderContent_has_Chocolate_Chocolate" FromRole="OrderContent_has_Chocolate" ToRole="Chocolate" />
+          <NavigationProperty Name="OrderContent" Relationship="LocalDbModel.FK_OrderContent_has_Chocolate_OrderContent" FromRole="OrderContent_has_Chocolate" ToRole="OrderContent" />
+        </EntityType>
+        <EntityType Name="OrderContent_has_Package">
+          <Key>
+            <PropertyRef Name="OrderContent_ID" />
+            <PropertyRef Name="Package_ID" />
+          </Key>
+          <Property Name="OrderContent_ID" Type="Guid" Nullable="false" />
+          <Property Name="Package_ID" Type="Guid" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrderContent" Relationship="LocalDbModel.FK_OrderContent_has_Package_OrderContent" FromRole="OrderContent_has_Package" ToRole="OrderContent" />
+          <NavigationProperty Name="Package" Relationship="LocalDbModel.FK_OrderContent_has_Package_Package" FromRole="OrderContent_has_Package" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="ID_OrderStatus" />
+          </Key>
+          <Property Name="ID_OrderStatus" Type="Guid" Nullable="false" />
+          <Property Name="StatusDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="LocalDbModel.FK_Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="ID_Package" />
+          </Key>
+          <Property Name="ID_Package" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripton" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Wrapping" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Availability" Type="Boolean" Nullable="false" />
+          <Property Name="Customer_ID" Type="Guid" Nullable="false" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="OrderContent_has_Package" Relationship="LocalDbModel.FK_OrderContent_has_Package_Package" FromRole="Package" ToRole="OrderContent_has_Package" />
+          <NavigationProperty Name="Rating" Relationship="LocalDbModel.FK_Rating_Package" FromRole="Package" ToRole="Rating" />
+          <NavigationProperty Name="Wrapping1" Relationship="LocalDbModel.Package_has_Wrapping" FromRole="Package" ToRole="Wrapping" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID_Rating" />
+          </Key>
+          <Property Name="ID_Rating" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Package_ID" Type="Guid" Nullable="false" />
+          <Property Name="Chocolate_ID" Type="Guid" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Published" Type="Boolean" Nullable="false" />
+          <Property Name="Customer_ID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.FK_Rating_Chocolate" FromRole="Rating" ToRole="Chocolate" />
+          <NavigationProperty Name="Customer" Relationship="LocalDbModel.FK_Rating_Customer" FromRole="Rating" ToRole="Customer" />
+          <NavigationProperty Name="Package" Relationship="LocalDbModel.FK_Rating_Package" FromRole="Rating" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="Shape">
+          <Key>
+            <PropertyRef Name="ID_Shape" />
+          </Key>
+          <Property Name="ID_Shape" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.FK_Chocolate_Shape" FromRole="Shape" ToRole="Chocolate" />
+        </EntityType>
+        <EntityType Name="Wrapping">
+          <Key>
+            <PropertyRef Name="ID_Wrapping" />
+          </Key>
+          <Property Name="ID_Wrapping" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Chocolate" Relationship="LocalDbModel.Chocolate_has_Wrapping" FromRole="Wrapping" ToRole="Chocolate" />
+          <NavigationProperty Name="Package" Relationship="LocalDbModel.Package_has_Wrapping" FromRole="Wrapping" ToRole="Package" />
+        </EntityType>
+        <Association Name="FK_Chocolate_Customer">
+          <End Type="LocalDbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="Creator_Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_CustomStyle">
+          <End Type="LocalDbModel.CustomStyle" Role="CustomStyle" Multiplicity="1" />
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomStyle">
+              <PropertyRef Name="ID_CustomStyle" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="CustomStyle_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_Shape">
+          <End Type="LocalDbModel.Shape" Role="Shape" Multiplicity="1" />
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shape">
+              <PropertyRef Name="ID_Shape" />
+            </Principal>
+            <Dependent Role="Chocolate">
+              <PropertyRef Name="Shape_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Chocolate_Chocolate">
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="1" />
+          <End Type="LocalDbModel.OrderContent_has_Chocolate" Role="OrderContent_has_Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Chocolate">
+              <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Chocolate">
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="1" />
+          <End Type="LocalDbModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Type="LocalDbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="LocalDbModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Customer">
+          <End Type="LocalDbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="LocalDbModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_OrderStatus">
+          <End Type="LocalDbModel.OrderStatus" Role="OrderStatus" Multiplicity="1" />
+          <End Type="LocalDbModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="ID_OrderStatus" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_Order">
+          <End Type="LocalDbModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="LocalDbModel.OrderContent" Role="OrderContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID_Order" />
+            </Principal>
+            <Dependent Role="OrderContent">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Chocolate_OrderContent">
+          <End Type="LocalDbModel.OrderContent" Role="OrderContent" Multiplicity="1" />
+          <End Type="LocalDbModel.OrderContent_has_Chocolate" Role="OrderContent_has_Chocolate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderContent">
+              <PropertyRef Name="ID_OrderContent" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Chocolate">
+              <PropertyRef Name="OrderContent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Package_OrderContent">
+          <End Type="LocalDbModel.OrderContent" Role="OrderContent" Multiplicity="1" />
+          <End Type="LocalDbModel.OrderContent_has_Package" Role="OrderContent_has_Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderContent">
+              <PropertyRef Name="ID_OrderContent" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Package">
+              <PropertyRef Name="OrderContent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderContent_has_Package_Package">
+          <End Type="LocalDbModel.Package" Role="Package" Multiplicity="1" />
+          <End Type="LocalDbModel.OrderContent_has_Package" Role="OrderContent_has_Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="ID_Package" />
+            </Principal>
+            <Dependent Role="OrderContent_has_Package">
+              <PropertyRef Name="Package_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Package">
+          <End Type="LocalDbModel.Package" Role="Package" Multiplicity="1" />
+          <End Type="LocalDbModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="ID_Package" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Package_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Chocolate_has_Ingridients">
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="*" />
+          <End Type="LocalDbModel.Ingredients" Role="Ingredients" Multiplicity="*" />
+        </Association>
+        <Association Name="Chocolate_has_Wrapping">
+          <End Type="LocalDbModel.Chocolate" Role="Chocolate" Multiplicity="*" />
+          <End Type="LocalDbModel.Wrapping" Role="Wrapping" Multiplicity="*" />
+        </Association>
+        <Association Name="Customer_has_Address">
+          <End Type="LocalDbModel.Address" Role="Address" Multiplicity="*" />
+          <End Type="LocalDbModel.Customer" Role="Customer" Multiplicity="*" />
+        </Association>
+        <Association Name="Package_has_Wrapping">
+          <End Type="LocalDbModel.Package" Role="Package" Multiplicity="*" />
+          <End Type="LocalDbModel.Wrapping" Role="Wrapping" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -62,6 +989,177 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="LocalDbModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="ID_Address" ColumnName="ID_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chocolate">
+            <EntityTypeMapping TypeName="LocalDbModel.Chocolate">
+              <MappingFragment StoreEntitySet="Chocolate">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Creator_Customer_ID" ColumnName="Creator_Customer_ID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CustomStyle_ID" ColumnName="CustomStyle_ID" />
+                <ScalarProperty Name="Shape_ID" ColumnName="Shape_ID" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Chocolate" ColumnName="ID_Chocolate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="LocalDbModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomStyle">
+            <EntityTypeMapping TypeName="LocalDbModel.CustomStyle">
+              <MappingFragment StoreEntitySet="CustomStyle">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_CustomStyle" ColumnName="ID_CustomStyle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="LocalDbModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="DateOfDelivery" ColumnName="DateOfDelivery" />
+                <ScalarProperty Name="DateOfOrder" ColumnName="DateOfOrder" />
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderContent">
+            <EntityTypeMapping TypeName="LocalDbModel.OrderContent">
+              <MappingFragment StoreEntitySet="OrderContent">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="ID_OrderContent" ColumnName="ID_OrderContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderContent_has_Chocolate">
+            <EntityTypeMapping TypeName="LocalDbModel.OrderContent_has_Chocolate">
+              <MappingFragment StoreEntitySet="OrderContent_has_Chocolate">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Chocolate_ID" ColumnName="Chocolate_ID" />
+                <ScalarProperty Name="OrderContent_ID" ColumnName="OrderContent_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderContent_has_Package">
+            <EntityTypeMapping TypeName="LocalDbModel.OrderContent_has_Package">
+              <MappingFragment StoreEntitySet="OrderContent_has_Package">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Package_ID" ColumnName="Package_ID" />
+                <ScalarProperty Name="OrderContent_ID" ColumnName="OrderContent_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="LocalDbModel.OrderStatus">
+              <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="ID_OrderStatus" ColumnName="ID_OrderStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Package">
+            <EntityTypeMapping TypeName="LocalDbModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
+                <ScalarProperty Name="Wrapping" ColumnName="Wrapping" />
+                <ScalarProperty Name="Descripton" ColumnName="Descripton" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Package" ColumnName="ID_Package" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="LocalDbModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Chocolate_ID" ColumnName="Chocolate_ID" />
+                <ScalarProperty Name="Package_ID" ColumnName="Package_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID_Rating" ColumnName="ID_Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shape">
+            <EntityTypeMapping TypeName="LocalDbModel.Shape">
+              <MappingFragment StoreEntitySet="Shape">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Shape" ColumnName="ID_Shape" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wrapping">
+            <EntityTypeMapping TypeName="LocalDbModel.Wrapping">
+              <MappingFragment StoreEntitySet="Wrapping">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Wrapping" ColumnName="ID_Wrapping" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Chocolate_has_Ingridients" TypeName="LocalDbModel.Chocolate_has_Ingridients" StoreEntitySet="Chocolate_has_Ingridients">
+            <EndProperty Name="Ingredients">
+              <ScalarProperty Name="ID_Ingredients" ColumnName="Ingerdient_ID" />
+            </EndProperty>
+            <EndProperty Name="Chocolate">
+              <ScalarProperty Name="ID_Chocolate" ColumnName="Chocolazte_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Chocolate_has_Wrapping" TypeName="LocalDbModel.Chocolate_has_Wrapping" StoreEntitySet="Chocolate_has_Wrapping">
+            <EndProperty Name="Wrapping">
+              <ScalarProperty Name="ID_Wrapping" ColumnName="Wrapping_ID" />
+            </EndProperty>
+            <EndProperty Name="Chocolate">
+              <ScalarProperty Name="ID_Chocolate" ColumnName="Chocolate_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Customer_has_Address" TypeName="LocalDbModel.Customer_has_Address" StoreEntitySet="Customer_has_Address">
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="ID_Customer" ColumnName="Customer_ID" />
+            </EndProperty>
+            <EndProperty Name="Address">
+              <ScalarProperty Name="ID_Address" ColumnName="Address_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Package_has_Wrapping" TypeName="LocalDbModel.Package_has_Wrapping" StoreEntitySet="Package_has_Wrapping">
+            <EndProperty Name="Wrapping">
+              <ScalarProperty Name="ID_Wrapping" ColumnName="Wrapping_ID" />
+            </EndProperty>
+            <EndProperty Name="Package">
+              <ScalarProperty Name="ID_Package" ColumnName="Package_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,24 +12,24 @@ namespace DataHandler.Local_Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Ingredients
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ingredients()
+        public Order()
         {
-            this.Chocolate = new HashSet<Chocolate>();
+            this.OrderContent = new HashSet<OrderContent>();
         }
     
-        public System.Guid ID_Ingredients { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public string Type { get; set; }
-        public string UnitType { get; set; }
-        public bool Availability { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public string ID_Order { get; set; }
+        public System.DateTime DateOfOrder { get; set; }
+        public System.DateTime DateOfDelivery { get; set; }
+        public System.Guid Status_ID { get; set; }
+        public System.Guid Customer_ID { get; set; }
+        public string Note { get; set; }
     
+        public virtual Customer Customer { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chocolate> Chocolate { get; set; }
+        public virtual ICollection<OrderContent> OrderContent { get; set; }
     }
 }

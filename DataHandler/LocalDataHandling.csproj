@@ -64,6 +64,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Local Database\Address.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Chocolate.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Customer.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\CustomStyle.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Local Database\Ingredients.cs">
       <DependentUpon>LocalModel.tt</DependentUpon>
     </Compile>
@@ -81,6 +93,33 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Order.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\OrderContent.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\OrderContent_has_Chocolate.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\OrderContent_has_Package.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\OrderStatus.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Package.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Rating.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Shape.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Wrapping.cs">
+      <DependentUpon>LocalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LocalDataHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

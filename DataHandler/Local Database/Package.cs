@@ -12,24 +12,30 @@ namespace DataHandler.Local_Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Ingredients
+    public partial class Package
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ingredients()
+        public Package()
         {
-            this.Chocolate = new HashSet<Chocolate>();
+            this.OrderContent_has_Package = new HashSet<OrderContent_has_Package>();
+            this.Rating = new HashSet<Rating>();
+            this.Wrapping1 = new HashSet<Wrapping>();
         }
     
-        public System.Guid ID_Ingredients { get; set; }
+        public System.Guid ID_Package { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
-        public string Type { get; set; }
-        public string UnitType { get; set; }
+        public string Descripton { get; set; }
+        public string Wrapping { get; set; }
         public bool Availability { get; set; }
-        public string Description { get; set; }
+        public System.Guid Customer_ID { get; set; }
+        public string Image { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chocolate> Chocolate { get; set; }
+        public virtual ICollection<OrderContent_has_Package> OrderContent_has_Package { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wrapping> Wrapping1 { get; set; }
     }
 }
