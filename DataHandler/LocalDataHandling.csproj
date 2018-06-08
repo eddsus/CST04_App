@@ -111,12 +111,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
-      <Project>{fa03a1b3-b0fd-45da-a08a-76ed7d25db97}</Project>
-      <Name>SharedDataTypes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Local Database\LocalModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>LocalModel.Context.cs</LastGenOutput>
@@ -140,6 +134,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+      <Project>{fa03a1b3-b0fd-45da-a08a-76ed7d25db97}</Project>
+      <Name>SharedDataTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
