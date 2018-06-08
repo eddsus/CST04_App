@@ -92,8 +92,6 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
     <Compile Include="Helpers\ISynchronizable.cs" />
-    <Compile Include="ViewModel\DetailViewModels\PackageDetailVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\TestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\CreationTestVm.cs" />
@@ -210,8 +208,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
-      <Project>{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}</Project>
+    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+      <Project>{fa03a1b3-b0fd-45da-a08a-76ed7d25db97}</Project>
       <Name>SharedDataTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAgent\DataAgent.csproj">
