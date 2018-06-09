@@ -84,11 +84,21 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-        <Button  Grid.Row="2" Width="130" Margin="20 5" Foreground="White" Command="{Binding BtnRefresh}" HorizontalAlignment="Right">
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Margin="25"  Text="{Binding InfoMessage}"/>
+        <Button Grid.Column="1" Width="130" Margin="20 5 20 5" Foreground="White" Command="{Binding BtnRefresh}" HorizontalAlignment="Right">
             <Grid Width="110">
                 <materialDesign:PackIcon Kind="Reload" VerticalAlignment="Center"/>
                 <TextBlock Text="Refresh" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
+        </Grid>
+
+
     </Grid>
 </Window>

@@ -11,17 +11,24 @@
     <Grid Background="PapayaWhip">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}">
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="Available" Binding="{Binding Available}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-                <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="1" Width="130" Margin="20 5 20 5" Foreground="White" Command="{Binding BtnUpdate}" HorizontalAlignment="Right">
+            <Grid Width="110">
+                <materialDesign:PackIcon Kind="Update" VerticalAlignment="Center"/>
+                <TextBlock Text="Update" HorizontalAlignment="Center"/>
+            </Grid>
+        </Button>
     </Grid>
 </UserControl>

@@ -1,10 +1,13 @@
+using System;
 using DataAgent;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using LocalSynchronization;
+using SharedDataTypes;
 using WPFDashboard.ViewModel.ViewModelMenu;
+using WPFDashboard.Helpers;
 
 namespace WPFDashboard.ViewModel
 {
@@ -15,9 +18,22 @@ namespace WPFDashboard.ViewModel
         private LocalSynchronizer localSync;
         private ViewModelBase currentView;
         private bool connectStatus;
+        private string infoMessage;
         #endregion
 
         #region PROPERTIES
+
+        public string InfoMessage
+        {
+            get { return infoMessage; }
+            set
+            {
+                infoMessage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public ViewModelBase CurrentView
         {
             get { return currentView; }
@@ -42,6 +58,8 @@ namespace WPFDashboard.ViewModel
         public RelayCommand BtnIngredientsView { get; set; }
         public RelayCommand BtnPackagesView { get; set; }
         public RelayCommand BtnRefresh { get; set; }
+
+
         #endregion
 
 
@@ -62,8 +80,13 @@ namespace WPFDashboard.ViewModel
                 GetConnectionStatus();
                 Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
             });
-
+            Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
             StartSynchronizer();
+        }
+
+        private void DisplayInformation(PropertyChanged<Ingredient> message)
+        {
+            InfoMessage = String.Format("{0} has been updated.", message.ChangedProperty.Name);
         }
 
         private void StartSynchronizer()

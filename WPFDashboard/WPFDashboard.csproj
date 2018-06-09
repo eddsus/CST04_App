@@ -108,6 +108,7 @@
     <Compile Include="ViewModel\ViewModelMenu\OrdersVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\PackagesVm.cs" />
     <Compile Include="Helpers\RefreshMessage.cs" />
+    <Compile Include="Helpers\PropertyChanged.cs" />
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
