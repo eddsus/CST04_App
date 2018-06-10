@@ -11,7 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1080"
              DataContext="{Binding Source={StaticResource Locator}, Path=Orders}">
-    <Grid Background="LightBlue">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>

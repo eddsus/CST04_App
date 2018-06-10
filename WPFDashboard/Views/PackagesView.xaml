@@ -4,10 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFDashboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:detailviewmodel="clr-namespace:WPFDashboard.ViewModel.DetailViewModels"
+             xmlns:detailview="clr-namespace:WPFDashboard.Views.DetailViews"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="600"
              DataContext="{Binding Source={StaticResource Locator}, Path=Packages}">
-    <Grid Background="LightYellow">
-        <DataGrid ItemsSource="{Binding Shapes}"/>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <!--===========Packages List===========-->
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListPackages}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding PackageName}"/>
+                <DataGridTextColumn Header="Created By" Binding="{Binding CreatedBy}"/>
+                <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                <DataGridTemplateColumn Header="Rating">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <materialDesign:RatingBar Max="5" Value="{Binding Rating}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Details">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Button Command="{Binding DataContext.BtnPackageDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
+                                </Button>
+                            </Viewbox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--============Package Details View=========-->
+        <ContentControl Grid.Column="1" Content="{Binding PackageDetailsView}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
+                    <detailview:PackageDetailView></detailview:PackageDetailView>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

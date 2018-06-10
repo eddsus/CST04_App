@@ -4,10 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFDashboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Comments, Mode=OneWay, Source={StaticResource Locator}}">
-    <Grid Background="LightGreen">
-        <DataGrid ItemsSource="{Binding Wraps}"/>
+              DataContext="{Binding Source={StaticResource Locator}, Path=Comments}">
+    <Grid >
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListOfComments}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Product" Binding="{Binding Product}"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"/>
+                <DataGridTemplateColumn Header="Publish">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Button >
+                                    <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
+                                </Button>
+                            </Viewbox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Details">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
+                                </Button>
+                            </Viewbox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

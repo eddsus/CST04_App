@@ -4,10 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFDashboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:detailview="clr-namespace:WPFDashboard.Views.DetailViews"
+             xmlns:detailviewmodel="clr-namespace:WPFDashboard.ViewModel.DetailViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource Locator}, Path=Creations}">
-    <Grid Background="LightSalmon">
-            
+             d:DesignHeight="300" d:DesignWidth="600"
+              DataContext="{Binding Source={StaticResource Locator}, Path=Creations}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--============Creations List===================-->
+        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfCreations}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Chocolate name" Binding="{Binding ChocoName}"/>
+                <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy}"/>
+                
+                <DataGridTemplateColumn Header="Rating">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <materialDesign:RatingBar Max="5" Value="{Binding Rating}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Details">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Button Command="{Binding DataContext.BtnCreationDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
+                                </Button>
+                            </Viewbox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--==============Creation Details=============-->
+        <ContentControl Grid.Column="1" Content="{Binding CreationDetailView}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
+                    <detailview:CreationDetailsView></detailview:CreationDetailsView>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800"
               DataContext="{Binding Source={StaticResource Locator}, Path=CreationDetail}">
     
-    <Grid Background="LightBlue" Margin="10">
+    <Grid Margin="10">
     <!--Title row-->
     <Grid.RowDefinitions>
         <RowDefinition Height="50"/>
@@ -17,7 +17,7 @@
     <Label Content="Creation Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
     
      <!--Details window-->
-    <Grid Grid.Row="1" Background="LightBlue">
+    <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>

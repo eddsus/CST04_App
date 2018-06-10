@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
-    <Grid Background="LightGoldenrodYellow">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
