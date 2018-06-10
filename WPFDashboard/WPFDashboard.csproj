@@ -94,11 +94,8 @@
     <Compile Include="Helpers\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\DummyVm\CreationTestVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\DummyVm\DetailsTestListVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\IngredientTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\PackageDetailsVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\DummyVm\PackageTestVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

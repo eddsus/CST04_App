@@ -19,7 +19,7 @@
 
 
 
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}">
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Customer First Name" Binding="{Binding Customer.FirstName}"/>
                 <DataGridTextColumn Header="Customer Last Name" Binding="{Binding Customer.LastName}"/>

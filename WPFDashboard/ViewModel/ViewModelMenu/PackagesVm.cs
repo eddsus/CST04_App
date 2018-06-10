@@ -32,7 +32,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public RelayCommand BtnPackageDetails { get; set; }
 
-        public ObservableCollection<PackageItemVm> ListPackages { get; set; }
+        public ObservableCollection<Package> ListPackages { get; set; }
 
         #endregion
         //testing shapes
@@ -84,12 +84,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //    Shapes.Add(item);
             //}
 
-            ListPackages = new ObservableCollection<PackageItemVm>();
-            ListPackages.Add(new PackageItemVm("Xmas box","Kitchen","In Work",5));
-            ListPackages.Add(new PackageItemVm("Easter package", "Kitchen", "In Work", 4));
-            ListPackages.Add(new PackageItemVm("Birthday box", "Kitchen", "In Work", 3));
-            ListPackages.Add(new PackageItemVm("Birthday Box", "Maria don Buenos", "In Work", 5));
-            ListPackages.Add(new PackageItemVm("Celebration mix", "Kitchen", "In Work", 2));
+           
         }
 
     }

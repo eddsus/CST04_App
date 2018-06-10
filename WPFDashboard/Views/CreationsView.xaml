@@ -40,7 +40,18 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                <DataGridCheckBoxColumn Header="State" Binding="{Binding State}"/>
+                <DataGridTemplateColumn Header="Publish">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Button Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
+                                </Button>
+                            </Viewbox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 
             </DataGrid.Columns>
         </DataGrid>

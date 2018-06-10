@@ -67,7 +67,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
             ListOfComments = new ObservableCollection<CommentItemVm>();
             ListOfComments.Add(new CommentItemVm("Max Mustermann","Birthday Box","Deliicous!"));
-            ListOfComments.Add(new CommentItemVm("Stan Marsh", "Xmas Box", "Won't order again"));
+            ListOfComments.Add(new CommentItemVm("Stan Marsh", "Xmas Box", "Won't order again") {});
             ListOfComments.Add(new CommentItemVm("Angry Bird", "Birthday Box", "Tastes like shit"));
           
         }
