@@ -41,7 +41,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand BtnUpdate { get; set; }
+        public RelayCommand<Ingredient> BtnActivate { get; set; }
+        public RelayCommand<Ingredient> BtnDeactivate { get; set; }
         #endregion
 
         public IngredientsVm()
@@ -53,20 +54,40 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
 
 
-            BtnUpdate = new RelayCommand(() =>
-            {
-                //check if selected ingredient has been changed
-                if (CurrentIngredient.Available != DataAgentUnit.GetInstance().QueryIngredients().Where(i => i.IngredientId == CurrentIngredient.IngredientId).Select(j => j).First().Available)
+            BtnActivate = new RelayCommand<Ingredient>(
+                (i) =>
                 {
+                    CurrentIngredient = i;
+                    CurrentIngredient.Available = true;
                     //Update the databases
-                    DataAgentUnit.GetInstance().UpdateIngredient(CurrentIngredient);
-                //and inform the infobar
-                    Messenger.Default.Send(new PropertyChanged<Ingredient>(CurrentIngredient));
-
-                }
-            }, () => {
-                //only allow updates when connected and an ingredient is selected
-                return (CurrentIngredient != null) && DataAgentUnit.GetInstance().GetSynchronizerStatus(); });
+                    DataAgentUnit.GetInstance().UpdateIngredient(i);
+                    //and inform the infobar
+                    Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been activated", 5));
+                    //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                    Refresh(new RefreshMessage(GetType()));
+                },
+                (i) =>
+                {
+                    //only allow updates when connected and an ingredient is selected
+                    return DataAgentUnit.GetInstance().GetSynchronizerStatus();
+                });
+            BtnDeactivate = new RelayCommand<Ingredient>(
+                (i) =>
+                {
+                    CurrentIngredient = i;
+                    CurrentIngredient.Available = false;
+                    //Update the databases
+                    DataAgentUnit.GetInstance().UpdateIngredient(i);
+                    //and inform the infobar
+                    Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been deactivated", 5));
+                    //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                    Refresh(new RefreshMessage(GetType()));
+                },
+                (i) =>
+                {
+                    //only allow updates when connected and an ingredient is selected
+                    return DataAgentUnit.GetInstance().GetSynchronizerStatus();
+                });
         }
 
 

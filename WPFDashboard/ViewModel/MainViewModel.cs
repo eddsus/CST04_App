@@ -8,6 +8,8 @@ using LocalSynchronization;
 using SharedDataTypes;
 using WPFDashboard.ViewModel.ViewModelMenu;
 using WPFDashboard.Helpers;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace WPFDashboard.ViewModel
 {
@@ -81,13 +83,21 @@ namespace WPFDashboard.ViewModel
                 Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
             });
             Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
+
             StartSynchronizer();
         }
+            
 
         private void DisplayInformation(PropertyChanged<Ingredient> message)
         {
-            InfoMessage = String.Format("{0} has been updated.", message.ChangedProperty.Name);
+            InfoMessage = String.Format("{0} {1}", message.ChangedProperty.Name, message.Message);
         }
+
+        private void DisplayInformation()
+        {
+            InfoMessage = String.Format("Last sync: {0}", DateTime.Now);
+        }
+
 
         private void StartSynchronizer()
         {
@@ -96,7 +106,8 @@ namespace WPFDashboard.ViewModel
                  SimpleIoc.Default.GetInstance<PackagesVm>().ViewSynchronized,
                   SimpleIoc.Default.GetInstance<CreationsVm>().ViewSynchronized,
                    SimpleIoc.Default.GetInstance<IngredientsVm>().ViewSynchronized,
-                    SimpleIoc.Default.GetInstance<CommentsVm>().ViewSynchronized);
+                    SimpleIoc.Default.GetInstance<CommentsVm>().ViewSynchronized,
+                    DisplayInformation);
             localSync.StartSyncing();
         }
         private bool GetConnectionStatus()
