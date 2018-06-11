@@ -8,42 +8,60 @@
              xmlns:detailview="clr-namespace:WPFDashboard.Views.DetailViews"
              xmlns:local="clr-namespace:WPFDashboard.Views.OrderViews"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800"
+             d:DesignHeight="800" d:DesignWidth="900"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2.9*"/>
         </Grid.ColumnDefinitions>
 
-        <!--======================ORDER DETAILS====================-->
-            <Grid>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="5*"/>
-            </Grid.ColumnDefinitions>
 
-            <!--======First Line description=============-->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Order ID:" FontWeight="Bold"/>
-                <Label Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
-            </StackPanel>
-
-            <Label Grid.Column="1" Content="Content" Margin="10" FontWeight="Bold" HorizontalAlignment="Left"/>
-
-            <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <!--======================ORDER DETAILS====================-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!--Order Id-->
+                <Label Content="Order ID:" FontWeight="Bold" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Label Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
+                <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="State" FontWeight="Bold" HorizontalAlignment="Right"/>
                 <ComboBox Width="50" Margin="5"/>
             </StackPanel>
 
-            <!--=========Content View Data Grid=========-->
-            <!--<Viewbox >-->
-            <DataGrid Margin="5" Grid.Column="1" Grid.Row="1" AutoGenerateColumns="False">
+           
+                <!--Customer Name-->
+                <Label Grid.Row="1" Content="Customer Name:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
+                <Label Content="{Binding CurrentOrder.Customer.FirstName}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+
+                <!--Order Date-->
+                <Label Grid.Row="2" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
+                <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                <!--Content Label-->
+                <Label Grid.Row="3" Content="Content:" Margin="10" FontWeight="Bold" HorizontalAlignment="Right"/>
+            </Grid>
+
+
+
+            <!--=================CONTENT==================-->
+
+            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="1" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Product name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
@@ -71,63 +89,39 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <!--</Viewbox>-->
 
-            <!--==========Customer Data Details==========-->
-            <Grid Grid.Row="1">
+            <!--==========DUE DATE AND COMMENT==========-->
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Customer Name:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
-                <!--Content of Customer details-->
-                <Label Content="{Binding CurrentOrder.Customer.FirstName}" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
-                <Label Grid.Row="1" Content="{Binding CurrentOrder.DateOfOrder}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                <Viewbox Grid.Row="2" Grid.Column="1">
+                <!--Due date-->
+                <Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
                     <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
                 </Viewbox>
+                <!--Comment-->
+                <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                <TextBox Text="{Binding CurrentOrder.Note}" Grid.Row="1" Grid.Column="1" Margin="5"/>
             </Grid>
 
-            <!--=========Comment========-->
-            <Viewbox Grid.Row="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Viewbox>
-                        <Label Content="Comment" FontWeight="Bold"/>
-                    </Viewbox>
-                    <TextBox Text="{Binding CurrentOrder.Note}" Grid.Row="1" Margin="4"/>
-                </Grid>
-            </Viewbox>
-            <!--Comment to Pause + Save Button-->
-            <Viewbox Grid.Column="1" Grid.Row="2">
-                <Grid >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Description to paused"/>
-                    <Button Grid.Row="1" Width="150">
-                        <Grid Width="110">
-                            <materialDesign:PackIcon Kind="ContentSaveAll" VerticalAlignment="Center"/>
-                            <TextBlock Text="Save" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </Button>
-                </Grid>
-            </Viewbox>
-        </Grid>
 
-        <!--=================PACKAGE OR CREATION DETAILS==============-->
-        <!--Package Detailspage-->
+            <!--==========BUTTON SAVE==========-->
+            <Button Grid.Row="4" Width="150">
+                <Grid Width="110">
+                    <materialDesign:PackIcon Kind="ContentSaveAll" VerticalAlignment="Center"/>
+                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <!--=================PACKAGE OR CREATION DETAILS==============-->
+            <!--Package Detailspage-->
+        </Grid>
+        
         <ContentControl Grid.Column="1" Content="{Binding CurrentDetail}">
 
             <ContentControl.Resources>
@@ -138,8 +132,9 @@
                     <detailview:PackageDetailView></detailview:PackageDetailView>
                 </DataTemplate>
             </ContentControl.Resources>
-           
+
 
         </ContentControl>
+
     </Grid>
 </UserControl>

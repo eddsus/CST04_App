@@ -12,33 +12,32 @@
              d:DesignHeight="1080" d:DesignWidth="1080"
              DataContext="{Binding Source={StaticResource Locator}, Path=Orders}">
     <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="5*"/>
+            
+        </Grid.ColumnDefinitions>
+      
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Customer First Name" Binding="{Binding Customer.FirstName}"/>
+                    <!--<DataGridTextColumn Header="Customer Last Name" Binding="{Binding Customer.LastName}"/>-->
+                    <!--<DataGridTextColumn Header="Order Date" Binding="{Binding DateOfOrder}"/>-->
+                    <DataGridTextColumn Header="Due Date" Binding="{Binding DateOfDelivery}"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding Status.Decription}" />
+                    <DataGridTemplateColumn Header="Take action">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit order" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-
-
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Customer First Name" Binding="{Binding Customer.FirstName}"/>
-                <DataGridTextColumn Header="Customer Last Name" Binding="{Binding Customer.LastName}"/>
-                <DataGridTextColumn Header="Order Date" Binding="{Binding DateOfOrder}"/>
-                <DataGridTextColumn Header="Due Date" Binding="{Binding DateOfDelivery}"/>
-                <DataGridTextColumn Header="State" Binding="{Binding Status.Decription}" />
-                <DataGridTemplateColumn Header="Take action">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Edit order" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-            </DataGrid.Columns>
-        </DataGrid>
-
+                </DataGrid.Columns>
+            </DataGrid>
+    
         <!--OrderDeatailspage-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Column="1">
             <ContentControl Content="{Binding OrderDetailsView}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
