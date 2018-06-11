@@ -30,9 +30,29 @@ namespace DataHandler
             return temp;
         }
 
+        public List<SharedDataTypes.OrderStatus> QueryOrderStates()
+        {
+            var temp = localDb.OrderStatus.Select(i => new SharedDataTypes.OrderStatus()
+            {
+                OrderStatusId= i.ID_OrderStatus,
+                Decription = i.StatusDescription
+            }).ToList();
+            return temp;
+        }
+
         #endregion
 
         #region INSERTS
+
+        public bool AddOrderStatus(SharedDataTypes.OrderStatus toBeAdded)
+        {
+            localDb.OrderStatus.Add(new Local_Database.OrderStatus()
+            {
+                ID_OrderStatus = toBeAdded.OrderStatusId,
+                StatusDescription = toBeAdded.Decription
+            });
+            return localDb.SaveChanges() > 0;
+        }
 
         public bool AddIngredient(Ingredient toBeAdded)
         {
@@ -62,6 +82,14 @@ namespace DataHandler
                 localDb.Ingredients.Remove(temp);
             return localDb.SaveChanges() > 0;
         }
+
+        public void ClearOrderStatus()
+        {
+            //remove all entries
+            localDb.OrderStatus.RemoveRange(localDb.OrderStatus.Select(o => o));
+            localDb.SaveChanges();
+        }
+
 
         #endregion
     }

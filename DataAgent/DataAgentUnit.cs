@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using DataHandler;
 using LocalSynchronization;
+using System.Collections.ObjectModel;
 
 namespace DataAgent
 {
@@ -74,6 +75,7 @@ namespace DataAgent
             }
         }
 
+
         public List<Wrapping> QueryWrappings()
         {
             GetSynchronizerStatus();
@@ -99,6 +101,19 @@ namespace DataAgent
             {
                 //::TODO:: IMPLEMENT
                 return new List<Order>();
+            }
+        }
+
+        public List<OrderStatus> QueryOrderStates()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
+            }
+            else
+            {
+                return localDH.QueryOrderStates();
             }
         }
         #endregion

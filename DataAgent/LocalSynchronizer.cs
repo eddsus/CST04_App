@@ -54,6 +54,7 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
+            IntitializeBaseData();
             while (true)
             {
                 if (Connected())
@@ -68,6 +69,31 @@ namespace LocalSynchronization
                 Thread.Sleep(30000);
             }
         }
+        #region INIT BASE DATA
+        private void IntitializeBaseData()
+        {
+            InitializeOrederStatus();
+        }
+
+        private void InitializeOrederStatus()
+        {
+            //Get list from server
+            var serverTemplist = serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
+            //get local list
+            var localTempList = dataHandler.QueryOrderStates();
+            if (serverTemplist.Count != localTempList.Count)
+            {
+                //Empty local list
+                dataHandler.ClearOrderStatus();
+                //And refill it with the fresh ones
+                foreach (var item in serverTemplist)
+                {
+                    dataHandler.AddOrderStatus(item);
+                }
+            }
+        }
+        #endregion
+
         #endregion
 
         #region SYNC LOCAL DB AND UPDATE GUI
