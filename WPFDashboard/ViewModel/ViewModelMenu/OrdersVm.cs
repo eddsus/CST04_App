@@ -25,7 +25,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #endregion
 
         #region PROPERTIES
-        public RelayCommand BtnShowdetails { get; set; }
+        public RelayCommand<Order> BtnShowdetails { get; set; }
         public ViewModelBase OrderDetailsView
         {
             get { return orderDetailsView; }
@@ -52,7 +52,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public OrdersVm()
         {
-            BtnShowdetails = new RelayCommand(() => { OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>(); });
+            BtnShowdetails = new RelayCommand<Order>((p) => {
+                Messenger.Default.Send(new Order(p));
+                OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>();
+            });
+           
             InitializeOrdersList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
         }

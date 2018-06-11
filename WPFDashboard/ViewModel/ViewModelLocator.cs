@@ -40,9 +40,9 @@ namespace WPFDashboard.ViewModel
 
             //Order has inner Views
             //Make a detail views for all pages
-            SimpleIoc.Default.Register<OrderDetailsVm>();
-            SimpleIoc.Default.Register<PackageDetailsVm>();
-            SimpleIoc.Default.Register<CreationDetailsVm>();
+            SimpleIoc.Default.Register<OrderDetailsVm>(true);
+            SimpleIoc.Default.Register<PackageDetailsVm>(true);
+            SimpleIoc.Default.Register<CreationDetailsVm>(true);
 
         }
 

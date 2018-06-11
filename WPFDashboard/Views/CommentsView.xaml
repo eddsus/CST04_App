@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WPFDashboard.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="600"
               DataContext="{Binding Source={StaticResource Locator}, Path=Comments}">
     <Grid >
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListOfComments}">
@@ -14,18 +14,10 @@
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}"/>
                 <DataGridTextColumn Header="Product" Binding="{Binding Product}"/>
                 <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"/>
-                <DataGridTemplateColumn Header="Publish">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Viewbox>
-                                <Button >
-                                    <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
-                                </Button>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Details">
+                <DataGridCheckBoxColumn Header="Publish"/>
+
+
+                <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>

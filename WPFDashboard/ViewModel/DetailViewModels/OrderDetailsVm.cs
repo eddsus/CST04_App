@@ -1,7 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
-
+using GalaSoft.MvvmLight.Messaging;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,65 +10,97 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.ViewModel.DetailViewModels;
+using WPFDashboard.ViewModel.ViewModelMenu;
 
 namespace WPFDashboard.ViewModel.OrderVModels
 {
 
-    public class OrderDetailsVm:ViewModelBase
+    public class OrderDetailsVm : ViewModelBase
 
     {
         #region Properties
-        
-        private ViewModelBase currrentDetail;
+
+        private ViewModelBase currentDetail;
 
         public ViewModelBase CurrentDetail
         {
-            get { return currrentDetail; }
-            set {
-                currrentDetail = value;
+            get { return currentDetail; }
+            set
+            {
+                currentDetail = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<PackageTestVm> PackageTestList { get; set; }
-        public ObservableCollection<CreationTestVm> CreationTestList { get; set; }
-        public ObservableCollection<DetailsTestListVm> OrderContentDetailsList { get; set; }
-        public RelayCommand<DetailsTestListVm> BtnDelete { get; set; }
-        public RelayCommand<DetailsTestListVm> BtnDetails { get; set; }
+        public ObservableCollection<OrderContentPackage> PackageList { get; set; }
+        public ObservableCollection<OrderContentChocolate> CreationList { get; set; }
+        public ObservableCollection<OrderContent> OrderContentDetailsList { get; set; }
+        public RelayCommand<OrderContent> BtnDelete { get; set; }
+        public RelayCommand<OrderContent> BtnDetails { get; set; }
+        private Order currentOrder;
+
+        public Order CurrentOrder
+        {
+            get { return currentOrder; }
+            set { currentOrder = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         #endregion
 
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
-            OrderContentDetailsList = new ObservableCollection<DetailsTestListVm>();
+            Messenger.Default.Register<Order>(this, DisplayOrderInfo);
+           
+
             InitPackage();
             InitCreation();
-            AddItemsToDetailsList();
-            BtnDelete = new RelayCommand<DetailsTestListVm>((p)=> { DeleteItem(p); });
-            BtnDetails = new RelayCommand<DetailsTestListVm>((p)=> {ShowItemDetails(p);});
-        }
 
-        private void ShowItemDetails(DetailsTestListVm p)
-        {       if (p.Type.Contains("package"))
-                {
-                    CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
-                }
-                else
-                {
-                    CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
-                }
-         }
+            AddItemsToDetailsList();
+
+            BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
+            BtnDetails = new RelayCommand<OrderContent>((p) => { ShowItemDetails(p); });
+        }
 
         
 
+        private void DisplayOrderInfo(Order obj)
+        {
+            CurrentOrder = obj;
+            RaisePropertyChanged("CurrentOrder");
+           // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
+        }
+
+        private void DeleteItem(OrderContent p)
+        {
+            OrderContentDetailsList.Remove(p);
+        }
+
+        private void ShowItemDetails(OrderContent p)
+        {
+            if (p.GetType().ToString().Equals("Package"))
+            {
+                CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
+            }
+            else
+            {
+                CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+            }
+        }
+
+
+
         private void AddItemsToDetailsList()
         {
-            foreach (var item in CreationTestList)
+            foreach (var item in CreationList)
             {
                 OrderContentDetailsList.Add(item);
             }
 
-            foreach (var item in PackageTestList)
+            foreach (var item in PackageList)
             {
                 OrderContentDetailsList.Add(item);
             }
@@ -75,21 +108,13 @@ namespace WPFDashboard.ViewModel.OrderVModels
 
         private void InitCreation()
         {
-            CreationTestList = new ObservableCollection<CreationTestVm>();
-            CreationTestList.Add(new CreationTestVm(4, "Strawberry dream"));
-            CreationTestList.Add(new CreationTestVm(2,"Marshmellow pillow"));
+            CreationList = new ObservableCollection<OrderContentChocolate>();
+           
         }
 
         private void InitPackage()
         {
-            PackageTestList = new ObservableCollection<PackageTestVm>();
-            PackageTestList.Add(new PackageTestVm(5, "Chokos"));
-            PackageTestList.Add(new PackageTestVm(10, "Nice packages"));
-        }
-
-        private void DeleteItem(DetailsTestListVm item)
-        {
-            OrderContentDetailsList.Remove(item); 
+            PackageList = new ObservableCollection<OrderContentPackage>();
         }
     }
 }

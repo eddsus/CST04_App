@@ -29,9 +29,9 @@
             </Grid.ColumnDefinitions>
 
             <!--======First Line description=============-->
-            <StackPanel Orientation="Horizontal" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Order ID:" FontWeight="Bold"/>
-                <Label Content="Muster ID"/>
+                <Label Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
             </StackPanel>
 
             <Label Grid.Column="1" Content="Content" Margin="10" FontWeight="Bold" HorizontalAlignment="Left"/>
@@ -43,11 +43,10 @@
 
             <!--=========Content View Data Grid=========-->
             <!--<Viewbox >-->
-            <DataGrid Margin="5" Grid.Column="1" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentDetailsList}">
+            <DataGrid Margin="5" Grid.Column="1" Grid.Row="1" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Product name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                    <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -89,10 +88,10 @@
                 <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
                 <Label Grid.Row="2" Content="Due Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
                 <!--Content of Customer details-->
-                <Label Content="Max Musterman" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
-                <Label Grid.Row="1" Content="dd.mm.yyyy" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <Label Content="{Binding CurrentOrder.Customer.FirstName}" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                <Label Grid.Row="1" Content="{Binding CurrentOrder.DateOfOrder}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                 <Viewbox Grid.Row="2" Grid.Column="1">
-                    <Calendar/>
+                    <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
                 </Viewbox>
             </Grid>
 
@@ -106,7 +105,7 @@
                     <Viewbox>
                         <Label Content="Comment" FontWeight="Bold"/>
                     </Viewbox>
-                    <TextBox Grid.Row="1" Margin="4"/>
+                    <TextBox Text="{Binding CurrentOrder.Note}" Grid.Row="1" Margin="4"/>
                 </Grid>
             </Viewbox>
             <!--Comment to Pause + Save Button-->
