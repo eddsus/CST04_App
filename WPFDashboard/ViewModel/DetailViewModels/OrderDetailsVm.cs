@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataAgent;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
@@ -32,8 +33,8 @@ namespace WPFDashboard.ViewModel.OrderVModels
             }
         }
 
-        public ObservableCollection<OrderContentPackage> PackageList { get; set; }
-        public ObservableCollection<OrderContentChocolate> CreationList { get; set; }
+        //::TODO:: Bind to xaml
+        public ObservableCollection<OrderStatus> OrderStateSelection { get; set; }
         public ObservableCollection<OrderContent> OrderContentDetailsList { get; set; }
         public RelayCommand<OrderContent> BtnDelete { get; set; }
         public RelayCommand<OrderContent> BtnDetails { get; set; }
@@ -53,13 +54,13 @@ namespace WPFDashboard.ViewModel.OrderVModels
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
+
+
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
-           
 
-            InitPackage();
-            InitCreation();
-
-            AddItemsToDetailsList();
+            OrderStateSelection = new ObservableCollection<OrderStatus>(DataAgentUnit.GetInstance().QueryOrderStates());
+            //InitPackage();
+            //InitCreation();
 
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
             BtnDetails = new RelayCommand<OrderContent>((p) => { ShowItemDetails(p); });
@@ -67,15 +68,16 @@ namespace WPFDashboard.ViewModel.OrderVModels
 
         
 
-        private void DisplayOrderInfo(Order obj)
+        private void DisplayOrderInfo(Order currentOrder)
         {
-            CurrentOrder = obj;
+            CurrentOrder = currentOrder;
             RaisePropertyChanged("CurrentOrder");
            // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
         }
 
         private void DeleteItem(OrderContent p)
         {
+            //::TODO::also inform localdb and serverdb
             OrderContentDetailsList.Remove(p);
         }
 
@@ -89,32 +91,6 @@ namespace WPFDashboard.ViewModel.OrderVModels
             {
                 CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
             }
-        }
-
-
-
-        private void AddItemsToDetailsList()
-        {
-            foreach (var item in CreationList)
-            {
-                OrderContentDetailsList.Add(item);
-            }
-
-            foreach (var item in PackageList)
-            {
-                OrderContentDetailsList.Add(item);
-            }
-        }
-
-        private void InitCreation()
-        {
-            CreationList = new ObservableCollection<OrderContentChocolate>();
-           
-        }
-
-        private void InitPackage()
-        {
-            PackageList = new ObservableCollection<OrderContentPackage>();
         }
     }
 }

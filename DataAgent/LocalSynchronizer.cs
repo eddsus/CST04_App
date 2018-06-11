@@ -19,10 +19,11 @@ namespace LocalSynchronization
         private readonly Action CreationInformer;
         private readonly Action IngredientInformer;
         private readonly Action CommentsInformer;
+        private readonly Action DisplayInformation;
         private bool connected = false;
         private DateTime LastUpdate;
         #endregion
-        public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer)
+        public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action displayInformation)
         {
             dataHandler = new LocalDataHandler();
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
@@ -31,7 +32,7 @@ namespace LocalSynchronization
             CreationInformer = creationInformer;
             IngredientInformer = ingredientInformer;
             CommentsInformer = commentsInformer;
-
+            DisplayInformation = displayInformation;
         }
 
         #region INITIALIZATION
@@ -53,6 +54,7 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
+            IntitializeBaseData();
             while (true)
             {
                 if (Connected())
@@ -63,9 +65,35 @@ namespace LocalSynchronization
                     SyncronizeIngrdients();
                     //SynchronizeComments();
                 }
-                Thread.Sleep(20000);
+                DisplayInformation.Invoke();
+                Thread.Sleep(30000);
             }
         }
+        #region INIT BASE DATA
+        private void IntitializeBaseData()
+        {
+            InitializeOrederStatus();
+        }
+
+        private void InitializeOrederStatus()
+        {
+            //Get list from server
+            var serverTemplist = serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
+            //get local list
+            var localTempList = dataHandler.QueryOrderStates();
+            if (serverTemplist.Count != localTempList.Count)
+            {
+                //Empty local list
+                dataHandler.ClearOrderStatus();
+                //And refill it with the fresh ones
+                foreach (var item in serverTemplist)
+                {
+                    dataHandler.AddOrderStatus(item);
+                }
+            }
+        }
+        #endregion
+
         #endregion
 
         #region SYNC LOCAL DB AND UPDATE GUI

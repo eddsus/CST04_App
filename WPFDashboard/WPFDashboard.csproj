@@ -91,7 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
-    <Compile Include="Helpers\ISynchronizable.cs" />
+    <Compile Include="Helpers\Interfaces\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\DummyVm\IngredientTestVm.cs" />
@@ -107,8 +107,8 @@
     <Compile Include="ViewModel\ViewModelMenu\IngredientsVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\OrdersVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\PackagesVm.cs" />
-    <Compile Include="Helpers\RefreshMessage.cs" />
-    <Compile Include="Helpers\PropertyChanged.cs" />
+    <Compile Include="Helpers\MessengerWrappers\RefreshMessage.cs" />
+    <Compile Include="Helpers\MessengerWrappers\PropertyChanged.cs" />
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -209,7 +209,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
       <Project>{fa03a1b3-b0fd-45da-a08a-76ed7d25db97}</Project>
       <Name>SharedDataTypes</Name>
     </ProjectReference>
