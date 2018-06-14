@@ -79,23 +79,33 @@ namespace WPFDashboard.ViewModel
 
             BtnRefresh = new RelayCommand(() =>
             {
-                GetConnectionStatus();
-                Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
+                RefreshCurrentView();
             });
             Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
 
             StartSynchronizer();
         }
-            
+
+        private void RefreshCurrentView()
+        {
+            GetConnectionStatus();
+            Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
+        }
+
+        private void SetConnectionStatus(bool msg)
+        {
+            ConnectStatus = msg;
+            RefreshCurrentView();
+        }
 
         private void DisplayInformation(PropertyChanged<Ingredient> message)
         {
             InfoMessage = String.Format("{0} {1}", message.ChangedProperty.Name, message.Message);
         }
 
-        private void DisplayInformation()
+        private void DisplayInformation(string message)
         {
-            InfoMessage = String.Format("Last sync: {0}", DateTime.Now);
+            InfoMessage = message;
         }
 
 
@@ -107,7 +117,7 @@ namespace WPFDashboard.ViewModel
                   SimpleIoc.Default.GetInstance<CreationsVm>().ViewSynchronized,
                    SimpleIoc.Default.GetInstance<IngredientsVm>().ViewSynchronized,
                     SimpleIoc.Default.GetInstance<CommentsVm>().ViewSynchronized,
-                    DisplayInformation);
+                    DisplayInformation, SetConnectionStatus);
             localSync.StartSyncing();
         }
         private bool GetConnectionStatus()

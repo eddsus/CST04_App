@@ -19,11 +19,12 @@ namespace LocalSynchronization
         private readonly Action CreationInformer;
         private readonly Action IngredientInformer;
         private readonly Action CommentsInformer;
-        private readonly Action DisplayInformation;
+        private readonly Action<string> DisplayInformation;
+        private readonly Action<bool> SetConnectionStatus;
         private bool connected = false;
         private DateTime LastUpdate;
         #endregion
-        public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action displayInformation)
+        public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action<string> displayInformation, Action<bool> setConnectionStatus)
         {
             dataHandler = new LocalDataHandler();
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
@@ -33,6 +34,7 @@ namespace LocalSynchronization
             IngredientInformer = ingredientInformer;
             CommentsInformer = commentsInformer;
             DisplayInformation = displayInformation;
+            SetConnectionStatus = setConnectionStatus;
         }
 
         #region INITIALIZATION
@@ -59,13 +61,17 @@ namespace LocalSynchronization
             {
                 if (Connected())
                 {
+                    SetConnectionStatus(true);
                     //SyncronizeOrders();
                     //SyncronizePackages();
                     //SyncronizeCreations();
                     SyncronizeIngrdients();
                     //SynchronizeComments();
+                    DisplayInformation.Invoke("Last sync: "+ DateTime.Now);
+                } else
+                {
+                    SetConnectionStatus(false);
                 }
-                DisplayInformation.Invoke();
                 Thread.Sleep(30000);
             }
         }
@@ -81,14 +87,17 @@ namespace LocalSynchronization
             var serverTemplist = serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
             //get local list
             var localTempList = dataHandler.QueryOrderStates();
-            if (serverTemplist.Count != localTempList.Count)
+            if(serverTemplist != null && localTempList != null)
             {
-                //Empty local list
-                dataHandler.ClearOrderStatus();
-                //And refill it with the fresh ones
-                foreach (var item in serverTemplist)
+                if (serverTemplist.Count != localTempList.Count)
                 {
-                    dataHandler.AddOrderStatus(item);
+                    //Empty local list
+                    dataHandler.ClearOrderStatus();
+                    //And refill it with the fresh ones
+                    foreach (var item in serverTemplist)
+                    {
+                        dataHandler.AddOrderStatus(item);
+                    }
                 }
             }
         }
