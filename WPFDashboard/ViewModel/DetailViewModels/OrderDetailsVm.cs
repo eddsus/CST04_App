@@ -33,8 +33,18 @@ namespace WPFDashboard.ViewModel.OrderVModels
             }
         }
 
-        //::TODO:: Bind to xaml
-        public ObservableCollection<OrderStatus> OrderStateSelection { get; set; }
+        private string selectedOrderState;
+
+        public string SelectedOrderState
+        {
+            get { return selectedOrderState; }
+            set { selectedOrderState = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> OrderStateStrings { get; set; }
+
         public ObservableCollection<OrderContent> OrderContentDetailsList { get; set; }
         public RelayCommand<OrderContent> BtnDelete { get; set; }
         public RelayCommand<OrderContent> BtnDetails { get; set; }
@@ -58,7 +68,12 @@ namespace WPFDashboard.ViewModel.OrderVModels
 
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
 
-            //OrderStateSelection = new ObservableCollection<OrderStatus>(DataAgentUnit.GetInstance().QueryOrderStates());
+            OrderStateStrings = new ObservableCollection<string>();
+            foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
+            {
+                OrderStateStrings.Add(item.Decription);
+            }
+
             //InitPackage();
             //InitCreation();
 
@@ -71,8 +86,10 @@ namespace WPFDashboard.ViewModel.OrderVModels
         private void DisplayOrderInfo(Order currentOrder)
         {
             CurrentOrder = currentOrder;
+            SelectedOrderState = CurrentOrder.Status.Decription;
             RaisePropertyChanged("CurrentOrder");
-           // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
+            RaisePropertyChanged("SelectedOrderState");
+            // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
         }
 
         private void DeleteItem(OrderContent p)
