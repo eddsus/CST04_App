@@ -58,7 +58,7 @@ namespace WPFDashboard.ViewModel.OrderVModels
 
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
 
-            OrderStateSelection = new ObservableCollection<OrderStatus>(DataAgentUnit.GetInstance().QueryOrderStates());
+            //OrderStateSelection = new ObservableCollection<OrderStatus>(DataAgentUnit.GetInstance().QueryOrderStates());
             //InitPackage();
             //InitCreation();
 
