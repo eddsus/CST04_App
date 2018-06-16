@@ -39,9 +39,9 @@
                 <!--Order Id-->
                 <Label Content="Order ID:" FontWeight="Bold" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <Label Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
-                <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="State" FontWeight="Bold" HorizontalAlignment="Right"/>
-                    <ComboBox Width="50" Margin="5" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
+                <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label VerticalAlignment="Center" Content="State" FontWeight="Bold" HorizontalAlignment="Right"/>
+                    <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
             </StackPanel>
 
            

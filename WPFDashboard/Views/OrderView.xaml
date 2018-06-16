@@ -8,21 +8,23 @@
              xmlns:viewmodels="clr-namespace:WPFDashboard.ViewModel.OrderVModels"
              xmlns:detailviewmodels="clr-namespace:WPFDashboard.ViewModel.DetailViewModels"
              xmlns:detailviews="clr-namespace:WPFDashboard.Views.DetailViews"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1080"
              DataContext="{Binding Source={StaticResource Locator}, Path=Orders}">
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.1*"/>
+           
             <ColumnDefinition Width="5*"/>
             
         </Grid.ColumnDefinitions>
       
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}" CanUserAddRows="False">
+            <!--<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding OrdersList}" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Customer First Name" Binding="{Binding Customer.FirstName}"/>
-                    <!--<DataGridTextColumn Header="Customer Last Name" Binding="{Binding Customer.LastName}"/>-->
-                    <!--<DataGridTextColumn Header="Order Date" Binding="{Binding DateOfOrder}"/>-->
+                    --><!--<DataGridTextColumn Header="Customer Last Name" Binding="{Binding Customer.LastName}"/>-->
+                    <!--<DataGridTextColumn Header="Order Date" Binding="{Binding DateOfOrder}"/>--><!--
                     <DataGridTextColumn Header="Due Date" Binding="{Binding DateOfDelivery}"/>
                     <DataGridTextColumn Header="State" Binding="{Binding Status.Decription}" />
                     <DataGridTemplateColumn Header="Take action">
@@ -34,8 +36,49 @@
                     </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
-            </DataGrid>
-    
+            </DataGrid>-->
+
+        <ItemsControl  ItemsSource="{Binding OrdersList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <!--Label names-->
+                            <Label Content="Name:"/>
+                            <Label Grid.Row="1" Content="Due Date:"/>
+                            <Label Grid.Row="2" Content="State:"/>
+                            <!--label content-->
+                            <Label Grid.Column="1" Content="{Binding Customer.FirstName}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding DateOfDelivery}"/>
+                            <Label Grid.Column="1" Grid.Row="2" Content="{Binding Status.Decription}"/>
+                            <!-- Button-->
+                            <Button Grid.Row="3" Grid.ColumnSpan="2" Margin="5" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}">
+                                <Grid Width="110">
+                                    <materialDesign:PackIcon Kind="ViewModule" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Edit Order" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
         <!--OrderDeatailspage-->
         <Grid Grid.Column="1">
             <ContentControl Content="{Binding OrderDetailsView}">

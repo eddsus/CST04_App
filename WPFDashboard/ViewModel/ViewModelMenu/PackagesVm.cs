@@ -32,7 +32,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public RelayCommand BtnPackageDetails { get; set; }
 
-        public ObservableCollection<Package> ListPackages { get; set; }
+        //public ObservableCollection<Package> ListPackages { get; set; }
+        public ObservableCollection<PackageItemVm> ListPackages { get; set; }
 
         #endregion
         //testing shapes
@@ -77,6 +78,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializePackageList()
         {
+            ListPackages = new ObservableCollection<PackageItemVm>();
+            ListPackages.Add(new PackageItemVm("First Package", "Muster Max", "New", 5));
+            ListPackages.Add(new PackageItemVm("Second Package", "Muster Mini", "New", 3));
             // Shapes = new ObservableCollection<Shape>();
 
             //foreach (var item in DataAgent.QueryShapes())
@@ -84,7 +88,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //    Shapes.Add(item);
             //}
 
-           
+
         }
 
     }
