@@ -58,6 +58,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
         public void InitializeCommentsList()
         {
+            ListOfComments = new ObservableCollection<Rating>();
             //Wraps = new ObservableCollection<Wrapping>();
 
             //foreach (var item in DataAgent.QueryWrappings())
