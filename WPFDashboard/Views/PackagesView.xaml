@@ -70,11 +70,11 @@
                             <Label Grid.Row="2" Content="State:"/>
                             <Label Grid.Row="3" Content="Rating"/>
                             <!--label contents-->
-                            <Label Grid.Column="1" Content="{Binding PackageName}"/>
-                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding CreatedBy}"/>
-                            <Label Grid.Column="1" Grid.Row="2" Content="{Binding State}"/>
+                            <Label Grid.Column="1" Content="{Binding Name}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Customer.FirstName}"/>
+                            <Label Grid.Column="1" Grid.Row="2" Content="{Binding Available}"/>
                             <Viewbox Grid.Column="1" Grid.Row="3">
-                                <materialDesign:RatingBar  Value="{Binding Rating}"/>
+                                <materialDesign:RatingBar/>
                             </Viewbox>
                             <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="10" Command="{Binding DataContext.BtnPackageDetails, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
                                 <Grid Width="110">

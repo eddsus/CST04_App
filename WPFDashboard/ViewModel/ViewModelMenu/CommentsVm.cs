@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFDashboard.ViewModel.ViewModelMenu.DummyVm;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -19,8 +19,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         //testing wraps
         //todo: Generate regions for fields and properties
         #region Properties
-        public RelayCommand<CommentItemVm> BtnDelete{ get; set; }
-        public ObservableCollection<CommentItemVm> ListOfComments { get; set; }
+        public RelayCommand<Rating> BtnDelete{ get; set; }
+        public ObservableCollection<Rating> ListOfComments { get; set; }
         #endregion
         private ObservableCollection<Wrapping> wraps;
 
@@ -36,10 +36,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             InitializeCommentsList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnDelete = new RelayCommand<CommentItemVm>((p)=> { DeleteItem(p); });
+            BtnDelete = new RelayCommand<Rating>((p)=> { DeleteItem(p); });
         }
 
-        private void DeleteItem(CommentItemVm p)
+        private void DeleteItem(Rating p)
         {
             ListOfComments.Remove(p);
         }
@@ -65,10 +65,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //    Wraps.Add(item);
             //}
 
-            ListOfComments = new ObservableCollection<CommentItemVm>();
-            ListOfComments.Add(new CommentItemVm("Max Mustermann","Birthday Box","Deliicous!"));
-            ListOfComments.Add(new CommentItemVm("Stan Marsh", "Xmas Box", "Won't order again") {});
-            ListOfComments.Add(new CommentItemVm("Angry Bird", "Birthday Box", "Tastes like shit"));
+           
           
         }
 

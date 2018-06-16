@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.ViewModelMenu.DummyVm;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -32,8 +32,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public RelayCommand BtnPackageDetails { get; set; }
 
-        //public ObservableCollection<Package> ListPackages { get; set; }
-        public ObservableCollection<PackageItemVm> ListPackages { get; set; }
+        public ObservableCollection<Package> ListPackages { get; set; }
+        
 
         #endregion
         //testing shapes
@@ -78,9 +78,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializePackageList()
         {
-            ListPackages = new ObservableCollection<PackageItemVm>();
-            ListPackages.Add(new PackageItemVm("First Package", "Muster Max", "New", 5));
-            ListPackages.Add(new PackageItemVm("Second Package", "Muster Mini", "New", 3));
+            ListPackages = new ObservableCollection<Package>();
+           
             // Shapes = new ObservableCollection<Shape>();
 
             //foreach (var item in DataAgent.QueryShapes())

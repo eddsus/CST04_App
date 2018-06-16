@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.ViewModelMenu.DummyVm;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -31,15 +32,15 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
 
         public ObservableCollection<string> States { get; set; }
-        public ObservableCollection<CreationItemVm> ListOfCreations { get; set; }
+        public ObservableCollection<Chocolate> ListOfChocolates { get; set; }
         public string CurrentState { get; set; }
-        public CreationItemVm CurrentCreationItem { get; set; }
+        public Chocolate CurrentChocolate { get; set; }
 
         #endregion
 
         public CreationsVm()
         {
-            InitializeCreationsList();
+            InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
             BtnCreationDetails = new RelayCommand(()=> { ShowCreationdetails(); });
@@ -47,7 +48,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitStateList()
         {
-            States = new ObservableCollection<string>() {"In Work", "Paused","Removed"};
+            States = new ObservableCollection<string>() {};
         }
 
         private void ShowCreationdetails()
@@ -59,22 +60,19 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             if (GetType() == obj.View)
             {
-                InitializeCreationsList();
+                InitializeChocolateList();
             }
         }
         public void ViewSynchronized()
         {
-            InitializeCreationsList();
+            InitializeChocolateList();
         }
 
 
-        private void InitializeCreationsList()
+        private void InitializeChocolateList()
         {
-            ListOfCreations = new ObservableCollection<CreationItemVm>();
-            ListOfCreations.Add(new CreationItemVm("TestChoco1", "Max Mustermann", 3,"In Work"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco2", "Sabine Bergmann", 5, "Paused"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco3", "Appolo Testmann", 4, "Removed"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco4", "Ingrid Mueller", 2, "In Work"));
+            ListOfChocolates = new ObservableCollection<Chocolate>();
+            
 
         }
     }

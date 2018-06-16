@@ -92,18 +92,13 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToBrushConverter.cs" />
     <Compile Include="Helpers\Interfaces\ISynchronizable.cs" />
-    <Compile Include="ViewModel\DetailViewModels\DummyVm\ChocolateTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
-    <Compile Include="ViewModel\DetailViewModels\DummyVm\IngredientTestVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\PackageDetailsVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CommentsVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CreationsVm.cs" />
-    <Compile Include="ViewModel\ViewModelMenu\DummyVm\CommentItemVm.cs" />
-    <Compile Include="ViewModel\ViewModelMenu\DummyVm\CreationItemVm.cs" />
-    <Compile Include="ViewModel\ViewModelMenu\DummyVm\PackageItemVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\IngredientsVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\OrdersVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\PackagesVm.cs" />

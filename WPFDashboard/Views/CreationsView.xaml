@@ -17,15 +17,13 @@
         </Grid.ColumnDefinitions>
         
         <!--============Creations List===================-->
-        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfCreations}">
+        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Chocolate name" Binding="{Binding ChocoName}"/>
-                <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy}"/>
-                
+                <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}"/>
                 <DataGridTemplateColumn Header="Rating">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <materialDesign:RatingBar Max="5" Value="{Binding Rating}"/>
+                            <materialDesign:RatingBar />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

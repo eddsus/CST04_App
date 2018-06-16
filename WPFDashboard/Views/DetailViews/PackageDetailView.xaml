@@ -82,7 +82,7 @@
             <DataGrid ItemsSource="{Binding Chocolates}" AutoGenerateColumns="False" Margin="10" Grid.Row="3" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                    <DataGridTextColumn Header="Amount" />
                     <DataGridTemplateColumn Header="Details">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
