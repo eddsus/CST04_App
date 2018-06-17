@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.OrderVModels;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -43,22 +43,36 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public RelayCommand<Order> BtnViewDetails
         {
             get { return btnviewDetails; }
-            set {
+            set
+            {
                 btnviewDetails = value;
                 RaisePropertyChanged();
             }
         }
+
+        private Order currentItem;
+
+        public Order CurrentItem
+        {
+            get { return currentItem; }
+            set { currentItem = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         public OrdersVm()
         {
-            BtnShowdetails = new RelayCommand<Order>((p) => {
+            BtnShowdetails = new RelayCommand<Order>((p) =>
+            {
                 Messenger.Default.Send(new Order(p));
                 OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>();
             });
-           
+
             InitializeOrdersList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
+
         }
 
         private void Refresh(RefreshMessage obj)
