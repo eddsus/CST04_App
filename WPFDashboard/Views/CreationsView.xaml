@@ -19,11 +19,13 @@
         <!--============Creations List===================-->
         <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
+                
                 <DataGridTemplateColumn Header="Rating">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <materialDesign:RatingBar />
+                            <materialDesign:RatingBar Max="5" Value="{Binding Rating}" DataContext="{Binding AverageRating}" IsEnabled="False"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -38,7 +40,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn Header="State" Binding="{Binding State}"/>
+                <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>
                 <DataGridTemplateColumn Header="Publish">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

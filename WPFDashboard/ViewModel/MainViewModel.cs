@@ -88,7 +88,7 @@ namespace WPFDashboard.ViewModel
 
         private void RefreshCurrentView()
         {
-            GetConnectionStatus();
+            //GetConnectionStatus();
             Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
         }
 
@@ -111,7 +111,7 @@ namespace WPFDashboard.ViewModel
 
         private void StartSynchronizer()
         {
-            localSync = new LocalSynchronizer(
+             localSync =  new LocalSynchronizer(
                 SimpleIoc.Default.GetInstance<OrdersVm>().ViewSynchronized,
                  SimpleIoc.Default.GetInstance<PackagesVm>().ViewSynchronized,
                   SimpleIoc.Default.GetInstance<CreationsVm>().ViewSynchronized,

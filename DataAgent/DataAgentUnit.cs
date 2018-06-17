@@ -70,8 +70,7 @@ namespace DataAgent
             }
             else
             {
-                //::TODO:: IMPLEMENT
-                return new List<Shape>();
+                return localDH.QueryShapes();
             }
         }
 
@@ -85,8 +84,20 @@ namespace DataAgent
             }
             else
             {
-                //::TODO:: IMPLEMENT
-                return new List<Wrapping>();
+                return localDH.QueryWrappings();
+            }
+        }
+
+        public List<Chocolate> QueryCreations()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<Chocolate>>(@"QueryChocolatesWithIngredients");
+            }
+            else
+            {
+                return localDH.QueryCreations();
             }
         }
 
@@ -99,8 +110,7 @@ namespace DataAgent
             }
             else
             {
-                //::TODO:: IMPLEMENT
-                return new List<Order>();
+                return localDH.QueryOrders();
             }
         }
 
@@ -124,7 +134,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return serviceHandler.CallUpdateService<T>(@"UpdateIngredient", item);
+                return serviceHandler.CallUpdateService(@"UpdateIngredient", item);
             }
             else
             {

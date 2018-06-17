@@ -11,8 +11,50 @@ namespace DataHandler
     public class LocalDataHandler
     {
         LocalDbEntities localDb = new LocalDbEntities();
+        SharedConverter converter = new SharedConverter();
 
         #region QUERIES
+
+        public List<SharedDataTypes.Order> QueryOrders()
+        {
+            //throw new NotImplementedException();
+            return new List<SharedDataTypes.Order>();
+        }
+        public List<SharedDataTypes.Chocolate> QueryCreations()
+        {
+            var temp = localDb.Chocolate.Select(c =>c).ToList();
+            var tempShared = new List<SharedDataTypes.Chocolate>();
+            foreach (var item in temp)
+            {
+                tempShared.Add(converter.ConvertToSharedChocolate(item));
+            }
+            return tempShared;
+        }
+
+        internal static List<Ingredient> QueryIngredientsByChocolateId(Guid iD_Chocolate)
+        {
+            throw new NotImplementedException();
+        }
+
+       
+
+        internal static List<SharedDataTypes.Rating> QueryRatingsByChocolateId(Guid iD_Chocolate)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal SharedDataTypes.Customer QueryCustomerById(Guid creator_Customer_ID)
+        {
+            var temp = localDb.Customer.Where(c => c.ID_Customer == creator_Customer_ID).Select(mc => mc).First();
+            return new SharedDataTypes.Customer() {
+                CustomerId = temp.ID_Customer,
+                FirstName = temp.FirstName,
+                LastName = temp.LastName,
+                Mail = temp.Mail,
+                PhoneNumber = temp.PhoneNumber
+                // ::TODO::Adress
+            };
+        }
 
         public List<Ingredient> QueryIngredients()
         {
@@ -29,7 +71,14 @@ namespace DataHandler
             }).ToList();
             return temp;
         }
-
+        public List<SharedDataTypes.Shape> QueryShapes()
+        {
+            throw new NotImplementedException();
+        }
+        public List<SharedDataTypes.Wrapping> QueryWrappings()
+        {
+            throw new NotImplementedException();
+        }
         public List<SharedDataTypes.OrderStatus> QueryOrderStates()
         {
             var temp = localDb.OrderStatus.Select(i => new SharedDataTypes.OrderStatus()
@@ -40,20 +89,14 @@ namespace DataHandler
             return temp;
         }
 
+
         #endregion
 
         #region INSERTS
-
-        public bool AddOrderStatus(SharedDataTypes.OrderStatus toBeAdded)
+        public bool AddCreation(SharedDataTypes.Chocolate item)
         {
-            localDb.OrderStatus.Add(new Local_Database.OrderStatus()
-            {
-                ID_OrderStatus = toBeAdded.OrderStatusId,
-                StatusDescription = toBeAdded.Decription
-            });
-            return localDb.SaveChanges() > 0;
+            throw new NotImplementedException();
         }
-
         public bool AddIngredient(Ingredient toBeAdded)
         {
             localDb.Ingredients.Add(new Ingredients()
@@ -69,11 +112,22 @@ namespace DataHandler
             });
             return localDb.SaveChanges() > 0;
         }
-
+        public bool AddOrderStatus(SharedDataTypes.OrderStatus toBeAdded)
+        {
+            localDb.OrderStatus.Add(new Local_Database.OrderStatus()
+            {
+                ID_OrderStatus = toBeAdded.OrderStatusId,
+                StatusDescription = toBeAdded.Decription
+            });
+            return localDb.SaveChanges() > 0;
+        }
         #endregion
 
         #region REMOVES
-
+        public bool RemoveCreationById(Guid chocolateId)
+        {
+            throw new NotImplementedException();
+        }
         public bool RemoveIngredientById(Guid ingredientId)
         {
             //get the item that will be removed
@@ -82,14 +136,15 @@ namespace DataHandler
                 localDb.Ingredients.Remove(temp);
             return localDb.SaveChanges() > 0;
         }
-
         public void ClearOrderStatus()
         {
             //remove all entries
             localDb.OrderStatus.RemoveRange(localDb.OrderStatus.Select(o => o));
             localDb.SaveChanges();
         }
+        #endregion
 
+        #region CONVERTERS
 
         #endregion
     }

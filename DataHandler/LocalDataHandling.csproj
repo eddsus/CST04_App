@@ -65,75 +65,79 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Local Database\Address.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Chocolate.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Customer.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\CustomStyle.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Ingredients.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Local Database\LocalModel.Context.cs">
+    <Compile Include="Local Database\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LocalModel.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Local Database\LocalModel.cs">
+    <Compile Include="Local Database\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Local Database\LocalModel.Designer.cs">
+    <Compile Include="Local Database\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LocalModel.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Order.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\OrderContent.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\OrderContent_has_Chocolate.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\OrderContent_has_Package.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\OrderStatus.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Package.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Package_has_Chocolate.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Rating.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Shape.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\Wrapping.cs">
-      <DependentUpon>LocalModel.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="LocalDataHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedTypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Local Database\LocalModel.edmx">
+    <EntityDeploy Include="Local Database\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LocalModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Local Database\LocalModel.edmx.diagram">
-      <DependentUpon>LocalModel.edmx</DependentUpon>
+    <None Include="Local Database\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -150,15 +154,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Local Database\LocalModel.Context.tt">
+    <Content Include="Local Database\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LocalModel.Context.cs</LastGenOutput>
-      <DependentUpon>LocalModel.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Local Database\LocalModel.tt">
+    <Content Include="Local Database\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LocalModel.edmx</DependentUpon>
-      <LastGenOutput>LocalModel.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="LocalDb.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -180,6 +184,7 @@
       <Name>SharedDataTypes</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

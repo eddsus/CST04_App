@@ -25,17 +25,18 @@ namespace DataHandler.Local_Database
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Ingredients> Ingredients { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Chocolate> Chocolate { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<CustomStyle> CustomStyle { get; set; }
+        public virtual DbSet<Ingredients> Ingredients { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderContent> OrderContent { get; set; }
         public virtual DbSet<OrderContent_has_Chocolate> OrderContent_has_Chocolate { get; set; }
         public virtual DbSet<OrderContent_has_Package> OrderContent_has_Package { get; set; }
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
         public virtual DbSet<Package> Package { get; set; }
+        public virtual DbSet<Package_has_Chocolate> Package_has_Chocolate { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<Shape> Shape { get; set; }
         public virtual DbSet<Wrapping> Wrapping { get; set; }
