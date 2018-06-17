@@ -1,4 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,14 +13,31 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 {
     public class PackageDetailsVm:ViewModelBase
     {
-        public ObservableCollection<ChocolateTestVm> Chocolates { get; set; }
+        private ViewModelBase currentChocolateView;
+
+        public ViewModelBase CurrentChocolateView
+        {
+            get { return currentChocolateView; }
+            set { currentChocolateView = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RelayCommand BtnShowDetails { get; set; }
+        public ObservableCollection<Chocolate> Chocolates { get; set; }
+
         public PackageDetailsVm()
         {
-            Chocolates = new ObservableCollection<ChocolateTestVm>();
-            Chocolates.Add(new ChocolateTestVm("My custom Choco", 6));
-            Chocolates.Add(new ChocolateTestVm("Toblerone", 2));
-            Chocolates.Add(new ChocolateTestVm("Milka", 4));
-            Chocolates.Add(new ChocolateTestVm("Lindt", 1));
+            
+            InitChocolates();
+            BtnShowDetails = new RelayCommand(()=> {CurrentChocolateView = SimpleIoc.Default.GetInstance<CreationDetailsVm>(); });
+            
+        }
+
+        private void InitChocolates()
+        {
+            Chocolates = new ObservableCollection<Chocolate>();
+           
         }
     }
 }

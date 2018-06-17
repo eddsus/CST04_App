@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.ViewModelMenu.DummyVm;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -34,15 +34,15 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
 
         public ObservableCollection<string> States { get; set; }
-        public ObservableCollection<Chocolate> ListOfCreations { get; set; }
+        public ObservableCollection<Chocolate> ListOfChocolates { get; set; }
         public string CurrentState { get; set; }
-        public CreationItemVm CurrentCreationItem { get; set; }
+        public Chocolate CurrentChocolate { get; set; }
 
         #endregion
 
         public CreationsVm()
         {
-            InitializeCreationsList();
+            InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
             BtnCreationDetails = new RelayCommand(()=> { ShowCreationdetails(); });
@@ -50,7 +50,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitStateList()
         {
-            States = new ObservableCollection<string>() {"In Work", "Paused","Removed"};
+            States = new ObservableCollection<string>() {};
         }
 
         private void ShowCreationdetails()
@@ -62,16 +62,16 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             if (GetType() == obj.View)
             {
-                InitializeCreationsList();
+                InitializeChocolateList();
             }
         }
         public void ViewSynchronized()
         {
-            InitializeCreationsList();
+            InitializeChocolateList();
         }
 
 
-        private void InitializeCreationsList()
+        private void InitializeChocolateList()
         {
             ListOfCreations = new ObservableCollection<Chocolate>(DataAgentUnit.GetInstance().QueryCreations());
             //ListOfCreations.Add(new CreationItemVm("TestChoco1", "Max Mustermann", 3,"In Work"));

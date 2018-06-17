@@ -71,16 +71,18 @@
 
         </Grid>
 
-        <!--=================DATA GRID WITH INGREDIENT LIST===========-->
+            <!--DESCRIPTIONS-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                <Label  Content="Description:" Margin="5" FontWeight="Bold" FontSize="15"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5"/>
+            </StackPanel>
+
+            <!--=================DATA GRID WITH INGREDIENT LIST===========-->
 
             <Label Content="Ingredients List:" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15"/>
             <DataGrid ItemsSource="{Binding IngredientsList}" Margin="10" Grid.Row="3" Grid.ColumnSpan="2"/>
              
-            <!--DESCRIPTIONS-->
-                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                    <Label  Content="Description:" Margin="5" FontWeight="Bold" FontSize="15"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" Margin="5"/>
-                </StackPanel>
+           
             <!--COMMENTS-->
             <Label Content="Comments:" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <DataGrid Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False">

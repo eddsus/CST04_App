@@ -12,12 +12,12 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=Packages}">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         
         <!--===========Packages List===========-->
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListPackages}">
+        <!--<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListPackages}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding PackageName}"/>
                 <DataGridTextColumn Header="Created By" Binding="{Binding CreatedBy}"/>
@@ -41,7 +41,52 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
+
+        <ItemsControl ItemsSource="{Binding ListPackages}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Label names-->
+                            <Label Content="Name:"/>
+                            <Label Grid.Row="1" Content="Created By:"/>
+                            <Label Grid.Row="2" Content="State:"/>
+                            <Label Grid.Row="3" Content="Rating"/>
+                            <!--label contents-->
+                            <Label Grid.Column="1" Content="{Binding Name}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Customer.FirstName}"/>
+                            <Label Grid.Column="1" Grid.Row="2" Content="{Binding Available}"/>
+                            <Viewbox Grid.Column="1" Grid.Row="3">
+                                <materialDesign:RatingBar/>
+                            </Viewbox>
+                            <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="10" Command="{Binding DataContext.BtnPackageDetails, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Grid Width="110">
+                                    <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Details" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
         <!--============Package Details View=========-->
         <ContentControl Grid.Column="1" Content="{Binding PackageDetailsView}">

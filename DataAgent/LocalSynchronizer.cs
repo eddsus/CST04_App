@@ -56,7 +56,7 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
-            IntitializeBaseData();
+           // IntitializeBaseData();
             while (true)
             {
                 if (Connected())

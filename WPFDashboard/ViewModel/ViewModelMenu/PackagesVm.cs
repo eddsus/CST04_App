@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.ViewModelMenu.DummyVm;
+
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -33,6 +33,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public RelayCommand BtnPackageDetails { get; set; }
 
         public ObservableCollection<Package> ListPackages { get; set; }
+        
 
         #endregion
         //testing shapes
@@ -77,6 +78,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializePackageList()
         {
+            ListPackages = new ObservableCollection<Package>();
+           
             // Shapes = new ObservableCollection<Shape>();
 
             //foreach (var item in DataAgent.QueryShapes())
@@ -84,7 +87,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             //    Shapes.Add(item);
             //}
 
-           
+
         }
 
     }

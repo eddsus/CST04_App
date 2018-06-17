@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         
         <!--============Creations List===================-->
-        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfCreations}">
+        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
