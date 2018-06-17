@@ -24,5 +24,20 @@ namespace WPFDashboard.Views
         {
             InitializeComponent();
         }
+
+       
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            OrderListbox.SelectedItems.Clear();
+          
+            foreach (var item in OrderListbox.ItemsSource)
+            {
+                if (item.ToString().ToLower().Contains(searchBox.Text.ToLower()))
+                {
+                    OrderListbox.SelectedItem=item;
+                }
+            }
+        }
     }
 }
