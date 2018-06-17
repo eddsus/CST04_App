@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using SharedDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,9 +19,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
     public class CreationsVm : ViewModelBase, ISynchronizable
     {
         //todo: Generate regions for fields and properties
+        #region FIELDS
+        private ViewModelBase creationDetailView;
+        #endregion
         #region Properties
         public RelayCommand BtnCreationDetails { get; set; }
-        private ViewModelBase creationDetailView;   
 
         public ViewModelBase CreationDetailView
         {
@@ -31,7 +34,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
 
         public ObservableCollection<string> States { get; set; }
-        public ObservableCollection<CreationItemVm> ListOfCreations { get; set; }
+        public ObservableCollection<Chocolate> ListOfCreations { get; set; }
         public string CurrentState { get; set; }
         public CreationItemVm CurrentCreationItem { get; set; }
 
@@ -70,11 +73,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializeCreationsList()
         {
-            ListOfCreations = new ObservableCollection<CreationItemVm>();
-            ListOfCreations.Add(new CreationItemVm("TestChoco1", "Max Mustermann", 3,"In Work"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco2", "Sabine Bergmann", 5, "Paused"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco3", "Appolo Testmann", 4, "Removed"));
-            ListOfCreations.Add(new CreationItemVm("TestChoco4", "Ingrid Mueller", 2, "In Work"));
+            ListOfCreations = new ObservableCollection<Chocolate>(DataAgentUnit.GetInstance().QueryCreations());
+            //ListOfCreations.Add(new CreationItemVm("TestChoco1", "Max Mustermann", 3,"In Work"));
+            //ListOfCreations.Add(new CreationItemVm("TestChoco2", "Sabine Bergmann", 5, "Paused"));
+            //ListOfCreations.Add(new CreationItemVm("TestChoco3", "Appolo Testmann", 4, "Removed"));
+            //ListOfCreations.Add(new CreationItemVm("TestChoco4", "Ingrid Mueller", 2, "In Work"));
 
         }
     }

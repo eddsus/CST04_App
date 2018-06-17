@@ -18,8 +18,8 @@ namespace DataHandler.Local_Database
         public Package()
         {
             this.OrderContent_has_Package = new HashSet<OrderContent_has_Package>();
+            this.Package_has_Chocolate = new HashSet<Package_has_Chocolate>();
             this.Rating = new HashSet<Rating>();
-            this.Wrapping1 = new HashSet<Wrapping>();
         }
     
         public System.Guid ID_Package { get; set; }
@@ -29,13 +29,15 @@ namespace DataHandler.Local_Database
         public bool Availability { get; set; }
         public System.Guid Customer_ID { get; set; }
         public string Image { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public System.DateTime ModifyDate { get; set; }
+        public System.Guid WrappingID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent_has_Package> OrderContent_has_Package { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Rating { get; set; }
+        public virtual ICollection<Package_has_Chocolate> Package_has_Chocolate { get; set; }
+        public virtual Wrapping Wrapping1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wrapping> Wrapping1 { get; set; }
+        public virtual ICollection<Rating> Rating { get; set; }
     }
 }

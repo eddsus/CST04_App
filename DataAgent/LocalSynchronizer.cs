@@ -72,7 +72,7 @@ namespace LocalSynchronization
                 {
                     SetConnectionStatus(false);
                 }
-                Thread.Sleep(30000);
+                Thread.Sleep(10000);
             }
         }
         #region INIT BASE DATA
@@ -116,10 +116,43 @@ namespace LocalSynchronization
         {
             PackageInformer.Invoke();
         }
-        //::TODO::IMPLEMENT
+
         private void SyncronizeCreations()
         {
-            CreationInformer.Invoke();
+            //set date to the past in case of empty table
+            LastUpdate = new DateTime(1983, 11, 20);
+            //get latest Date when the list was synchronized
+            if (dataHandler.QueryCreations().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryCreations().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+            List<Chocolate> ServerChocolate = serviceHandler.CallService<List<Chocolate>>(@"QueryChocolatesWithIngredients");
+            if (ServerChocolate != null)
+            {
+                //save all which are new or have been updated to new List
+                List<Chocolate> newChocolate = ServerChocolate.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newChocolate)
+                {
+                    //in case of new
+                    if (dataHandler.QueryCreations().Where(p => p.ChocolateId.Equals(item.ChocolateId)).Count() == 0)
+                    {
+                        if (dataHandler.AddCreation(item))
+                            CreationInformer.Invoke();
+                    }
+                    //incase an existing has been updated
+                    else
+                    {
+                        //delete modified item from local db
+                        if (dataHandler.RemoveCreationById(item.ChocolateId))
+                        {
+                            //and add the new version
+                            if (dataHandler.AddCreation(item))
+                                CreationInformer.Invoke();
+                        }
+                    }
+                }
+            }
         }
         /**
          * Updates local db using the Modiefied date in case of new or updated ingredients
@@ -160,10 +193,6 @@ namespace LocalSynchronization
                     }
                 }
             }
-
-
-
-
         }
         /**
          * ::TODO::IMPLEMENT

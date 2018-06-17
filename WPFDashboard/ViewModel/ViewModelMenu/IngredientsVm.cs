@@ -69,7 +69,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 (i) =>
                 {
                     //only allow updates when connected and an ingredient is selected
-                    return DataAgentUnit.GetInstance().GetSynchronizerStatus();
+                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
             BtnDeactivate = new RelayCommand<Ingredient>(
                 (i) =>
@@ -86,7 +86,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 (i) =>
                 {
                     //only allow updates when connected and an ingredient is selected
-                    return DataAgentUnit.GetInstance().GetSynchronizerStatus();
+                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
         }
 
