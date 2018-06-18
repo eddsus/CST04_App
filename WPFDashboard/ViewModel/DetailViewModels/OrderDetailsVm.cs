@@ -10,15 +10,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.ViewModelMenu;
 
-namespace WPFDashboard.ViewModel.OrderVModels
+namespace WPFDashboard.ViewModel.DetailViewModels
 {
-
-    public class OrderDetailsVm : ViewModelBase
-
+    public class OrderDetailsVm:ViewModelBase
     {
+
         #region Properties
 
         private ViewModelBase currentDetail;
@@ -38,10 +35,13 @@ namespace WPFDashboard.ViewModel.OrderVModels
         public string SelectedOrderState
         {
             get { return selectedOrderState; }
-            set { selectedOrderState = value;
+            set
+            {
+                selectedOrderState = value;
                 RaisePropertyChanged();
             }
         }
+
 
         public ObservableCollection<string> OrderStateStrings { get; set; }
 
@@ -53,14 +53,15 @@ namespace WPFDashboard.ViewModel.OrderVModels
         public Order CurrentOrder
         {
             get { return currentOrder; }
-            set { currentOrder = value;
+            set
+            {
+                currentOrder = value;
                 RaisePropertyChanged();
             }
         }
 
 
         #endregion
-
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
@@ -80,8 +81,6 @@ namespace WPFDashboard.ViewModel.OrderVModels
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
             BtnDetails = new RelayCommand<OrderContent>((p) => { ShowItemDetails(p); });
         }
-
-        
 
         private void DisplayOrderInfo(Order currentOrder)
         {
@@ -109,5 +108,7 @@ namespace WPFDashboard.ViewModel.OrderVModels
                 CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
             }
         }
+
+
     }
 }

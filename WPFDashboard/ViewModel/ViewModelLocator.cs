@@ -12,17 +12,14 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using DataAgent;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using WPFDashboard.ViewModel.DetailViewModels;
-using WPFDashboard.ViewModel.OrderVModels;
 using WPFDashboard.ViewModel.ViewModelMenu;
 
 namespace WPFDashboard.ViewModel
 {
-   
+
     public class ViewModelLocator
     {
       

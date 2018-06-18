@@ -10,13 +10,12 @@
         xmlns:Converter="clr-namespace:WPFDashboard.Converter" x:Class="WPFDashboard.MainWindow"
         mc:Ignorable="d"
         Title="Kitchen " Height="940" Width="1080" 
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         >
     <Window.Resources>
         <Converter:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
     </Window.Resources>
-    <Window.DataContext>
-        <Binding Mode="OneWay" Path="Main" Source="{StaticResource Locator}"/>
-    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>

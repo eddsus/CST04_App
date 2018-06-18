@@ -93,9 +93,9 @@
     <Compile Include="Helpers\Converter\BoolToBrushConverter.cs" />
     <Compile Include="Helpers\Interfaces\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
+    <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\PackageDetailsVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CommentsVm.cs" />
     <Compile Include="ViewModel\ViewModelMenu\CreationsVm.cs" />
