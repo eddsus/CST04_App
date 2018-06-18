@@ -27,17 +27,17 @@ namespace WPFDashboard.Views
 
        
 
-        private void BtnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            OrderListbox.SelectedItems.Clear();
+        //private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OrderListbox.SelectedItems.Clear();
           
-            foreach (var item in OrderListbox.ItemsSource)
-            {
-                if (item.ToString().ToLower().Contains(searchBox.Text.ToLower()))
-                {
-                    OrderListbox.SelectedItem=item;
-                }
-            }
-        }
+        //    foreach (var item in OrderListbox.ItemsSource)
+        //    {
+        //        if (item.ToString().ToLower().Contains(searchBox.Text.ToLower()))
+        //        {
+        //            OrderListbox.SelectedItem=item;
+        //        }
+        //    }
+        //}
     }
 }

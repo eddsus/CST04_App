@@ -25,9 +25,6 @@ namespace WPFDashboard
             InitializeComponent();
         }
 
-        private void ShutDown_Cliked(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        
     }
 }

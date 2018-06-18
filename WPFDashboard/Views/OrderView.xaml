@@ -49,27 +49,28 @@
     <!--Main Order window Grid-->
         <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.1*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8.8*"/>
         </Grid.ColumnDefinitions>
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
+                <!--<RowDefinition Height="50"/>-->
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Content="Order List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" Background="Beige"/>
-            <Viewbox Grid.Row="1">
+            <!--============SEARCHBOX=============-->
+                <!--<Viewbox Grid.Row="1">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="searchBox" Width="100" Margin="5"/>
                     <Button x:Name="BtnSearch" Click="BtnSearch_Click">
                         <materialDesign:PackIcon Kind="SearchWeb"/>
                     </Button>
                 </StackPanel>
-            </Viewbox>
+            </Viewbox>-->
             <!--Listbox mit Items-->
-            <ListBox x:Name="OrderListbox" Grid.Row="2" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectionMode="Multiple"/>
+            <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectionMode="Multiple"/>
 
         </Grid>
         <!--OrderDeatailspage-->

@@ -41,15 +41,20 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 RaisePropertyChanged();
             }
         }
-
-        
         public ObservableCollection<string> OrderStateStrings { get; set; }
 
         public ObservableCollection<OrderContentChocolate> OrderContentChocolates { get; set; }
         public ObservableCollection<OrderContentPackage> OrderContentPackages { get; set; }
 
         public RelayCommand<OrderContent> BtnDelete { get; set; }
-        public RelayCommand<OrderContent> BtnDetails { get; set; }
+      
+
+        public RelayCommand<OrderContentChocolate> BtnDetailsChocolate { get; set; }
+
+        public RelayCommand<OrderContentPackage> BtnDetailsPackage { get; set; }
+
+
+
         private Order currentOrder;
 
         public Order CurrentOrder
@@ -76,13 +81,14 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             {
                 OrderStateStrings.Add(item.Decription);
             }
-
-            //InitPackage();
-            //InitCreation();
+            
 
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-            BtnDetails = new RelayCommand<OrderContent>((p) => { ShowItemDetails(p); });
+            BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p)=> { ShowChocolateDetails(p); });
+            BtnDetailsPackage = new RelayCommand<OrderContentPackage>((p)=> { ShowPackageDetails(p); });
         }
+
+       
 
         private void DisplayOrderInfo(Order currentOrder)
         {
@@ -106,18 +112,19 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             //OrderContentDetailsList.Remove(p);
         }
 
-        private void ShowItemDetails(OrderContent p)
+       
+
+        private void ShowPackageDetails(OrderContentPackage p)
         {
-            if (p.GetType().ToString().Equals("Package"))
-            {
-                CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
-            }
-            else
-            {
-                CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
-            }
+            Messenger.Default.Send(p);
+            CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
         }
 
+        private void ShowChocolateDetails(OrderContentChocolate p)
+        {
+            Messenger.Default.Send(p);
+            CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+        }
 
     }
 }

@@ -17,7 +17,7 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.7*"/>
             <ColumnDefinition Width="2.9*"/>
         </Grid.ColumnDefinitions>
         <Label Background="Beige" Content="Package Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
@@ -73,7 +73,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-              <Label  Content="Description:" VerticalAlignment="Center" Margin="5" FontWeight="Bold" FontSize="15"/>
+              <Label  Content="Description:" Grid.Row="1" VerticalAlignment="Center" Margin="5" FontWeight="Bold" FontSize="15"/>
               <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="5"/>
                 
             </Grid>
