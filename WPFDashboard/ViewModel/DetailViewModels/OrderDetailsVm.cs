@@ -85,11 +85,22 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private void DisplayOrderInfo(Order currentOrder)
         {
             CurrentOrder = currentOrder;
+            //FillOrderContent();
             SelectedOrderState = CurrentOrder.Status.Decription;
             RaisePropertyChanged("CurrentOrder");
             RaisePropertyChanged("SelectedOrderState");
             // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
         }
+
+        //private void FillOrderContent()
+        //{
+        //    var temp = new List<OrderContent>();
+        //    temp.AddRange(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
+        //    temp.AddRange(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
+        //    CurrentOrder.Content = new List<OrderContent>();
+        //    CurrentOrder.Content.AddRange(temp);
+        //    RaisePropertyChanged("CurrentOrder");
+        //}
 
         private void DeleteItem(OrderContent p)
         {
