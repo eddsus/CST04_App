@@ -91,6 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Converter\BoolToBrushConverter.cs" />
+    <Compile Include="Helpers\Converter\BoolToStatusConverter.cs" />
     <Compile Include="Helpers\Interfaces\ISynchronizable.cs" />
     <Compile Include="ViewModel\DetailViewModels\CreationDetailsVm.cs" />
     <Compile Include="ViewModel\DetailViewModels\OrderDetailsVm.cs" />

@@ -25,9 +25,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
-        private string selectedOrderChocolateState;
+        private bool selectedOrderChocolateState;
 
-        public string SelectedOrderChocolateState
+        public bool SelectedOrderChocolateState
         {
             get { return selectedOrderChocolateState; }
             set { selectedOrderChocolateState = value;
@@ -41,7 +41,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public CreationDetailsVm()
         {
-            InitIngredients();
+            //InitIngredients();
             Messenger.Default.Register<OrderContentChocolate>(this,DisplayChocolateInfo);
             
 
@@ -50,12 +50,16 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private void DisplayChocolateInfo(OrderContentChocolate currentOrderChocolate)
         {
             CurrentOrderChocolate = currentOrderChocolate;
-            
+            SelectedOrderChocolateState = CurrentOrderChocolate.Chocolate.Available;
+            RaisePropertyChanged("CurrentOrderChocolate");
+            RaisePropertyChanged("SelectedOrderChocolateState");
+            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
         }
 
-        private void InitIngredients()
-        {
-            Ingredients = new ObservableCollection<Ingredient>();
-        }
+        //private void InitIngredients()
+        //{
+            
+        //   // Ingredients = CurrentOrderChocolate.Chocolate.Ingredients;
+        //}
     }
 }
