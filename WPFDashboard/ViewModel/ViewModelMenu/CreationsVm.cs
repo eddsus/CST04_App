@@ -74,11 +74,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         private void InitializeChocolateList()
         {
             ListOfChocolates = new ObservableCollection<Chocolate>(DataAgentUnit.GetInstance().QueryCreations());
-            //ListOfCreations.Add(new CreationItemVm("TestChoco1", "Max Mustermann", 3,"In Work"));
-            //ListOfCreations.Add(new CreationItemVm("TestChoco2", "Sabine Bergmann", 5, "Paused"));
-            //ListOfCreations.Add(new CreationItemVm("TestChoco3", "Appolo Testmann", 4, "Removed"));
-            //ListOfCreations.Add(new CreationItemVm("TestChoco4", "Ingrid Mueller", 2, "In Work"));
-
         }
     }
 

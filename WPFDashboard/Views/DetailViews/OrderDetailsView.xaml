@@ -63,10 +63,10 @@
 
             <!--=================CONTENT==================-->
 
-            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="2" AutoGenerateColumns="False">
+            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding CurrentOrder.Content}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Product name" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                    <DataGridTextColumn Header="Product name" Binding="{Binding}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

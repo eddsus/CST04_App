@@ -106,11 +106,43 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return serviceHandler.CallService<List<Order>>(@"QueryOrders");
+                var temp = serviceHandler.CallService<List<Order>>(@"QueryOrders");
+                foreach (var item in temp)
+                {
+                    item.Content = new List<OrderContent>();
+                    item.Content.AddRange(QueryOrdersContentChocolate(item.OrderId));
+                    item.Content.AddRange(QueryOrdersContentPackage(item.OrderId));
+                }
+                return temp;
             }
             else
             {
                 return localDH.QueryOrders();
+            }
+        }
+
+        public List<OrderContentChocolate> QueryOrdersContentChocolate(string orderId)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<OrderContentChocolate>>(@"QueryOrdersContentChocolate/"+ orderId);
+            }
+            else
+            {
+                return new List<OrderContentChocolate>();
+            }
+        }
+        public List<OrderContentPackage> QueryOrdersContentPackage(string orderId)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<OrderContentPackage>>(@"QueryOrdersContentPackage/" + orderId);
+            }
+            else
+            {
+                return new List<OrderContentPackage>();
             }
         }
 
