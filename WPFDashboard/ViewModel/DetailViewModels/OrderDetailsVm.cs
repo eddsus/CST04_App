@@ -45,7 +45,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         
         public ObservableCollection<string> OrderStateStrings { get; set; }
 
-        public ObservableCollection<OrderContent> OrderContentDetailsList { get; set; }
+        public ObservableCollection<OrderContentChocolate> OrderContentChocolates { get; set; }
+        public ObservableCollection<OrderContentPackage> OrderContentPackages { get; set; }
+
         public RelayCommand<OrderContent> BtnDelete { get; set; }
         public RelayCommand<OrderContent> BtnDetails { get; set; }
         private Order currentOrder;
@@ -85,27 +87,23 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private void DisplayOrderInfo(Order currentOrder)
         {
             CurrentOrder = currentOrder;
-            //FillOrderContent();
+            FillOrderContent();
             SelectedOrderState = CurrentOrder.Status.Decription;
             RaisePropertyChanged("CurrentOrder");
             RaisePropertyChanged("SelectedOrderState");
             // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
         }
 
-        //private void FillOrderContent()
-        //{
-        //    var temp = new List<OrderContent>();
-        //    temp.AddRange(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
-        //    temp.AddRange(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
-        //    CurrentOrder.Content = new List<OrderContent>();
-        //    CurrentOrder.Content.AddRange(temp);
-        //    RaisePropertyChanged("CurrentOrder");
-        //}
+        private void FillOrderContent()
+        {
+            OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
+            OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
+        }
 
         private void DeleteItem(OrderContent p)
         {
             //::TODO::also inform localdb and serverdb
-            OrderContentDetailsList.Remove(p);
+            //OrderContentDetailsList.Remove(p);
         }
 
         private void ShowItemDetails(OrderContent p)
