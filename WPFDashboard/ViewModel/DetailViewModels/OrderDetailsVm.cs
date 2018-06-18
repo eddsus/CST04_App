@@ -42,7 +42,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
-
+        
         public ObservableCollection<string> OrderStateStrings { get; set; }
 
         public ObservableCollection<OrderContent> OrderContentDetailsList { get; set; }
