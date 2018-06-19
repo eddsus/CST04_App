@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WPFDashboard.ViewModel.DetailViewModels
 {
-    public class CreationDetailsVm:ViewModelBase
+    public class CreationDetailsVm : ViewModelBase
     {
         #region FIELDS
         private Chocolate currentOrderChocolate;
@@ -41,7 +41,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public Chocolate CurrentOrderChocolate
         {
             get { return currentOrderChocolate; }
-            set { currentOrderChocolate = value;
+            set
+            {
+                currentOrderChocolate = value;
                 RaisePropertyChanged();
             }
         }
@@ -49,15 +51,34 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public bool SelectedOrderChocolateState
         {
             get { return selectedOrderChocolateState; }
-            set { selectedOrderChocolateState = value;
+            set
+            {
+                selectedOrderChocolateState = value;
                 RaisePropertyChanged();
             }
         }
 
-         public ObservableCollection<Rating> Comments
+        private double price;
+
+        public double Price
+        {
+            get { return price; }
+            set
+            {
+                price = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        private ObservableCollection<Rating> comments;
+
+        public ObservableCollection<Rating> Comments
         {
             get { return comments; }
-            set { comments = value;
+            set
+            {
+                comments = value;
                 RaisePropertyChanged();
             }
         }

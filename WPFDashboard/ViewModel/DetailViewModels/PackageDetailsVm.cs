@@ -83,6 +83,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
+
         public RelayCommand BtnShowDetails { get; set; }
         
 
