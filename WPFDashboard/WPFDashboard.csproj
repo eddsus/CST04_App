@@ -204,7 +204,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sync\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
+    <ProjectReference Include="..\..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj">
       <Project>{fa03a1b3-b0fd-45da-a08a-76ed7d25db97}</Project>
       <Name>SharedDataTypes</Name>
     </ProjectReference>
