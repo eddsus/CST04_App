@@ -65,13 +65,13 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             RaisePropertyChanged("CurrentOrderChocolate");
             RaisePropertyChanged("SelectedOrderChocolateState");
             Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
-           // Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Chocolate.Ratings);
+            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Chocolate.Ratings);
         }
 
         //private void InitIngredients()
         //{
-            
-        //   // Ingredients = CurrentOrderChocolate.Chocolate.Ingredients;
+
+        //    // Ingredients = CurrentOrderChocolate.Chocolate.Ingredients;
         //}
     }
 }

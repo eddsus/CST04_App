@@ -103,9 +103,9 @@
 
             <!--COMMENTS-->
             <Label Content="Comments:" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <DataGrid Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding Comments}" Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Published" IsReadOnly="True"/>
+                    <DataGridCheckBoxColumn Header="Published" IsReadOnly="True" Binding="{Binding Published}"/>
                     <DataGridTextColumn Header="Name:"/>
                     
                     <DataGridTextColumn Header="Comment:"/>
