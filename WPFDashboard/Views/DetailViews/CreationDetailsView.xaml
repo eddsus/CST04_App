@@ -106,8 +106,8 @@
             <DataGrid Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="Published" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="First name:"/>
-                    <DataGridTextColumn Header="Second name:"/>
+                    <DataGridTextColumn Header="Name:"/>
+                    
                     <DataGridTextColumn Header="Comment:"/>
                     <DataGridTextColumn Header="Date"/>
                     <DataGridTemplateColumn Header="Rating">

@@ -35,6 +35,17 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
+        private ObservableCollection<Rating> comments;
+
+        public ObservableCollection<Rating> Comments
+        {
+            get { return comments; }
+            set { comments = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
 
         #endregion
 
@@ -54,6 +65,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             RaisePropertyChanged("CurrentOrderChocolate");
             RaisePropertyChanged("SelectedOrderChocolateState");
             Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
+           // Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Chocolate.Ratings);
         }
 
         //private void InitIngredients()
