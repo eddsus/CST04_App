@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
 using System.Collections.Generic;
@@ -13,20 +14,52 @@ namespace WPFDashboard.ViewModel.DetailViewModels
     {
         #region PROPERTIES
         public ObservableCollection<Ingredient> Ingredients { get; set; }
+
+        private OrderContentChocolate currentOrderChocolate;
+
+        public OrderContentChocolate CurrentOrderChocolate
+        {
+            get { return currentOrderChocolate; }
+            set { currentOrderChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool selectedOrderChocolateState;
+
+        public bool SelectedOrderChocolateState
+        {
+            get { return selectedOrderChocolateState; }
+            set { selectedOrderChocolateState = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         #endregion
 
 
         public CreationDetailsVm()
         {
-            InitIngredients();
-           
+            //InitIngredients();
+            Messenger.Default.Register<OrderContentChocolate>(this,DisplayChocolateInfo);
             
 
         }
 
-        private void InitIngredients()
+        private void DisplayChocolateInfo(OrderContentChocolate currentOrderChocolate)
         {
-            Ingredients = new ObservableCollection<Ingredient>();
+            CurrentOrderChocolate = currentOrderChocolate;
+            SelectedOrderChocolateState = CurrentOrderChocolate.Chocolate.Available;
+            RaisePropertyChanged("CurrentOrderChocolate");
+            RaisePropertyChanged("SelectedOrderChocolateState");
+            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
         }
+
+        //private void InitIngredients()
+        //{
+            
+        //   // Ingredients = CurrentOrderChocolate.Chocolate.Ingredients;
+        //}
     }
 }

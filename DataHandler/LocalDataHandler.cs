@@ -15,11 +15,65 @@ namespace DataHandler
 
         #region QUERIES
 
+        /***
+         * Not in use at the moment
+         * ***/
         public List<SharedDataTypes.Order> QueryOrders()
         {
-            //throw new NotImplementedException();
-            return new List<SharedDataTypes.Order>();
+            var temp = localDb.Order.Select(o => o).ToList();
+            var tempShared = new List<SharedDataTypes.Order>();
+            foreach (var item in temp)
+            {
+                tempShared.Add(converter.ConvertToSharedOrder(item));
+            }
+            //fill OrderContent
+            foreach (var item in tempShared)
+            {
+                item.Content = QueryOrderContentByOrderId(item.OrderId);
+            }
+            return tempShared;
+
         }
+
+        private List<SharedDataTypes.OrderContent> QueryOrderContentByOrderId(string orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<SharedDataTypes.Order> QueryOrder()
+        {
+            List<SharedDataTypes.Order> tempSharedOrders = new List<SharedDataTypes.Order>();
+            foreach (var item in localDb.Order.Select(p => p).ToList())
+            {
+                tempSharedOrders.Add(converter.ConvertToSharedOrder(item));
+            }
+            foreach (var tempOrder in tempSharedOrders)
+            {
+                //int cnt = 0;
+                //SharedOrderContent is abstract
+                foreach (var tempOrderContent in localDb.OrderContent.Where(p => p.Order_ID.Equals(tempOrder.OrderId)).Select(p => p).ToList())
+                {
+                    //cnt++;
+                    if (localDb.Chocolate.Where(p => p.OrderContent_has_Chocolate.Count(x => x.OrderContent_ID == tempOrderContent.ID_OrderContent) > 0) == null)
+                    {
+                        //get DBChocolate and ConvertToSharedChocolateOrderContentChocolate
+                        tempOrder.Content.Add(converter.ConvertToSharedChocolateOrderContentChocolate(
+                            localDb.Chocolate.Where(p => p.OrderContent_has_Chocolate.Count(x => x.OrderContent_ID == tempOrderContent.ID_OrderContent) > 0).
+                            Select(p => p).First()));
+                    }
+                    else
+                    {
+                        //get DBPackage and ConvertToSharedPackageOrderContentPackage
+                        tempOrder.Content.Add(converter.ConvertToSharedPackageOrderContentPackage(
+                            localDb.Package.Where(p => p.OrderContent_has_Package.Count(x => x.OrderContent_ID == tempOrderContent.ID_OrderContent) > 0).
+                            Select(p => p).First()));
+                    }
+                }
+            }
+            return tempSharedOrders;
+        }
+    
+
         public List<SharedDataTypes.Chocolate> QueryCreations()
         {
             var temp = localDb.Chocolate.Select(c =>c).ToList();
