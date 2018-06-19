@@ -44,7 +44,7 @@
             <!--STATE-->
             <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="State" FontWeight="Bold" HorizontalAlignment="Right" FontSize="15"/>
-                <ComboBox Width="100" Height="30" Margin="5" SelectedIndex="1" ItemsSource="{Binding SelectedOrderChocolateState}" SelectedItem="{Binding SelectedOrderChocolateState, Converter={StaticResource BoolToStatusConverter}}"/>
+                <ComboBox Width="100" Height="30" Margin="5" SelectedIndex="1" ItemsSource="{Binding AvailabilityStates}" SelectedItem="{Binding CurrentState}"/>
             </StackPanel>
 
 
@@ -63,15 +63,15 @@
 
                 <!--CHOCOLATE NAME-->
                 <Label Content="Chocolate Name:" FontWeight="Bold" FontSize="15" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <Label Grid.Column="1" Content="{Binding CurrentOrderChocolate.Chocolate.Name}" Margin="5" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="1" Content="{Binding CurrentOrderChocolate.Name}" Margin="5" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <!--WRAPPING TEXT-->
                 <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Wrapping:" FontWeight="Bold" FontSize="15" Margin="5"/>
-                <TextBox Text="{Binding CurrentOrderChocolate.Chocolate.Wrapping.Name}" Grid.Column="1" Grid.Row="1" Margin="1"/>
+                <TextBox Text="{Binding CurrentOrderChocolate.Wrapping.Name}" Grid.Column="1" Grid.Row="1" Margin="1"/>
 
                 <!--SHAPE TEXT-->
                 <Label Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Shape:" Margin="5" FontWeight="Bold" FontSize="15"/>
-                <TextBox Text="{Binding CurrentOrderChocolate.Chocolate.Shape.Name}" Grid.Row="2" Grid.Column="1"/>
+                <TextBox Text="{Binding CurrentOrderChocolate.Shape.Name}" Grid.Row="2" Grid.Column="1"/>
 
                 <!--Price-->
                 <Label Grid.Row="5" Content="Price:" Margin="5" FontWeight="Bold" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
@@ -82,7 +82,7 @@
             <!--DESCRIPTIONS-->
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
                 <Label  Content="Description:" Margin="5" FontWeight="Bold" FontSize="15"/>
-                <TextBox Text="{Binding CurrentOrderChocolate.Chocolate.Description}" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                <TextBox Text="{Binding CurrentOrderChocolate.Description}" Grid.Row="5" Grid.Column="1" Margin="5"/>
             </StackPanel>
 
             <!--=================DATA GRID WITH INGREDIENT LIST===========-->
@@ -103,17 +103,17 @@
 
             <!--COMMENTS-->
             <Label Content="Comments:" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Comments}" Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding Comments}" Grid.Row="5" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="Published" IsReadOnly="True" Binding="{Binding Published}"/>
-                    <DataGridTextColumn Header="Name:"/>
+                    <DataGridTextColumn Header="Name:" Binding="{Binding Customer.FirstName}"/>
                     
-                    <DataGridTextColumn Header="Comment:"/>
-                    <DataGridTextColumn Header="Date"/>
+                    <DataGridTextColumn Header="Comment:" Binding="{Binding Comment}"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
                     <DataGridTemplateColumn Header="Rating">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <materialDesign:RatingBar Max="5"/>
+                                <materialDesign:RatingBar Value="{Binding Value}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
