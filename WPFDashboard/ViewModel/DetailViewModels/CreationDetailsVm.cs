@@ -70,18 +70,19 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
-
-        private ObservableCollection<Rating> comments;
+       
 
         public ObservableCollection<Rating> Comments
         {
             get { return comments; }
-            set
-            {
-                comments = value;
+            set { comments = value;
                 RaisePropertyChanged();
             }
         }
+
+        
+
+        
        
         #endregion
 

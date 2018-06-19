@@ -63,7 +63,7 @@
 
                 <!--Price-->
                 <Label Grid.Row="2" Content="Price:" Margin="5" FontWeight="Bold" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <TextBox Text="{Binding CurrentContentPackage.Package}" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="{Binding CurrentContentPackage.Package.Price}" Grid.Row="2" Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center"/>
             </Grid>
 
             <!--DESCRIPTIONS-->
