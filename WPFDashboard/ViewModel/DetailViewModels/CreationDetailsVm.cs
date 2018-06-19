@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WPFDashboard.ViewModel.DetailViewModels
 {
-    public class CreationDetailsVm:ViewModelBase
+    public class CreationDetailsVm : ViewModelBase
     {
         #region PROPERTIES
         public ObservableCollection<Ingredient> Ingredients { get; set; }
@@ -20,7 +20,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public OrderContentChocolate CurrentOrderChocolate
         {
             get { return currentOrderChocolate; }
-            set { currentOrderChocolate = value;
+            set
+            {
+                currentOrderChocolate = value;
                 RaisePropertyChanged();
             }
         }
@@ -30,17 +32,34 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public bool SelectedOrderChocolateState
         {
             get { return selectedOrderChocolateState; }
-            set { selectedOrderChocolateState = value;
+            set
+            {
+                selectedOrderChocolateState = value;
                 RaisePropertyChanged();
             }
         }
+
+        private double price;
+
+        public double Price
+        {
+            get { return price; }
+            set
+            {
+                price = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         private ObservableCollection<Rating> comments;
 
         public ObservableCollection<Rating> Comments
         {
             get { return comments; }
-            set { comments = value;
+            set
+            {
+                comments = value;
                 RaisePropertyChanged();
             }
         }
@@ -53,8 +72,8 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public CreationDetailsVm()
         {
             //InitIngredients();
-            Messenger.Default.Register<OrderContentChocolate>(this,DisplayChocolateInfo);
-            
+            Messenger.Default.Register<OrderContentChocolate>(this, DisplayChocolateInfo);
+
 
         }
 
@@ -67,6 +86,8 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
             Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Chocolate.Ratings);
         }
+
+
 
         //private void InitIngredients()
         //{

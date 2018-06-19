@@ -23,6 +23,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
+
         public RelayCommand BtnShowDetails { get; set; }
         public ObservableCollection<Chocolate> Chocolates { get; set; }
 
