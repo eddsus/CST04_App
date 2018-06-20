@@ -17,7 +17,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         #region FIELDS
         private ViewModelBase currentChocolateView;
-        private OrderContentPackage currentPackageContent;
+        private Package currentPackageContent;
         private ObservableCollection<string> availabilityStates;
         private bool selectedOrderPackageState;
         private string currentState;
@@ -89,7 +89,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
        
 
-        public OrderContentPackage CurrentContentPackage
+        public Package CurrentContentPackage
         {
             get { return currentPackageContent; }
             set { currentPackageContent = value;
@@ -106,7 +106,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public PackageDetailsVm()
         {
 
-            Messenger.Default.Register<OrderContentPackage>(this, DisplayPackageInfo);
+            Messenger.Default.Register<Package>(this, DisplayPackageInfo);
             //BtnShowDetails = new RelayCommand(()=> {CurrentChocolateView = SimpleIoc.Default.GetInstance<CreationDetailsVm>(); });
             BtnShowChocolateDetails = new RelayCommand<Chocolate>((p)=> { ShowChocolateDetails(p); });
             
@@ -118,14 +118,14 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             CurrentChocolateView = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
         }
 
-        private void DisplayPackageInfo(OrderContentPackage currentPackadeContent)
+        private void DisplayPackageInfo(Package currentPackadeContent)
         {
             CurrentContentPackage = currentPackadeContent;
-            SelectedOrderPackageState = CurrentContentPackage.Package.Available;
+            SelectedOrderPackageState = CurrentContentPackage.Available;
             DefineStates();
             RaisePropertyChanged("CurrentOrderPackage");
             RaisePropertyChanged("SelectedOrderPackageState");
-            Chocolates = new ObservableCollection<Chocolate>(CurrentContentPackage.Package.Chocolates);
+            Chocolates = new ObservableCollection<Chocolate>(CurrentContentPackage.Chocolates);
         }
 
         private void DefineStates()

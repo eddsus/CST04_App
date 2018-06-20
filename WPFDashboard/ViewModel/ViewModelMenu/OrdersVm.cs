@@ -50,16 +50,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             }
         }
 
-        private Order currentItem;
-
-        public Order CurrentItem
-        {
-            get { return currentItem; }
-            set { currentItem = value;
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion
 
         public OrdersVm()
@@ -88,7 +78,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
         private void InitializeOrdersList()
         {
-            OrdersList = new ObservableCollection<Order>(DataAgentUnit.GetInstance().QueryOrders());
+           OrdersList = new ObservableCollection<Order>(DataAgentUnit.GetInstance().QueryOrders());
         }
     }
 }

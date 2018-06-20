@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFDashboard.ViewModel.ViewModelMenu;
 
 namespace WPFDashboard.ViewModel.DetailViewModels
 {
@@ -98,6 +99,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
 
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
+            Messenger.Default.Register<RefreshMessage>(this, Refresh);
 
             OrderStateStrings = new ObservableCollection<string>();
             foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
@@ -109,7 +111,10 @@ namespace WPFDashboard.ViewModel.DetailViewModels
            
         }
 
-
+        private void Refresh(RefreshMessage obj)
+        {
+            throw new NotImplementedException();
+        }
 
         private void DisplayOrderInfo(Order currentOrder)
         {
@@ -165,7 +170,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         private void ShowPackageDetails(OrderContentPackage p)
         {
-            Messenger.Default.Send(p);
+            Messenger.Default.Send(p.Package);
             CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
             RaisePropertyChanged("CurrentDetail");
         }

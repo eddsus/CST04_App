@@ -18,10 +18,15 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 {
     public class PackagesVm : ViewModelBase, ISynchronizable
     {
-        //todo: Generate regions for fields and properties
-        #region Properties
+        
+        #region FIELDS
         private ViewModelBase packageDetailsView;
+        private ObservableCollection<Package> listPackages;
+        private RelayCommand<Package> btnPackageDetails;
+        #endregion
 
+
+        #region PROPERTIES
         public ViewModelBase PackageDetailsView
         {
             get { return packageDetailsView; }
@@ -30,37 +35,38 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             }
         }
 
-        public RelayCommand BtnPackageDetails { get; set; }
-
-        public ObservableCollection<Package> ListPackages { get; set; }
-        
-
-        #endregion
-        //testing shapes
-
-        private ObservableCollection<Shape> shapes;
-
-        public ObservableCollection<Shape> Shapes
+        public RelayCommand<Package> BtnPackageDetails
         {
-            get { return shapes; }
-            set
-            {
-                shapes = value;
+            get { return btnPackageDetails; }
+            set { btnPackageDetails = value;
                 RaisePropertyChanged();
             }
         }
 
+        public ObservableCollection<Package> ListPackages
+        {
+            get { return listPackages; }
+            set { listPackages = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        #endregion
+        
         public PackagesVm()
         {
             InitializePackageList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnPackageDetails = new RelayCommand(()=> { ShowPackageDetails(); });
+            BtnPackageDetails = new RelayCommand<Package>((p)=> { ShowPackageDetails(p); });
         }
 
-        private void ShowPackageDetails()
+       
+
+        private void ShowPackageDetails(Package p)
         {
+            Messenger.Default.Send(p);
             PackageDetailsView = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
+            RaisePropertyChanged("PackageDetailsView");
         }
 
         private void Refresh(RefreshMessage obj)
@@ -78,16 +84,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializePackageList()
         {
-            ListPackages = new ObservableCollection<Package>();
+            ListPackages = new ObservableCollection<Package>(DataAgentUnit.GetInstance().QueryPackagesWithChocolatesAndIngredients());
            
-            // Shapes = new ObservableCollection<Shape>();
-
-            //foreach (var item in DataAgent.QueryShapes())
-            //{
-            //    Shapes.Add(item);
-            //}
-
-
         }
 
     }

@@ -158,6 +158,20 @@ namespace DataAgent
                 return localDH.QueryOrderStates();
             }
         }
+
+        public List<Package> QueryPackagesWithChocolatesAndIngredients()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+               return serviceHandler.CallService<List<Package>>(@"QueryPackagesWithChocolatesAndIngredients");
+            }
+            else
+            {
+                return localDH.QueryPackagesWithChocolatesAndIngredients();
+            }
+        }
+
         #endregion
 
         #region UPDATE METHODS

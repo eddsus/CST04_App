@@ -70,7 +70,7 @@
                 </StackPanel>
             </Viewbox>-->
             <!--Listbox mit Items-->
-            <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectionMode="Multiple"/>
+            <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}"/>
 
         </Grid>
         <!--OrderDeatailspage-->

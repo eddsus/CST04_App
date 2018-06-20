@@ -129,6 +129,13 @@ namespace DataHandler
         {
             throw new NotImplementedException();
         }
+
+        public List<SharedDataTypes.Package> QueryPackagesWithChocolatesAndIngredients()
+        {
+            throw new NotImplementedException();
+            //writeCode
+        }
+
         public List<SharedDataTypes.Wrapping> QueryWrappings()
         {
             throw new NotImplementedException();

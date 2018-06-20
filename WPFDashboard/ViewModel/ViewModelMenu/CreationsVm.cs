@@ -21,9 +21,18 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         //todo: Generate regions for fields and properties
         #region FIELDS
         private ViewModelBase creationDetailView;
+        private RelayCommand<Chocolate> btnCreationDetails;
+        private ObservableCollection<Chocolate> listOfChocolates;
         #endregion
-        #region Properties
-        public RelayCommand BtnCreationDetails { get; set; }
+
+        #region PROPERTIES
+        public RelayCommand<Chocolate> BtnCreationDetails
+        {
+            get { return btnCreationDetails; }
+            set { btnCreationDetails = value;
+                RaisePropertyChanged(); }
+        }
+
 
         public ViewModelBase CreationDetailView
         {
@@ -34,7 +43,17 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
 
         public ObservableCollection<string> States { get; set; }
-        public ObservableCollection<Chocolate> ListOfChocolates { get; set; }
+       
+        
+
+        public ObservableCollection<Chocolate> ListOfChocolates
+        {
+            get { return listOfChocolates; }
+            set { listOfChocolates = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public string CurrentState { get; set; }
         public Chocolate CurrentChocolate { get; set; }
 
@@ -45,7 +64,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnCreationDetails = new RelayCommand(()=> { ShowCreationdetails(); });
+            BtnCreationDetails = new RelayCommand<Chocolate>((p)=> { ShowCreationdetails(p); });
         }
 
         private void InitStateList()
@@ -53,9 +72,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             States = new ObservableCollection<string>() {};
         }
 
-        private void ShowCreationdetails()
+        private void ShowCreationdetails(Chocolate p)
         {
+            Messenger.Default.Send(p);
             CreationDetailView = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+            RaisePropertyChanged("CreationDetailView");
         }
 
         private void Refresh(RefreshMessage obj)
