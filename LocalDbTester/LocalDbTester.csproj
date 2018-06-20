@@ -61,6 +61,10 @@
       <Project>{170d6fa8-abf6-4b9e-9798-b7519f565045}</Project>
       <Name>LocalDataHandling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFDashboard\WPFDashboard.csproj">
+      <Project>{78ef4221-09ba-4386-b48a-b49991c2b252}</Project>
+      <Name>WPFDashboard</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

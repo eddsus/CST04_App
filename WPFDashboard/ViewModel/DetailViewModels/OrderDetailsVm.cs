@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace WPFDashboard.ViewModel.DetailViewModels
 {
-    public class OrderDetailsVm:ViewModelBase
+    public class OrderDetailsVm : ViewModelBase
     {
 
         #region Properties
@@ -43,11 +43,34 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         }
         public ObservableCollection<string> OrderStateStrings { get; set; }
 
-        public ObservableCollection<OrderContentChocolate> OrderContentChocolates { get; set; }
-        public ObservableCollection<OrderContentPackage> OrderContentPackages { get; set; }
+        //public ObservableCollection<OrderContentChocolate> OrderContentChocolates { get; set; }
+
+        private ObservableCollection<OrderContentChocolate> orderContentChocolates;
+
+        public ObservableCollection<OrderContentChocolate> OrderContentChocolates
+        {
+            get { return orderContentChocolates; }
+            set { orderContentChocolates = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        //public ObservableCollection<OrderContentPackage> OrderContentPackages { get; set; }
+
+        private ObservableCollection<OrderContentPackage> orderContentPackages;
+
+        public ObservableCollection<OrderContentPackage> OrderContentPackages
+        {
+            get { return orderContentPackages; }
+            set { orderContentPackages = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         public RelayCommand<OrderContent> BtnDelete { get; set; }
-      
+
 
         public RelayCommand<OrderContentChocolate> BtnDetailsChocolate { get; set; }
 
@@ -81,14 +104,12 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             {
                 OrderStateStrings.Add(item.Decription);
             }
-            
 
-            BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-            BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p)=> { ShowChocolateDetails(p); });
-            BtnDetailsPackage = new RelayCommand<OrderContentPackage>((p)=> { ShowPackageDetails(p); });
+
+           
         }
 
-       
+
 
         private void DisplayOrderInfo(Order currentOrder)
         {
@@ -102,8 +123,36 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         private void FillOrderContent()
         {
-            OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
-            OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
+            if (DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId) != null)
+            {
+
+                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
+                RaisePropertyChanged("OrderContentChocolates");
+                RaisePropertyChanged("CurrentDetail");
+            }
+            else
+            {
+                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>();
+                RaisePropertyChanged("OrderContentChocolates");
+               
+            }
+
+            if (DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId) != null)
+            {
+                OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
+                RaisePropertyChanged("OrderContentPackages");
+                RaisePropertyChanged("CurrentDetail");
+            }
+            else
+            {
+                OrderContentPackages = new ObservableCollection<OrderContentPackage>();
+                RaisePropertyChanged("OrderContentPackages");
+               
+            }
+
+            BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
+            BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p) => { ShowChocolateDetails(p); });
+            BtnDetailsPackage = new RelayCommand<OrderContentPackage>((p) => { ShowPackageDetails(p); });
         }
 
         private void DeleteItem(OrderContent p)
@@ -118,12 +167,14 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         {
             Messenger.Default.Send(p);
             CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
+            RaisePropertyChanged("CurrentDetail");
         }
 
         private void ShowChocolateDetails(OrderContentChocolate p)
         {
-            Messenger.Default.Send(p);
+            Messenger.Default.Send(p.Chocolate);
             CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+            RaisePropertyChanged("CurrentDetail");
         }
 
     }

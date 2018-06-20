@@ -10,56 +10,113 @@ using System.Threading.Tasks;
 
 namespace WPFDashboard.ViewModel.DetailViewModels
 {
-    public class CreationDetailsVm:ViewModelBase
+    public class CreationDetailsVm : ViewModelBase
     {
+        #region FIELDS
+        private Chocolate currentOrderChocolate;
+        private bool selectedOrderChocolateState;
+        private ObservableCollection<Rating> comments;
+        private ObservableCollection<string> availabilityStates;
+        private string currentState;
+        #endregion
+
         #region PROPERTIES
-        public ObservableCollection<Ingredient> Ingredients { get; set; }
-
-        private OrderContentChocolate currentOrderChocolate;
-
-        public OrderContentChocolate CurrentOrderChocolate
+        
+        public string CurrentState
         {
-            get { return currentOrderChocolate; }
-            set { currentOrderChocolate = value;
+            get { return currentState; }
+            set { currentState = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool selectedOrderChocolateState;
+        public ObservableCollection<string> AvailabilityStates
+        {
+            get { return availabilityStates; }
+            set { availabilityStates = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<Ingredient> Ingredients { get; set; }
+        public Chocolate CurrentOrderChocolate
+        {
+            get { return currentOrderChocolate; }
+            set
+            {
+                currentOrderChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public bool SelectedOrderChocolateState
         {
             get { return selectedOrderChocolateState; }
-            set { selectedOrderChocolateState = value;
+            set
+            {
+                selectedOrderChocolateState = value;
                 RaisePropertyChanged();
             }
         }
 
+        private double price;
 
+        public double Price
+        {
+            get { return price; }
+            set
+            {
+                price = value;
+                RaisePropertyChanged();
+            }
+        }
+
+       
+
+        public ObservableCollection<Rating> Comments
+        {
+            get { return comments; }
+            set { comments = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        
+
+        
+       
         #endregion
 
 
         public CreationDetailsVm()
         {
-            //InitIngredients();
-            Messenger.Default.Register<OrderContentChocolate>(this,DisplayChocolateInfo);
+           
+            Messenger.Default.Register<Chocolate>(this,DisplayChocolateInfo);
             
-
         }
 
-        private void DisplayChocolateInfo(OrderContentChocolate currentOrderChocolate)
+        private void DisplayChocolateInfo(Chocolate currentOrderChocolate)
         {
             CurrentOrderChocolate = currentOrderChocolate;
-            SelectedOrderChocolateState = CurrentOrderChocolate.Chocolate.Available;
+            SelectedOrderChocolateState = CurrentOrderChocolate.Available;
+            DefineStates();
             RaisePropertyChanged("CurrentOrderChocolate");
             RaisePropertyChanged("SelectedOrderChocolateState");
-            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Chocolate.Ingredients);
+            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients);
+            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings);
+        }
+        private void DefineStates()
+        {
+            AvailabilityStates = new ObservableCollection<string>() {"Available","Not Available"};
+            if (SelectedOrderChocolateState == true)
+            {
+                CurrentState = "Available";
+            }
+            else
+            {
+                CurrentState = "Not Available";
+            }
         }
 
-        //private void InitIngredients()
-        //{
-            
-        //   // Ingredients = CurrentOrderChocolate.Chocolate.Ingredients;
-        //}
+
     }
 }
