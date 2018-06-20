@@ -90,6 +90,17 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 RaisePropertyChanged();
             }
         }
+        private OrderContentChocolate currentOrderContentChocolate;
+
+        public OrderContentChocolate CurrentOrderContentChocolate
+        {
+            get { return currentOrderContentChocolate; }
+            set { currentOrderContentChocolate = value;
+                ShowChocolateDetails(value);
+                RaisePropertyChanged();
+            }
+        }
+
 
 
         #endregion
@@ -113,7 +124,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         private void Refresh(RefreshMessage obj)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void DisplayOrderInfo(Order currentOrder)
@@ -156,7 +167,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
 
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-            BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p) => { ShowChocolateDetails(p); });
+           // BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p) => { ShowChocolateDetails(p); });
             BtnDetailsPackage = new RelayCommand<OrderContentPackage>((p) => { ShowPackageDetails(p); });
         }
 

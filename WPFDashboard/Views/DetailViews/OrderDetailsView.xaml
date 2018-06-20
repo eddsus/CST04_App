@@ -68,9 +68,9 @@
             <!--Content Label Chocolate-->
             <Label Grid.Row="2" Content="Content Chocolate:" Margin="10" FontWeight="Bold" HorizontalAlignment="Center"/>
             <!--==========DATA GRID WITH CHOCOLATE================-->
-            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentChocolates}" CanUserAddRows="False">
+            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentChocolates}" SelectedItem="{Binding CurrentOrderContentChocolate}" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Chocolate" Binding="{Binding Chocolate.Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Chocolate" Binding="{Binding Chocolate.Name}" IsReadOnly="True" MinWidth="225"/>
                     <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
                     <DataGridTemplateColumn Header="Delete">
                         <DataGridTemplateColumn.CellTemplate>
