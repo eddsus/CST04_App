@@ -41,8 +41,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand<Ingredient> BtnActivate { get; set; }
-        public RelayCommand<Ingredient> BtnDeactivate { get; set; }
+        public RelayCommand<Ingredient> BtnToggle { get; set; }
         #endregion
 
         public IngredientsVm()
@@ -54,34 +53,31 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
 
 
-            BtnActivate = new RelayCommand<Ingredient>(
+            BtnToggle = new RelayCommand<Ingredient>(
                 (i) =>
                 {
-                    CurrentIngredient = i;
-                    CurrentIngredient.Available = true;
-                    //Update the databases
-                    DataAgentUnit.GetInstance().UpdateIngredient(i);
-                    //and inform the infobar
-                    Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been activated", 5));
-                    //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
-                    Refresh(new RefreshMessage(GetType()));
-                },
-                (i) =>
-                {
-                    //only allow updates when connected and an ingredient is selected
-                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
-                });
-            BtnDeactivate = new RelayCommand<Ingredient>(
-                (i) =>
-                {
-                    CurrentIngredient = i;
-                    CurrentIngredient.Available = false;
-                    //Update the databases
-                    DataAgentUnit.GetInstance().UpdateIngredient(i);
-                    //and inform the infobar
-                    Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been deactivated", 5));
-                    //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
-                    Refresh(new RefreshMessage(GetType()));
+                    if (i.Available)
+                    {
+                        CurrentIngredient = i;
+                        CurrentIngredient.Available = false;
+                        //Update the databases
+                        DataAgentUnit.GetInstance().UpdateIngredient(i);
+                        //and inform the infobar
+                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been deactivated", 5));
+                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                        Refresh(new RefreshMessage(GetType()));
+                    }
+                    else
+                    {
+                        CurrentIngredient = i;
+                        CurrentIngredient.Available = true;
+                        //Update the databases
+                        DataAgentUnit.GetInstance().UpdateIngredient(i);
+                        //and inform the infobar
+                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been activated", 5));
+                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                        Refresh(new RefreshMessage(GetType()));
+                    }
                 },
                 (i) =>
                 {

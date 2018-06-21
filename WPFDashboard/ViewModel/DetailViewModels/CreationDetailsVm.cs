@@ -21,11 +21,13 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         #endregion
 
         #region PROPERTIES
-        
+
         public string CurrentState
         {
             get { return currentState; }
-            set { currentState = value;
+            set
+            {
+                currentState = value;
                 RaisePropertyChanged();
             }
         }
@@ -33,7 +35,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public ObservableCollection<string> AvailabilityStates
         {
             get { return availabilityStates; }
-            set { availabilityStates = value;
+            set
+            {
+                availabilityStates = value;
                 RaisePropertyChanged();
             }
         }
@@ -70,28 +74,30 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
-       
+
 
         public ObservableCollection<Rating> Comments
         {
             get { return comments; }
-            set { comments = value;
+            set
+            {
+                comments = value;
                 RaisePropertyChanged();
             }
         }
 
-        
 
-        
-       
+
+
+
         #endregion
 
 
         public CreationDetailsVm()
         {
-           
-            Messenger.Default.Register<Chocolate>(this,DisplayChocolateInfo);
-            
+
+            Messenger.Default.Register<Chocolate>(this, DisplayChocolateInfo);
+
         }
 
         private void DisplayChocolateInfo(Chocolate currentOrderChocolate)
@@ -104,9 +110,10 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients);
             Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings);
         }
+
         private void DefineStates()
         {
-            AvailabilityStates = new ObservableCollection<string>() {"Available","Not Available"};
+            AvailabilityStates = new ObservableCollection<string>() { "Available", "Not Available" };
             if (SelectedOrderChocolateState == true)
             {
                 CurrentState = "Available";

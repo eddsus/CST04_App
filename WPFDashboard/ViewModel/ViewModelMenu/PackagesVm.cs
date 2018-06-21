@@ -22,11 +22,23 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #region FIELDS
         private ViewModelBase packageDetailsView;
         private ObservableCollection<Package> listPackages;
-        private RelayCommand<Package> btnPackageDetails;
+        private Package selectedPackage;
         #endregion
 
 
         #region PROPERTIES
+        public Package SelectedPackage
+        {
+            get { return selectedPackage; }
+            set { selectedPackage = value;
+                if (SelectedPackage != null)
+                    ShowPackageDetails(value);
+                RaisePropertyChanged();
+
+                RaisePropertyChanged();
+            }
+        }
+
         public ViewModelBase PackageDetailsView
         {
             get { return packageDetailsView; }
@@ -35,14 +47,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             }
         }
 
-        public RelayCommand<Package> BtnPackageDetails
-        {
-            get { return btnPackageDetails; }
-            set { btnPackageDetails = value;
-                RaisePropertyChanged();
-            }
-        }
-
+       
         public ObservableCollection<Package> ListPackages
         {
             get { return listPackages; }
@@ -57,10 +62,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             InitializePackageList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnPackageDetails = new RelayCommand<Package>((p)=> { ShowPackageDetails(p); });
         }
-
-       
 
         private void ShowPackageDetails(Package p)
         {

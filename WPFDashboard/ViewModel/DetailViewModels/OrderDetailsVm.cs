@@ -16,10 +16,32 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 {
     public class OrderDetailsVm : ViewModelBase
     {
+        #region FIELDS
+        private ViewModelBase currentDetail;
+        private ObservableCollection<OrderContentChocolate> orderContentChocolates;
+        private string selectedOrderState;
+        private ObservableCollection<OrderContentPackage> orderContentPackages;
+        private Order currentOrder;
+        private OrderContentChocolate currentOrderContentChocolate;
+        private OrderContentPackage currentOrderContentPackage;
+        #endregion
+
 
         #region Properties
+        public OrderContentPackage CurrentOrderContentPackage
+        {
+            get { return currentOrderContentPackage; }
+            set
+            {
+                currentOrderContentPackage = value;
+                if (CurrentOrderContentPackage != null)
+                    ShowPackageDetails(value);
+                RaisePropertyChanged();
+                
+                RaisePropertyChanged();
+            }
+        }
 
-        private ViewModelBase currentDetail;
 
         public ViewModelBase CurrentDetail
         {
@@ -31,8 +53,6 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
 
-        private string selectedOrderState;
-
         public string SelectedOrderState
         {
             get { return selectedOrderState; }
@@ -43,28 +63,23 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
         public ObservableCollection<string> OrderStateStrings { get; set; }
-
-        //public ObservableCollection<OrderContentChocolate> OrderContentChocolates { get; set; }
-
-        private ObservableCollection<OrderContentChocolate> orderContentChocolates;
-
+        
         public ObservableCollection<OrderContentChocolate> OrderContentChocolates
         {
             get { return orderContentChocolates; }
-            set { orderContentChocolates = value;
+            set
+            {
+                orderContentChocolates = value;
                 RaisePropertyChanged();
             }
         }
 
-
-        //public ObservableCollection<OrderContentPackage> OrderContentPackages { get; set; }
-
-        private ObservableCollection<OrderContentPackage> orderContentPackages;
-
         public ObservableCollection<OrderContentPackage> OrderContentPackages
         {
             get { return orderContentPackages; }
-            set { orderContentPackages = value;
+            set
+            {
+                orderContentPackages = value;
                 RaisePropertyChanged();
             }
         }
@@ -72,15 +87,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public RelayCommand<OrderContent> BtnDelete { get; set; }
 
-
-        public RelayCommand<OrderContentChocolate> BtnDetailsChocolate { get; set; }
-
-        public RelayCommand<OrderContentPackage> BtnDetailsPackage { get; set; }
-
-
-
-        private Order currentOrder;
-
+        
         public Order CurrentOrder
         {
             get { return currentOrder; }
@@ -90,13 +97,18 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 RaisePropertyChanged();
             }
         }
-        private OrderContentChocolate currentOrderContentChocolate;
+
 
         public OrderContentChocolate CurrentOrderContentChocolate
         {
             get { return currentOrderContentChocolate; }
-            set { currentOrderContentChocolate = value;
-                ShowChocolateDetails(value);
+            set
+            {
+                currentOrderContentChocolate = value;
+                if (CurrentOrderContentChocolate != null)
+                    ShowChocolateDetails(value);
+                RaisePropertyChanged();
+
                 RaisePropertyChanged();
             }
         }
@@ -104,11 +116,10 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
 
         #endregion
+
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
-
-
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
 
@@ -117,11 +128,12 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             {
                 OrderStateStrings.Add(item.Decription);
             }
-
-
-           
         }
 
+        /// <summary>
+        /// PLEASE COMPLETE REFRESH IMPLEMENTATION
+        /// </summary>
+        /// <param name="obj"></param>
         private void Refresh(RefreshMessage obj)
         {
             //throw new NotImplementedException();
@@ -134,7 +146,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             SelectedOrderState = CurrentOrder.Status.Decription;
             RaisePropertyChanged("CurrentOrder");
             RaisePropertyChanged("SelectedOrderState");
-            // OrderContentDetailsList = new ObservableCollection<OrderContent>(CurrentOrder.Content);
+           
         }
 
         private void FillOrderContent()
@@ -144,40 +156,43 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
                 OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
                 RaisePropertyChanged("OrderContentChocolates");
-                RaisePropertyChanged("CurrentDetail");
+                // RaisePropertyChanged("CurrentDetail");
             }
             else
             {
                 OrderContentChocolates = new ObservableCollection<OrderContentChocolate>();
                 RaisePropertyChanged("OrderContentChocolates");
-               
+
             }
 
             if (DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId) != null)
             {
                 OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
                 RaisePropertyChanged("OrderContentPackages");
-                RaisePropertyChanged("CurrentDetail");
+                //RaisePropertyChanged("CurrentDetail");
             }
             else
             {
                 OrderContentPackages = new ObservableCollection<OrderContentPackage>();
                 RaisePropertyChanged("OrderContentPackages");
-               
+
             }
 
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-           // BtnDetailsChocolate = new RelayCommand<OrderContentChocolate>((p) => { ShowChocolateDetails(p); });
-            BtnDetailsPackage = new RelayCommand<OrderContentPackage>((p) => { ShowPackageDetails(p); });
+           
         }
 
+        /// <summary>
+        /// NOT COMPLETED DELETE IMPLEMENTATION
+        /// </summary>
+        /// <param name="p"></param>
         private void DeleteItem(OrderContent p)
         {
             //::TODO::also inform localdb and serverdb
             //OrderContentDetailsList.Remove(p);
         }
 
-       
+
 
         private void ShowPackageDetails(OrderContentPackage p)
         {

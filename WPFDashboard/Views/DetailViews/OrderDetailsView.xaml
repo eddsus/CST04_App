@@ -10,170 +10,166 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="2.9*"/>
-        </Grid.ColumnDefinitions>
-        
+    <Border BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="5">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="45"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="45"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <!--===========View Name==========-->
-            <Label Background="Beige" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-            <!--======================ORDER DETAILS====================-->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2.9*"/>
+            </Grid.ColumnDefinitions>
+       
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                   
-                    
-                </Grid.RowDefinitions>
-                <!--Order Id-->
-                <Label Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <Label Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
-                <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
-                    <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
-            </StackPanel>
-
-           
-                <!--Customer Name-->
-                <Label Grid.Row="1" Content="Customer Name:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                <Label Content="{Binding CurrentOrder.Customer.FirstName}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"  HorizontalAlignment="Left" />
-
-                <!--Order Date-->
-                <Label Grid.Row="2" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
-
-                
-            </Grid>
-
-
-
-            <!--=================CONTENT==================-->
-            <!--Content Label Chocolate-->
-            <Label Grid.Row="2" Content="Content Chocolate:" Margin="10" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <!--==========DATA GRID WITH CHOCOLATE================-->
-            <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentChocolates}" SelectedItem="{Binding CurrentOrderContentChocolate}" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Chocolate" Binding="{Binding Chocolate.Name}" IsReadOnly="True" MinWidth="225"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Delete">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                        <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Details">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button Command="{Binding DataContext.BtnDetailsChocolate,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <!--Content Label Package-->
-            <Label Grid.Row="4" Content="Content Package:" Margin="10" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <!--==========DATA GRID WITH PACKAGES================-->
-                <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="5" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentPackages}" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Package" Binding="{Binding Package.Name}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Delete">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                        <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Details">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button Command="{Binding DataContext.BtnDetailsPackage,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
-                                        <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <!--==========DUE DATE AND COMMENT==========-->
-            <Grid Grid.Row="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <!--Due date-->
-                <Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                    <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
-                </Viewbox>
-                <!--Comment-->
-                <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                <TextBox Text="{Binding CurrentOrder.Note}" Grid.Row="1" Grid.Column="1" Margin="5"/>
-            </Grid>
+                <!--===========View Name==========-->
+                <Label Background="Beige" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                <!--======================ORDER DETAILS====================-->
+
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
 
-            <!--==========BUTTON SAVE==========-->
-            <Button Grid.Row="7" Width="150">
-                <Grid Width="110">
-                    <materialDesign:PackIcon Kind="ContentSaveAll" VerticalAlignment="Center"/>
-                    <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                    <!--Order Id-->
+                    <Label Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
+                    <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
+                    </StackPanel>
+
+                    <!--Order Date-->
+                    <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+
                 </Grid>
-            </Button>
-        </Grid>
-        
+
+
+
+                <!--=================CONTENT==================-->
+
+                <!--==========DATA GRID WITH CHOCOLATE================-->
+                <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentChocolates}" SelectedItem="{Binding CurrentOrderContentChocolate}" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Chocolate" Binding="{Binding Chocolate.Name}" IsReadOnly="True" MinWidth="210"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox>
+                                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                            <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
+                                        </Button>
+                                    </Viewbox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--<DataGridTemplateColumn Header="Details">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox>
+                                        <Button Command="{Binding DataContext.BtnDetailsChocolate,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                            <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
+                                        </Button>
+                                    </Viewbox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+                <!--==========DATA GRID WITH PACKAGES================-->
+                <DataGrid Margin="10" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" ItemsSource="{Binding OrderContentPackages}" SelectedItem="{Binding CurrentOrderContentPackage}" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Package" Binding="{Binding Package.Name}" IsReadOnly="True" MinWidth="210"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox>
+                                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                            <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
+                                        </Button>
+                                    </Viewbox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--<DataGridTemplateColumn Header="Details">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Viewbox>
+                                        <Button Command="{Binding DataContext.BtnDetailsPackage,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                            <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
+                                        </Button>
+                                    </Viewbox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--==========DUE DATE AND COMMENT==========-->
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Due date-->
+                    <Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+                        <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
+                    </Viewbox>
+                    <!--Comment-->
+                    <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                        <TextBox Text="{Binding CurrentOrder.Note}"  Margin="5"/>
+                        <!--==========BUTTON SAVE==========-->
+                        <Button Margin="10" Width="150">
+                            <Grid Width="110">
+                                <materialDesign:PackIcon Kind="ContentSaveAll" VerticalAlignment="Center"/>
+                                <TextBlock Text="Save" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+
+
+            </Grid>
+     
         <!--=================PACKAGE OR CREATION DETAILS==============-->
-        <!--Package Detailspage-->
-        <ContentControl Grid.Column="1" Content="{Binding CurrentDetail}">
+            <!--Package Detailspage-->
+            <ContentControl Grid.Column="1" Content="{Binding CurrentDetail}">
 
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
-                    <detailview:CreationDetailsView></detailview:CreationDetailsView>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
-                    <detailview:PackageDetailView></detailview:PackageDetailView>
-                </DataTemplate>
-            </ContentControl.Resources>
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
+                        <detailview:CreationDetailsView></detailview:CreationDetailsView>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
+                        <detailview:PackageDetailView></detailview:PackageDetailView>
+                    </DataTemplate>
+                </ContentControl.Resources>
 
 
-        </ContentControl>
+            </ContentControl>
 
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

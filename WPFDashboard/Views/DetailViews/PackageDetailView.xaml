@@ -20,29 +20,25 @@
             <ColumnDefinition Width="1.7*"/>
             <ColumnDefinition Width="2.9*"/>
         </Grid.ColumnDefinitions>
-        <Label Background="Beige" Content="Package Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+        <Label Background="Beige" Content="Package Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         <!--Details window-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="50"/>
+
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        
 
-        <!--STATE-->
-        <StackPanel Grid.Column="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label Content="State" FontWeight="Bold" HorizontalAlignment="Right" FontSize="12"/>
-            <ComboBox Width="100" Height="30" ItemsSource="{Binding AvailabilityStates}" SelectedItem="{Binding CurrentState}"/>
-        </StackPanel>
 
-            <!--=============PACKAGE NAME, WRAPPING AND PRICE SECTIONS===============-->
-            <Grid Grid.Row="1">
+
+
+            <!--=============PACKAGE NAME AND WRAPPING SECTIONS===============-->
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -52,55 +48,52 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!--PACKAGE NAME-->
-                <StackPanel Orientation="Vertical">
-                    <Label Content="Package:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <Label Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" />
                 </StackPanel>
                 <Viewbox Grid.Column="1">
                     <Label  Content="{Binding CurrentContentPackage.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Viewbox>
-                
+
                 <!--WRAPPING TEXT-->
                 <Label Grid.Row="1" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Wrapping:" FontWeight="Bold"/>
-                <Viewbox Grid.Column="1" Grid.Row="1">
-                    <Label  Margin="1" FontSize="12" Content="{Binding CurrentContentPackage.Wrapping.Name}"/>
-                </Viewbox>
-                
-                <!--Price-->
-                <Label Grid.Row="2" Content="Price:"  FontWeight="Bold" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <Label Content="{Binding CurrentContentPackage.Price}" Grid.Row="2" Grid.Column="1" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Grid.Column="1" Grid.Row="1" Margin="1"  Content="{Binding CurrentContentPackage.Wrapping.Name}"/>
+
+                <!--DESCRIPTION Label-->
+                <Label  Content="Description:" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right"  FontWeight="Bold" FontSize="12"/>
+
             </Grid>
 
-            <!--DESCRIPTIONS-->
-            <Grid Grid.Column="1" Grid.Row="1">
+            <!--DESCRIPTIONS, STATUS AND PRICE-->
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-              <Label  Content="Description:" Grid.Row="1" VerticalAlignment="Center"  FontWeight="Bold" FontSize="12"/>
-              <Label Content="{Binding CurrentContentPackage.Description}" FontSize="12" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Margin="5"/>
-                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!--STATE-->
+                <Label VerticalAlignment="Center" Content="State" FontWeight="Bold" HorizontalAlignment="Right" FontSize="12"/>
+                <ComboBox Grid.Column="1" Height="30" ItemsSource="{Binding AvailabilityStates}" SelectedItem="{Binding CurrentState}"/>
+
+                <!--DESCRIPTION content-->
+                <Label Content="{Binding CurrentContentPackage.Description}" FontSize="12" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center"  Margin="5"/>
+                <!--Price-->
+                <Label Grid.Row="1" Content="Price:"  FontWeight="Bold" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Label Content="{Binding CurrentContentPackage.Price}" Grid.Row="1" Grid.Column="1"  FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+
             </Grid>
             <!--=================DATA GRID WITH Chocolates List(creations list)===========-->
-            <Label Content="Chocolates List:" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15"/>
-            <DataGrid CanUserAddRows="False" ItemsSource="{Binding Chocolates}" AutoGenerateColumns="False" Margin="10" Grid.Row="3" Grid.ColumnSpan="2">
+            <Label Content="Chocolates List:" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12"/>
+            <DataGrid CanUserAddRows="False" ItemsSource="{Binding Chocolates}" AutoGenerateColumns="False" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedChocolate}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                    <DataGridTemplateColumn Header="Details">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnShowChocolateDetails,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                        <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding AmountInPackage}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -113,6 +106,6 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-       
+
     </Grid>
 </UserControl>
