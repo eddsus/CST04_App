@@ -12,20 +12,13 @@ namespace DataHandler.Local_Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Shape
+    public partial class Chocolate_has_Ingridients
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shape()
-        {
-            this.Chocolate = new HashSet<Chocolate>();
-        }
-    
-        public System.Guid ID_Shape { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
+        public System.Guid Chocolazte_ID { get; set; }
+        public System.Guid Ingerdient_ID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chocolate> Chocolate { get; set; }
+        public virtual Chocolate Chocolate { get; set; }
+        public virtual Ingredients Ingredients { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace DataHandler.Local_Database
         public System.Guid OrderContent_ID { get; set; }
         public System.Guid Package_ID { get; set; }
         public int Amount { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual OrderContent OrderContent { get; set; }
         public virtual Package Package { get; set; }

@@ -70,7 +70,13 @@
     <Compile Include="Local Database\Chocolate.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Local Database\Chocolate_has_Ingridients.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Local Database\Customer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Local Database\Customer_has_Address.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Local Database\CustomStyle.cs">

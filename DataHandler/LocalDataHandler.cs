@@ -134,12 +134,14 @@ namespace DataHandler
 
         public List<SharedDataTypes.Package> QueryPackagesWithChocolatesAndIngredients()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return new List<SharedDataTypes.Package>();
         }
 
         public List<SharedDataTypes.Wrapping> QueryWrappings()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return new List<SharedDataTypes.Wrapping>();
         }
 
 

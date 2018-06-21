@@ -18,9 +18,9 @@ namespace DataHandler.Local_Database
         public Customer()
         {
             this.Chocolate = new HashSet<Chocolate>();
+            this.Customer_has_Address = new HashSet<Customer_has_Address>();
             this.Order = new HashSet<Order>();
             this.Rating = new HashSet<Rating>();
-            this.Address = new HashSet<Address>();
         }
     
         public System.Guid ID_Customer { get; set; }
@@ -28,14 +28,15 @@ namespace DataHandler.Local_Database
         public string LastName { get; set; }
         public string Mail { get; set; }
         public string PhoneNumber { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chocolate> Chocolate { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer_has_Address> Customer_has_Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Rating { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> Address { get; set; }
     }
 }

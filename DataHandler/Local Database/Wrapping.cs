@@ -25,6 +25,7 @@ namespace DataHandler.Local_Database
         public string Name { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chocolate> Chocolate { get; set; }

@@ -27,7 +27,9 @@ namespace DataHandler.Local_Database
     
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Chocolate> Chocolate { get; set; }
+        public virtual DbSet<Chocolate_has_Ingridients> Chocolate_has_Ingridients { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<Customer_has_Address> Customer_has_Address { get; set; }
         public virtual DbSet<CustomStyle> CustomStyle { get; set; }
         public virtual DbSet<Ingredients> Ingredients { get; set; }
         public virtual DbSet<Order> Order { get; set; }

@@ -17,11 +17,12 @@ namespace DataHandler.Local_Database
         public System.Guid ID_Rating { get; set; }
         public int Value { get; set; }
         public System.DateTime Date { get; set; }
-        public System.Guid Package_ID { get; set; }
-        public System.Guid Chocolate_ID { get; set; }
+        public Nullable<System.Guid> Package_ID { get; set; }
+        public Nullable<System.Guid> Chocolate_ID { get; set; }
         public string Comment { get; set; }
         public bool Published { get; set; }
         public System.Guid Customer_ID { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Chocolate Chocolate { get; set; }
         public virtual Customer Customer { get; set; }
