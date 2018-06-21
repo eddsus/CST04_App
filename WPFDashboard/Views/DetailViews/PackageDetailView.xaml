@@ -54,15 +54,14 @@
                     <Label Content="Package:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" />
                     <Label Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" />
                 </StackPanel>
-                <Viewbox Grid.Column="1">
-                    <Label  Content="{Binding CurrentContentPackage.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Viewbox>
+             
+                <Label Grid.Column="1"  Content="{Binding CurrentContentPackage.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+               
                 
                 <!--WRAPPING TEXT-->
                 <Label Grid.Row="1" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Wrapping:" FontWeight="Bold"/>
-                <Viewbox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-                    <Label  Margin="1" FontSize="12" Content="{Binding CurrentContentPackage.Wrapping.Name}"/>
-                </Viewbox>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Grid.Column="1" Grid.Row="1" Margin="1"  Content="{Binding CurrentContentPackage.Wrapping.Name}"/>
+                
                 <!--DESCRIPTION Label-->
                 <Label  Content="Description:" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right"  FontWeight="Bold" FontSize="12"/>
                 
@@ -92,21 +91,10 @@
             </Grid>
             <!--=================DATA GRID WITH Chocolates List(creations list)===========-->
             <Label Content="Chocolates List:" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12"/>
-            <DataGrid CanUserAddRows="False" ItemsSource="{Binding Chocolates}" AutoGenerateColumns="False" Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
+            <DataGrid CanUserAddRows="False" ItemsSource="{Binding Chocolates}" AutoGenerateColumns="False" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedChocolate}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                    <DataGridTemplateColumn Header="Details">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Viewbox>
-                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnShowChocolateDetails,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                        <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
-                                    </Button>
-                                </Viewbox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

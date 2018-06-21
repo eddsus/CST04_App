@@ -23,11 +23,22 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private string currentState;
         private ObservableCollection<Chocolate> chocolates;
         private RelayCommand<Chocolate> btnShowChocolateDetails;
-        
+        private Chocolate selectedChocolate;
         #endregion
 
 
         #region PROPERTIES
+        public Chocolate SelectedChocolate
+        {
+            get { return selectedChocolate; }
+            set { selectedChocolate = value;
+                if (SelectedChocolate != null)
+                    ShowChocolateDetails(value);
+                RaisePropertyChanged();
+
+                RaisePropertyChanged();
+            }
+        }
 
         public RelayCommand<Chocolate> BtnShowChocolateDetails
         {

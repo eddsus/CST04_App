@@ -62,7 +62,9 @@
                     </Button>
                 </StackPanel>
             </Viewbox>-->
-            <!--Listbox mit Items-->
+            
+            
+            <!--=========LISTBOX MIT ITEMS============-->
             <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectedItem="{Binding SelectedOrder}"/>
 
         </Grid>
