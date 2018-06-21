@@ -1,13 +1,20 @@
-﻿<UserControl x:Class="WPFDashboard.Views.IngredientsView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFDashboard.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Converter="clr-namespace:WPFDashboard.Helpers.Converter" x:Class="WPFDashboard.Views.IngredientsView"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource Locator}, Path=Ingredients}">
+             >
+    <UserControl.Resources>
+        <Converter:BoolToToggleConverter x:Key="BoolToToggleConverter"/>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="Ingredients" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,14 +28,14 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnToggle,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="ToggleSwitch" VerticalAlignment="Center"/>
+                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnToggle, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
                                 </Button>
                             </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
