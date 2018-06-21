@@ -21,11 +21,22 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #region FIELDS
         private ViewModelBase orderDetailsView;
         private ObservableCollection<Order> ordersList;
-        private RelayCommand<Order> btnviewDetails;
+        private Order selectedOrder;
         #endregion
 
         #region PROPERTIES
-        public RelayCommand<Order> BtnShowdetails { get; set; }
+        public Order SelectedOrder
+        {
+            get { return selectedOrder; }
+            set { selectedOrder = value;
+                if (SelectedOrder != null)
+                    ShowOrderDetails(value);
+                RaisePropertyChanged();
+               
+                RaisePropertyChanged();
+            }
+        }
+        
         public ViewModelBase OrderDetailsView
         {
             get { return orderDetailsView; }
@@ -40,29 +51,18 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand<Order> BtnViewDetails
-        {
-            get { return btnviewDetails; }
-            set
-            {
-                btnviewDetails = value;
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion
 
         public OrdersVm()
         {
-            BtnShowdetails = new RelayCommand<Order>((p) =>
-            {
-                Messenger.Default.Send(new Order(p));
-                OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>();
-            });
-
             InitializeOrdersList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
+        }
 
+        private void ShowOrderDetails(Order p)
+        {
+            Messenger.Default.Send(new Order(p));
+            OrderDetailsView = SimpleIoc.Default.GetInstance<OrderDetailsVm>();
         }
 
         private void Refresh(RefreshMessage obj)

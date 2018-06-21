@@ -34,13 +34,6 @@
                     <Label Grid.Column="1" Content="{Binding Customer.FirstName}"/>
                     <Label Grid.Column="1" Grid.Row="1" Content="{Binding DateOfDelivery}"/>
                     <Label Grid.Column="1" Grid.Row="2" Content="{Binding Status.Decription}"/>
-                    <!-- Button-->
-                    <Button Grid.Row="3" Grid.ColumnSpan="2" Margin="5" Command="{Binding DataContext.BtnShowdetails, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
-                        <Grid Width="110">
-                            <materialDesign:PackIcon Kind="ViewModule" VerticalAlignment="Center"/>
-                            <TextBlock Text="Edit Order" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </Button>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -70,7 +63,7 @@
                 </StackPanel>
             </Viewbox>-->
             <!--Listbox mit Items-->
-            <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}"/>
+            <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectedItem="{Binding SelectedOrder}"/>
 
         </Grid>
         <!--OrderDeatailspage-->
