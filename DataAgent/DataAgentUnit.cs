@@ -126,7 +126,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-                return serviceHandler.CallService<List<OrderContentChocolate>>(@"QueryOrdersContentChocolate/"+ orderId);
+                return serviceHandler.CallService<List<OrderContentChocolate>>(@"QueryOrdersContentChocolate/" + orderId);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace DataAgent
             GetSynchronizerStatus();
             if (connected)
             {
-               return serviceHandler.CallService<List<Package>>(@"QueryPackagesWithChocolatesAndIngredients");
+                return serviceHandler.CallService<List<Package>>(@"QueryPackagesWithChocolatesAndIngredients");
             }
             else
             {
@@ -175,7 +175,37 @@ namespace DataAgent
         #endregion
 
         #region UPDATE METHODS
-        public bool UpdateIngredient<T>(T item)
+
+        public bool <OrderContent>(OrderContent item)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallUpdateService(@"DeleteOrderContentByContentId", item);
+            }
+            else
+            {
+                //In a future version of this project we would update the local db here but since offline updates are
+                //not in the scope of this project this code ends here
+                return false;
+            }
+        }
+        public bool UpdateRating<Rating>(Rating item)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallUpdateService(@"UpdateRating", item);
+            }
+            else
+            {
+                //In a future version of this project we would update the local db here but since offline updates are
+                //not in the scope of this project this code ends here
+                return false;
+            }
+        }
+
+        public bool UpdateIngredient<Ingredient>(Ingredient item)
         {
             GetSynchronizerStatus();
             if (connected)

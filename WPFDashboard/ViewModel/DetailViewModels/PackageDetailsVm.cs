@@ -142,7 +142,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
             foreach (var item in Chocolates)
             {
-                item.AmountInPackage=CurrentContentPackage.Chocolates.Where(p => p.ChocolateId.Equals(item.ChocolateId)).Select(p => p).Count();
+                item.AmountInPackage = CurrentContentPackage.Chocolates.Where(p => p.ChocolateId.Equals(item.ChocolateId)).Select(p => p).Count();
             }
 
         }

@@ -17,28 +17,18 @@
 
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />
-                <DataGridTemplateColumn Header="Activate">
+                <DataGridTemplateColumn Header="Toggle">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnActivate,RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnToggle,RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                     <materialDesign:PackIcon Kind="ToggleSwitch" VerticalAlignment="Center"/>
                                 </Button>
                             </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Deactivate">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDeactivate,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="ToggleSwitchOff" VerticalAlignment="Center"/>
-                                </Button>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
