@@ -49,8 +49,6 @@ namespace DataHandler
             }
             foreach (var tempOrder in tempSharedOrders)
             {
-                //int cnt = 0;
-                //SharedOrderContent is abstract
                 foreach (var tempOrderContent in localDb.OrderContent.Where(p => p.Order_ID.Equals(tempOrder.OrderId)).Select(p => p).ToList())
                 {
                     //cnt++;
@@ -85,17 +83,15 @@ namespace DataHandler
             return tempShared;
         }
 
-        internal static List<Ingredient> QueryIngredientsByChocolateId(Guid iD_Chocolate)
-        {
-            throw new NotImplementedException();
-        }
+        //internal static List<Ingredient> QueryIngredientsByChocolateId(Guid iD_Chocolate)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-       
-
-        internal static List<SharedDataTypes.Rating> QueryRatingsByChocolateId(Guid iD_Chocolate)
-        {
-            throw new NotImplementedException();
-        }
+        //internal static List<SharedDataTypes.Rating> QueryRatingsByChocolateId(Guid iD_Chocolate)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         internal SharedDataTypes.Customer QueryCustomerById(Guid creator_Customer_ID)
         {
@@ -130,16 +126,24 @@ namespace DataHandler
             throw new NotImplementedException();
         }
 
-        public List<SharedDataTypes.Package> QueryPackagesWithChocolatesAndIngredients()
+        public List<SharedDataTypes.Rating> QueryRatings()
         {
             throw new NotImplementedException();
             //writeCode
+        }
+
+        public List<SharedDataTypes.Package> QueryPackagesWithChocolatesAndIngredients()
+        {
+            throw new NotImplementedException();
         }
 
         public List<SharedDataTypes.Wrapping> QueryWrappings()
         {
             throw new NotImplementedException();
         }
+
+
+
         public List<SharedDataTypes.OrderStatus> QueryOrderStates()
         {
             var temp = localDb.OrderStatus.Select(i => new SharedDataTypes.OrderStatus()

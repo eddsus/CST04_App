@@ -172,11 +172,24 @@ namespace DataAgent
             }
         }
 
+        public List<Rating> QueryRatings()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<Rating>>(@"QueryRatings");
+            }
+            else
+            {
+                return localDH.QueryRatings();
+            }
+        }
+
         #endregion
 
         #region UPDATE METHODS
 
-        public bool <OrderContent>(OrderContent item)
+        public bool DeleteOrderContent<OrderContent>(OrderContent item)
         {
             GetSynchronizerStatus();
             if (connected)
@@ -224,3 +237,4 @@ namespace DataAgent
 
     }
 }
+
