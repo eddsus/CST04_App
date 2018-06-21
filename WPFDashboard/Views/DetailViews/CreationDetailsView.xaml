@@ -57,7 +57,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!--CHOCOLATE NAME-->
-                    <Label Content="Chocolate Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <Label Grid.Column="1" Content="{Binding CurrentOrderChocolate.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <!--WRAPPING TEXT-->

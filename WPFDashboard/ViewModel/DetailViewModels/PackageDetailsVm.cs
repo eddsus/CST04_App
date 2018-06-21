@@ -28,6 +28,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
 
         #region PROPERTIES
+
         public Chocolate SelectedChocolate
         {
             get { return selectedChocolate; }
@@ -129,14 +130,21 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             CurrentChocolateView = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
         }
 
-        private void DisplayPackageInfo(Package currentPackadeContent)
+        private void DisplayPackageInfo(Package currentPackageContent)
         {
-            CurrentContentPackage = currentPackadeContent;
+            CurrentContentPackage = currentPackageContent;
             SelectedOrderPackageState = CurrentContentPackage.Available;
             DefineStates();
             RaisePropertyChanged("CurrentOrderPackage");
             RaisePropertyChanged("SelectedOrderPackageState");
-            Chocolates = new ObservableCollection<Chocolate>(CurrentContentPackage.Chocolates);
+            
+            Chocolates = new ObservableCollection<Chocolate>(CurrentContentPackage.Chocolates.Select(p=>p).Distinct().ToList());
+
+            foreach (var item in Chocolates)
+            {
+                item.AmountInPackage=CurrentContentPackage.Chocolates.Where(p => p.ChocolateId.Equals(item.ChocolateId)).Select(p => p).Count();
+            }
+
         }
 
         private void DefineStates()

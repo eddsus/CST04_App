@@ -116,11 +116,10 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
 
         #endregion
+
         public OrderDetailsVm()
         {
             //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
-
-
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
 
@@ -129,11 +128,12 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             {
                 OrderStateStrings.Add(item.Decription);
             }
-
-
-
         }
 
+        /// <summary>
+        /// PLEASE COMPLETE REFRESH IMPLEMENTATION
+        /// </summary>
+        /// <param name="obj"></param>
         private void Refresh(RefreshMessage obj)
         {
             //throw new NotImplementedException();
@@ -182,6 +182,10 @@ namespace WPFDashboard.ViewModel.DetailViewModels
            
         }
 
+        /// <summary>
+        /// NOT COMPLETED DELETE IMPLEMENTATION
+        /// </summary>
+        /// <param name="p"></param>
         private void DeleteItem(OrderContent p)
         {
             //::TODO::also inform localdb and serverdb

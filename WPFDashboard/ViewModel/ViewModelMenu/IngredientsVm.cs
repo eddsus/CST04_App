@@ -72,6 +72,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                     return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
             BtnDeactivate = new RelayCommand<Ingredient>(
+                
+
                 (i) =>
                 {
                     CurrentIngredient = i;

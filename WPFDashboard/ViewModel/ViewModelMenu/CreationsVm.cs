@@ -21,41 +21,47 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         //todo: Generate regions for fields and properties
         #region FIELDS
         private ViewModelBase creationDetailView;
-        private RelayCommand<Chocolate> btnCreationDetails;
         private ObservableCollection<Chocolate> listOfChocolates;
+        private Chocolate selectedChocolate;
         #endregion
 
         #region PROPERTIES
-        public RelayCommand<Chocolate> BtnCreationDetails
+        public Chocolate SelectedChocolate
         {
-            get { return btnCreationDetails; }
-            set { btnCreationDetails = value;
-                RaisePropertyChanged(); }
+            get { return selectedChocolate; }
+            set { selectedChocolate = value;
+                if (SelectedChocolate != null)
+                    ShowCreationdetails(value);
+                RaisePropertyChanged();
+            }
         }
-
 
         public ViewModelBase CreationDetailView
         {
             get { return creationDetailView; }
-            set { creationDetailView = value;
+            set
+            {
+                creationDetailView = value;
                 RaisePropertyChanged();
             }
         }
 
         public ObservableCollection<string> States { get; set; }
-       
-        
+
+
 
         public ObservableCollection<Chocolate> ListOfChocolates
         {
             get { return listOfChocolates; }
-            set { listOfChocolates = value;
+            set
+            {
+                listOfChocolates = value;
                 RaisePropertyChanged();
             }
         }
 
         public string CurrentState { get; set; }
-        public Chocolate CurrentChocolate { get; set; }
+
 
         #endregion
 
@@ -64,12 +70,11 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnCreationDetails = new RelayCommand<Chocolate>((p)=> { ShowCreationdetails(p); });
         }
 
         private void InitStateList()
         {
-            States = new ObservableCollection<string>() {};
+            States = new ObservableCollection<string>() { };
         }
 
         private void ShowCreationdetails(Chocolate p)

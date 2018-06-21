@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         
         <!--============Creations List===================-->
-        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
+        <DataGrid SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
@@ -26,17 +26,6 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Details">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnCreationDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center"/>
-                                </Button>
-                            </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

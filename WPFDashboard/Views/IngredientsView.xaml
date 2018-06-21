@@ -22,7 +22,7 @@
                         <DataTemplate>
                             <Viewbox>
                                 <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnActivate,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="Airplane" VerticalAlignment="Center"/>
+                                    <materialDesign:PackIcon Kind="ToggleSwitch" VerticalAlignment="Center"/>
                                 </Button>
                             </Viewbox>
                         </DataTemplate>
@@ -33,7 +33,7 @@
                         <DataTemplate>
                             <Viewbox>
                                 <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDeactivate,RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="AirplaneOff" VerticalAlignment="Center"/>
+                                    <materialDesign:PackIcon Kind="ToggleSwitchOff" VerticalAlignment="Center"/>
                                 </Button>
                             </Viewbox>
                         </DataTemplate>
