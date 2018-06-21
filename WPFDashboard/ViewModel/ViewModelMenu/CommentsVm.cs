@@ -1,6 +1,7 @@
 ﻿using DataAgent;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
@@ -18,31 +19,77 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         //testing wraps
         //todo: Generate regions for fields and properties
-        #region Properties
-        public RelayCommand<Rating> BtnDelete{ get; set; }
-        public ObservableCollection<Rating> ListOfComments { get; set; }
+        #region FIELDS
+        private ObservableCollection<Rating> listOfRatings;
+        private RelayCommand<Rating> btnPublish;
+        private Rating currentRating;
         #endregion
-        private ObservableCollection<Wrapping> wraps;
 
-        public ObservableCollection<Wrapping> Wraps
+        #region PROPERTIES
+
+
+        public Rating CurrentRating
         {
-            get { return wraps; }
-            set { wraps = value;
+            get { return currentRating; }
+            set { currentRating = value;
                 RaisePropertyChanged();
             }
         }
+
+        public RelayCommand<Rating> BtnPublish
+        {
+            get { return btnPublish; }
+            set { btnPublish = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Rating> ListOfRatings
+        {
+            get { return listOfRatings; }
+            set { listOfRatings = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         public CommentsVm()
         {
             InitializeCommentsList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            BtnDelete = new RelayCommand<Rating>((p)=> { DeleteItem(p); });
+            BtnPublish = new RelayCommand<Rating>(
+                (i)=>
+                {
+                    if (i.Published)
+                    {
+                        CurrentRating = i;
+                        CurrentRating.Published = false;
+                        //Update the databases
+                        DataAgentUnit.GetInstance().UpdateRating(i);
+                        //and inform the infobar
+                        Messenger.Default.Send(new PropertyChanged<Rating>(i, "has been unpublished", 5));
+                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                        Refresh(new RefreshMessage(GetType()));
+                    }
+                    else
+                    {
+                        CurrentRating = i;
+                        CurrentRating.Published = true;
+                        //Update the databases
+                        DataAgentUnit.GetInstance().UpdateRating(i);
+                        //and inform the infobar
+                        Messenger.Default.Send(new PropertyChanged<Rating>(i, "has been published", 5));
+                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                        Refresh(new RefreshMessage(GetType()));
+                    }
+                },
+                (i)=> 
+                {
+                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
+                });
         }
 
-        private void DeleteItem(Rating p)
-        {
-            ListOfComments.Remove(p);
-        }
+       
 
         private void Refresh(RefreshMessage obj)
         {
@@ -58,16 +105,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
         public void InitializeCommentsList()
         {
-            ListOfComments = new ObservableCollection<Rating>();
-            //Wraps = new ObservableCollection<Wrapping>();
 
-            //foreach (var item in DataAgent.QueryWrappings())
-            //{
-            //    Wraps.Add(item);
-            //}
-
-           
-          
+            ListOfRatings = new ObservableCollection<Rating>(DataAgentUnit.GetInstance().QueryRatings());
         }
 
 

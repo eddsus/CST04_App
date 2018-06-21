@@ -23,8 +23,8 @@
 
 
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />
-                <DataGridTemplateColumn Header="Toggle">
+                <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
+                <DataGridTemplateColumn Header="Off/On">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>

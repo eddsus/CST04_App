@@ -71,7 +71,11 @@ namespace WPFDashboard.ViewModel
             GetConnectionStatus();
 
             CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();
-            BtnOrdersView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>(); GetConnectionStatus(); });
+            BtnOrdersView = new RelayCommand(
+                () => {
+                CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();
+                    GetConnectionStatus(); }
+               );
             BtnPackagesView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<PackagesVm>(); GetConnectionStatus(); });
             BtnIngredientsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<IngredientsVm>(); GetConnectionStatus(); });
             BtnCommentsView = new RelayCommand(() => { CurrentView = SimpleIoc.Default.GetInstance<CommentsVm>(); GetConnectionStatus(); });
