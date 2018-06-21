@@ -17,7 +17,7 @@ namespace DataHandler.Local_Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ingredients()
         {
-            this.Chocolate = new HashSet<Chocolate>();
+            this.Chocolate_has_Ingridients = new HashSet<Chocolate_has_Ingridients>();
         }
     
         public System.Guid ID_Ingredients { get; set; }
@@ -30,6 +30,6 @@ namespace DataHandler.Local_Database
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chocolate> Chocolate { get; set; }
+        public virtual ICollection<Chocolate_has_Ingridients> Chocolate_has_Ingridients { get; set; }
     }
 }

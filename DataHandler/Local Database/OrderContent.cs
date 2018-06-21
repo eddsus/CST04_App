@@ -23,6 +23,7 @@ namespace DataHandler.Local_Database
     
         public System.Guid ID_OrderContent { get; set; }
         public string Order_ID { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Order Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

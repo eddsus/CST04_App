@@ -17,7 +17,7 @@ namespace DataHandler.Local_Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
         {
-            this.Customer = new HashSet<Customer>();
+            this.Customer_has_Address = new HashSet<Customer_has_Address>();
         }
     
         public System.Guid ID_Address { get; set; }
@@ -27,6 +27,6 @@ namespace DataHandler.Local_Database
         public int HouseNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customer { get; set; }
+        public virtual ICollection<Customer_has_Address> Customer_has_Address { get; set; }
     }
 }

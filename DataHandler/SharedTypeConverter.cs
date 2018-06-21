@@ -48,7 +48,7 @@ namespace DataHandler
                 CustomerId = c.ID_Customer,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
-                Address = ConvertToSharedAddress(c.Address.First()),
+                //Address = ConvertToSharedAddress(),
                 Mail = c.Mail,
                 PhoneNumber = c.PhoneNumber
             };

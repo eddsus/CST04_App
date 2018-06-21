@@ -37,6 +37,7 @@
           </Key>
           <Property Name="Chocolazte_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Ingerdient_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -47,6 +48,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Mail" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Customer_has_Address">
           <Key>
@@ -55,6 +57,7 @@
           </Key>
           <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Address_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="CustomStyle">
           <Key>
@@ -82,11 +85,12 @@
             <PropertyRef Name="ID_Order" />
           </Key>
           <Property Name="ID_Order" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="DateOfOrder" Type="date" Nullable="false" />
-          <Property Name="DateOfDelivery" Type="date" Nullable="false" />
+          <Property Name="DateOfOrder" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DateOfDelivery" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Status_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Note" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="OrderContent">
           <Key>
@@ -94,6 +98,7 @@
           </Key>
           <Property Name="ID_OrderContent" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Order_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="OrderContent_has_Chocolate">
           <Key>
@@ -103,6 +108,7 @@
           <Property Name="OrderContent_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Chocolate_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="OrderContent_has_Package">
           <Key>
@@ -112,6 +118,7 @@
           <Property Name="OrderContent_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Package_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -119,6 +126,7 @@
           </Key>
           <Property Name="ID_OrderStatus" Type="uniqueidentifier" Nullable="false" />
           <Property Name="StatusDescription" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Package">
           <Key>
@@ -149,12 +157,13 @@
           </Key>
           <Property Name="ID_Rating" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Value" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Package_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Chocolate_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Comment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Package_ID" Type="uniqueidentifier" />
+          <Property Name="Chocolate_ID" Type="uniqueidentifier" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" />
           <Property Name="Published" Type="bit" Nullable="false" />
           <Property Name="Customer_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Shape">
           <Key>
@@ -163,6 +172,7 @@
           <Property Name="ID_Shape" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Image" Type="varchar(max)" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Wrapping">
           <Key>
@@ -172,6 +182,7 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Image" Type="varchar(max)" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <Association Name="FK_Chocolate_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
@@ -390,7 +401,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Chocolate">
-          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="0..1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Chocolate">
@@ -414,7 +425,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Package">
-          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Package">
@@ -542,7 +553,7 @@
           <Property Name="ZIP" Type="Int32" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HouseNumber" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.Customer_has_Address" FromRole="Address" ToRole="Customer" />
+          <NavigationProperty Name="Customer_has_Address" Relationship="Self.FK_Customer_has_Address_Address" FromRole="Address" ToRole="Customer_has_Address" />
         </EntityType>
         <EntityType Name="Chocolate">
           <Key>
@@ -560,12 +571,23 @@
           <Property Name="WrappingID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Chocolate_Customer" FromRole="Chocolate" ToRole="Customer" />
           <NavigationProperty Name="CustomStyle" Relationship="Self.FK_Chocolate_CustomStyle" FromRole="Chocolate" ToRole="CustomStyle" />
+          <NavigationProperty Name="Chocolate_has_Ingridients" Relationship="Self.FK_Chocolate_has_Ingridients_Chocolate" FromRole="Chocolate" ToRole="Chocolate_has_Ingridients" />
           <NavigationProperty Name="Shape" Relationship="Self.FK_Chocolate_Shape" FromRole="Chocolate" ToRole="Shape" />
           <NavigationProperty Name="Wrapping" Relationship="Self.FK_Chocolate_Wrapping" FromRole="Chocolate" ToRole="Wrapping" />
           <NavigationProperty Name="OrderContent_has_Chocolate" Relationship="Self.FK_OrderContent_has_Chocolate_Chocolate" FromRole="Chocolate" ToRole="OrderContent_has_Chocolate" />
           <NavigationProperty Name="Package_has_Chocolate" Relationship="Self.FK_Package_has_Chocolate_Chocolate" FromRole="Chocolate" ToRole="Package_has_Chocolate" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Chocolate" FromRole="Chocolate" ToRole="Rating" />
-          <NavigationProperty Name="Ingredients" Relationship="Self.Chocolate_has_Ingridients" FromRole="Chocolate" ToRole="Ingredients" />
+        </EntityType>
+        <EntityType Name="Chocolate_has_Ingridients">
+          <Key>
+            <PropertyRef Name="Chocolazte_ID" />
+            <PropertyRef Name="Ingerdient_ID" />
+          </Key>
+          <Property Name="Chocolazte_ID" Type="Guid" Nullable="false" />
+          <Property Name="Ingerdient_ID" Type="Guid" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Chocolate" Relationship="Self.FK_Chocolate_has_Ingridients_Chocolate" FromRole="Chocolate_has_Ingridients" ToRole="Chocolate" />
+          <NavigationProperty Name="Ingredients" Relationship="Self.FK_Chocolate_has_Ingridients_Ingredients" FromRole="Chocolate_has_Ingridients" ToRole="Ingredients" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -576,10 +598,22 @@
           <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Mail" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_Chocolate_Customer" FromRole="Customer" ToRole="Chocolate" />
+          <NavigationProperty Name="Customer_has_Address" Relationship="Self.FK_Customer_has_Address_Customer" FromRole="Customer" ToRole="Customer_has_Address" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Customer" FromRole="Customer" ToRole="Rating" />
-          <NavigationProperty Name="Address" Relationship="Self.Customer_has_Address" FromRole="Customer" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Customer_has_Address">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Guid" Nullable="false" />
+          <Property Name="Address_ID" Type="Guid" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_Customer_has_Address_Address" FromRole="Customer_has_Address" ToRole="Address" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_has_Address_Customer" FromRole="Customer_has_Address" ToRole="Customer" />
         </EntityType>
         <EntityType Name="CustomStyle">
           <Key>
@@ -602,18 +636,19 @@
           <Property Name="Availability" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Chocolate" Relationship="Self.Chocolate_has_Ingridients" FromRole="Ingredients" ToRole="Chocolate" />
+          <NavigationProperty Name="Chocolate_has_Ingridients" Relationship="Self.FK_Chocolate_has_Ingridients_Ingredients" FromRole="Ingredients" ToRole="Chocolate_has_Ingridients" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID_Order" />
           </Key>
           <Property Name="ID_Order" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DateOfOrder" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DateOfDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfOrder" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DateOfDelivery" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Status_ID" Type="Guid" Nullable="false" />
           <Property Name="Customer_ID" Type="Guid" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
           <NavigationProperty Name="OrderStatus" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
           <NavigationProperty Name="OrderContent" Relationship="Self.FK_OrderContent_Order" FromRole="Order" ToRole="OrderContent" />
@@ -624,6 +659,7 @@
           </Key>
           <Property Name="ID_OrderContent" Type="Guid" Nullable="false" />
           <Property Name="Order_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderContent_Order" FromRole="OrderContent" ToRole="Order" />
           <NavigationProperty Name="OrderContent_has_Chocolate" Relationship="Self.FK_OrderContent_has_Chocolate_OrderContent" FromRole="OrderContent" ToRole="OrderContent_has_Chocolate" />
           <NavigationProperty Name="OrderContent_has_Package" Relationship="Self.FK_OrderContent_has_Package_OrderContent" FromRole="OrderContent" ToRole="OrderContent_has_Package" />
@@ -636,6 +672,7 @@
           <Property Name="OrderContent_ID" Type="Guid" Nullable="false" />
           <Property Name="Chocolate_ID" Type="Guid" Nullable="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_OrderContent_has_Chocolate_Chocolate" FromRole="OrderContent_has_Chocolate" ToRole="Chocolate" />
           <NavigationProperty Name="OrderContent" Relationship="Self.FK_OrderContent_has_Chocolate_OrderContent" FromRole="OrderContent_has_Chocolate" ToRole="OrderContent" />
         </EntityType>
@@ -647,6 +684,7 @@
           <Property Name="OrderContent_ID" Type="Guid" Nullable="false" />
           <Property Name="Package_ID" Type="Guid" Nullable="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="OrderContent" Relationship="Self.FK_OrderContent_has_Package_OrderContent" FromRole="OrderContent_has_Package" ToRole="OrderContent" />
           <NavigationProperty Name="Package" Relationship="Self.FK_OrderContent_has_Package_Package" FromRole="OrderContent_has_Package" ToRole="Package" />
         </EntityType>
@@ -656,6 +694,7 @@
           </Key>
           <Property Name="ID_OrderStatus" Type="Guid" Nullable="false" />
           <Property Name="StatusDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
         </EntityType>
         <EntityType Name="Package">
@@ -693,12 +732,13 @@
           </Key>
           <Property Name="ID_Rating" Type="Guid" Nullable="false" />
           <Property Name="Value" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Package_ID" Type="Guid" Nullable="false" />
-          <Property Name="Chocolate_ID" Type="Guid" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Package_ID" Type="Guid" />
+          <Property Name="Chocolate_ID" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Published" Type="Boolean" Nullable="false" />
           <Property Name="Customer_ID" Type="Guid" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_Rating_Chocolate" FromRole="Rating" ToRole="Chocolate" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Rating_Customer" FromRole="Rating" ToRole="Customer" />
           <NavigationProperty Name="Package" Relationship="Self.FK_Rating_Package" FromRole="Rating" ToRole="Package" />
@@ -710,6 +750,7 @@
           <Property Name="ID_Shape" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_Chocolate_Shape" FromRole="Shape" ToRole="Chocolate" />
         </EntityType>
         <EntityType Name="Wrapping">
@@ -720,9 +761,22 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_Chocolate_Wrapping" FromRole="Wrapping" ToRole="Chocolate" />
           <NavigationProperty Name="Package" Relationship="Self.FK_Package_Wrapping" FromRole="Wrapping" ToRole="Package" />
         </EntityType>
+        <Association Name="FK_Customer_has_Address_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Customer_has_Address" Type="Self.Customer_has_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Customer_has_Address">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Chocolate_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="*" />
@@ -744,6 +798,18 @@
             </Principal>
             <Dependent Role="Chocolate">
               <PropertyRef Name="CustomStyle_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Ingridients_Chocolate">
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Chocolate_has_Ingridients" Type="Self.Chocolate_has_Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chocolate">
+              <PropertyRef Name="ID_Chocolate" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Ingridients">
+              <PropertyRef Name="Chocolazte_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -796,7 +862,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Chocolate">
-          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
+          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="0..1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Chocolate">
@@ -804,6 +870,30 @@
             </Principal>
             <Dependent Role="Rating">
               <PropertyRef Name="Chocolate_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chocolate_has_Ingridients_Ingredients">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="Chocolate_has_Ingridients" Type="Self.Chocolate_has_Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ID_Ingredients" />
+            </Principal>
+            <Dependent Role="Chocolate_has_Ingridients">
+              <PropertyRef Name="Ingerdient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_has_Address_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_has_Address" Type="Self.Customer_has_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Customer_has_Address">
+              <PropertyRef Name="Customer_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -916,7 +1006,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Package">
-          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Package">
@@ -927,18 +1017,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Chocolate_has_Ingridients">
-          <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="*" />
-          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="*" />
-        </Association>
-        <Association Name="Customer_has_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="LocalDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Address" EntityType="Self.Address" />
           <EntitySet Name="Chocolate" EntityType="Self.Chocolate" />
+          <EntitySet Name="Chocolate_has_Ingridients" EntityType="Self.Chocolate_has_Ingridients" />
           <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Customer_has_Address" EntityType="Self.Customer_has_Address" />
           <EntitySet Name="CustomStyle" EntityType="Self.CustomStyle" />
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
           <EntitySet Name="Order" EntityType="Self.Order" />
@@ -951,6 +1035,10 @@
           <EntitySet Name="Rating" EntityType="Self.Rating" />
           <EntitySet Name="Shape" EntityType="Self.Shape" />
           <EntitySet Name="Wrapping" EntityType="Self.Wrapping" />
+          <AssociationSet Name="FK_Customer_has_Address_Address" Association="Self.FK_Customer_has_Address_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Customer_has_Address" EntitySet="Customer_has_Address" />
+          </AssociationSet>
           <AssociationSet Name="FK_Chocolate_Customer" Association="Self.FK_Chocolate_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Chocolate" EntitySet="Chocolate" />
@@ -958,6 +1046,10 @@
           <AssociationSet Name="FK_Chocolate_CustomStyle" Association="Self.FK_Chocolate_CustomStyle">
             <End Role="CustomStyle" EntitySet="CustomStyle" />
             <End Role="Chocolate" EntitySet="Chocolate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Ingridients_Chocolate" Association="Self.FK_Chocolate_has_Ingridients_Chocolate">
+            <End Role="Chocolate" EntitySet="Chocolate" />
+            <End Role="Chocolate_has_Ingridients" EntitySet="Chocolate_has_Ingridients" />
           </AssociationSet>
           <AssociationSet Name="FK_Chocolate_Shape" Association="Self.FK_Chocolate_Shape">
             <End Role="Shape" EntitySet="Shape" />
@@ -978,6 +1070,14 @@
           <AssociationSet Name="FK_Rating_Chocolate" Association="Self.FK_Rating_Chocolate">
             <End Role="Chocolate" EntitySet="Chocolate" />
             <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chocolate_has_Ingridients_Ingredients" Association="Self.FK_Chocolate_has_Ingridients_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="Chocolate_has_Ingridients" EntitySet="Chocolate_has_Ingridients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_has_Address_Customer" Association="Self.FK_Customer_has_Address_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Customer_has_Address" EntitySet="Customer_has_Address" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
             <End Role="Customer" EntitySet="Customer" />
@@ -1019,14 +1119,6 @@
             <End Role="Package" EntitySet="Package" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
-          <AssociationSet Name="Chocolate_has_Ingridients" Association="Self.Chocolate_has_Ingridients">
-            <End Role="Chocolate" EntitySet="Chocolate" />
-            <End Role="Ingredients" EntitySet="Ingredients" />
-          </AssociationSet>
-          <AssociationSet Name="Customer_has_Address" Association="Self.Customer_has_Address">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1061,6 +1153,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Chocolate_has_Ingridients">
+            <EntityTypeMapping TypeName="LocalDbModel.Chocolate_has_Ingridients">
+              <MappingFragment StoreEntitySet="Chocolate_has_Ingridients">
+                <ScalarProperty Name="Chocolazte_ID" ColumnName="Chocolazte_ID" />
+                <ScalarProperty Name="Ingerdient_ID" ColumnName="Ingerdient_ID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="LocalDbModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
@@ -1069,6 +1170,16 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_has_Address">
+            <EntityTypeMapping TypeName="LocalDbModel.Customer_has_Address">
+              <MappingFragment StoreEntitySet="Customer_has_Address">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1104,6 +1215,7 @@
                 <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
                 <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1112,6 +1224,7 @@
               <MappingFragment StoreEntitySet="OrderContent">
                 <ScalarProperty Name="ID_OrderContent" ColumnName="ID_OrderContent" />
                 <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1121,6 +1234,7 @@
                 <ScalarProperty Name="OrderContent_ID" ColumnName="OrderContent_ID" />
                 <ScalarProperty Name="Chocolate_ID" ColumnName="Chocolate_ID" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1130,6 +1244,7 @@
                 <ScalarProperty Name="OrderContent_ID" ColumnName="OrderContent_ID" />
                 <ScalarProperty Name="Package_ID" ColumnName="Package_ID" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1138,6 +1253,7 @@
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="ID_OrderStatus" ColumnName="ID_OrderStatus" />
                 <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1176,6 +1292,7 @@
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Published" ColumnName="Published" />
                 <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1185,6 +1302,7 @@
                 <ScalarProperty Name="ID_Shape" ColumnName="ID_Shape" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1195,25 +1313,10 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Chocolate_has_Ingridients" TypeName="LocalDbModel.Chocolate_has_Ingridients" StoreEntitySet="Chocolate_has_Ingridients">
-            <EndProperty Name="Chocolate">
-              <ScalarProperty Name="ID_Chocolate" ColumnName="Chocolazte_ID" />
-            </EndProperty>
-            <EndProperty Name="Ingredients">
-              <ScalarProperty Name="ID_Ingredients" ColumnName="Ingerdient_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Customer_has_Address" TypeName="LocalDbModel.Customer_has_Address" StoreEntitySet="Customer_has_Address">
-            <EndProperty Name="Address">
-              <ScalarProperty Name="ID_Address" ColumnName="Address_ID" />
-            </EndProperty>
-            <EndProperty Name="Customer">
-              <ScalarProperty Name="ID_Customer" ColumnName="Customer_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

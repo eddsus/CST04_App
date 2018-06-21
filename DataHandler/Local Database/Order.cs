@@ -26,6 +26,7 @@ namespace DataHandler.Local_Database
         public System.Guid Status_ID { get; set; }
         public System.Guid Customer_ID { get; set; }
         public string Note { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }

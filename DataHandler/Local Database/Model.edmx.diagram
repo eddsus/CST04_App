@@ -4,29 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eef79a07ae15468eaf3a8f01dd6c9951" Name="Diagram1">
-        <EntityTypeShape EntityType="LocalDbModel.Address" Width="1.5" PointX="1.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Chocolate" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Customer" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.CustomStyle" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Ingredients" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Order" Width="1.5" PointX="3.75" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.OrderContent" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.OrderContent_has_Chocolate" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.OrderContent_has_Package" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.OrderStatus" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Package" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Package_has_Chocolate" Width="1.5" PointX="8.25" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Rating" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Shape" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDbModel.Wrapping" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+      <Diagram DiagramId="c5291bb9866b4ea694c984c8f1742c84" Name="Diagram1">
+        <EntityTypeShape EntityType="LocalDbModel.Address" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Chocolate" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Chocolate_has_Ingridients" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Customer" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Customer_has_Address" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.CustomStyle" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Ingredients" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Order" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.OrderContent" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.OrderContent_has_Chocolate" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.OrderContent_has_Package" Width="1.5" PointX="10.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.OrderStatus" Width="1.5" PointX="3.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Package" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Package_has_Chocolate" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Rating" Width="1.5" PointX="8.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Shape" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDbModel.Wrapping" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="LocalDbModel.FK_Customer_has_Address_Address" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Chocolate_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Chocolate_CustomStyle" ManuallyRouted="false" />
+        <AssociationConnector Association="LocalDbModel.FK_Chocolate_has_Ingridients_Chocolate" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Chocolate_Shape" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Chocolate_Wrapping" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_OrderContent_has_Chocolate_Chocolate" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Package_has_Chocolate_Chocolate" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Rating_Chocolate" ManuallyRouted="false" />
+        <AssociationConnector Association="LocalDbModel.FK_Chocolate_has_Ingridients_Ingredients" ManuallyRouted="false" />
+        <AssociationConnector Association="LocalDbModel.FK_Customer_has_Address_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Order_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Rating_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Order_OrderStatus" ManuallyRouted="false" />
@@ -37,8 +43,6 @@
         <AssociationConnector Association="LocalDbModel.FK_Package_has_Chocolate_Package" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Package_Wrapping" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Rating_Package" ManuallyRouted="false" />
-        <AssociationConnector Association="LocalDbModel.Chocolate_has_Ingridients" ManuallyRouted="false" />
-        <AssociationConnector Association="LocalDbModel.Customer_has_Address" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
