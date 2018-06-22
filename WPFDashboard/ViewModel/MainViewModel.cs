@@ -87,7 +87,7 @@ namespace WPFDashboard.ViewModel
             });
             Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
 
-            StartSynchronizer();
+           // StartSynchronizer();
         }
 
         private void RefreshCurrentView()

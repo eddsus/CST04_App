@@ -15,11 +15,11 @@
     <UserControl.DataContext>
         <Binding Path="Ingredients" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
+        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
 
 
             <DataGrid.Columns>

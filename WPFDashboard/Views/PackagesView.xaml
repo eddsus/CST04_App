@@ -15,7 +15,7 @@
         <Converter:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
        <!--LISTBOX LAYOUT-->
         <DataTemplate x:Key="PackageItemLayout">
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -54,9 +54,10 @@
             <ColumnDefinition Width="1.1*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+        
 
-        <!--===========Packages List===========-->
-       
+            <!--===========Packages List===========-->
+        <!--<Label Content="Package List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>-->
         <ListBox ItemTemplate="{StaticResource PackageItemLayout}"  ItemsSource="{Binding ListPackages}" SelectedItem="{Binding SelectedPackage}"/>
 
         <!--============Package Details View=========-->

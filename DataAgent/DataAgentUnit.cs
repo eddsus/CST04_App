@@ -18,7 +18,7 @@ namespace DataAgent
 
         private DataAgentUnit()
         {
-            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
             localDH = new LocalDataHandler();
             GetSynchronizerStatus();
         }
@@ -189,20 +189,20 @@ namespace DataAgent
 
         #region UPDATE METHODS
 
-        public bool DeleteOrderContent<OrderContent>(OrderContent item)
-        {
-            GetSynchronizerStatus();
-            if (connected)
-            {
-                return serviceHandler.CallUpdateService(@"DeleteOrderContentByContentId", item);
-            }
-            else
-            {
-                //In a future version of this project we would update the local db here but since offline updates are
-                //not in the scope of this project this code ends here
-                return false;
-            }
-        }
+        //public bool DeleteOrderContent<OrderContent>(OrderContent item)
+        //{
+        //    GetSynchronizerStatus();
+        //    if (connected)
+        //    {
+        //        return serviceHandler.CallUpdateService(@"DeleteOrderContentByContentId", item);
+        //    }
+        //    else
+        //    {
+        //        //In a future version of this project we would update the local db here but since offline updates are
+        //        //not in the scope of this project this code ends here
+        //        return false;
+        //    }
+        //}
         public bool UpdateRating<Rating>(Rating item)
         {
             GetSynchronizerStatus();

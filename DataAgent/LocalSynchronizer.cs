@@ -27,7 +27,7 @@ namespace LocalSynchronization
         public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action<string> displayInformation, Action<bool> setConnectionStatus)
         {
             dataHandler = new LocalDataHandler();
-            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
             OrderInformer = orderInformer;
             PackageInformer = packageInformer;
             CreationInformer = creationInformer;

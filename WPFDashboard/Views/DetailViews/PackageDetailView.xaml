@@ -20,7 +20,7 @@
             <ColumnDefinition Width="1.7*"/>
             <ColumnDefinition Width="2.9*"/>
         </Grid.ColumnDefinitions>
-        <Label Background="Beige" Content="Package Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+        <Label  Content="Package Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         <!--Details window-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

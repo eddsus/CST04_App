@@ -15,8 +15,8 @@
     <UserControl.DataContext>
         <Binding Path="Comments" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    <Grid >
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListOfRatings}" CanUserAddRows="False">
+    <Grid>
+        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfRatings}" CanUserAddRows="False">
             <DataGrid.Columns>
 
                 <!--<DataGridCheckBoxColumn Header="Publish state" Binding="{Binding Published}"/>-->

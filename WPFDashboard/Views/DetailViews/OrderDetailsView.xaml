@@ -27,7 +27,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--===========View Name==========-->
-                <Label Background="Beige" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                <Label Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 <!--======================ORDER DETAILS====================-->
 
                 <Grid Grid.Row="1" >
