@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1080"
              DataContext="{Binding Source={StaticResource Locator}, Path=Orders}">
-    
+
     <!--Order Item Layout with Border-->
     <UserControl.Resources>
         <DataTemplate x:Key="OrderItemLayout">
@@ -40,7 +40,7 @@
     </UserControl.Resources>
 
     <!--Main Order window Grid-->
-        <Grid >
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="8.8*"/>
@@ -52,9 +52,9 @@
                 <!--<RowDefinition Height="50"/>-->
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Content="Order List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <Label Background="Beige" Content="Order List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>
             <!--============SEARCHBOX=============-->
-                <!--<Viewbox Grid.Row="1">
+            <!--<Viewbox Grid.Row="1">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="searchBox" Width="100" Margin="5"/>
                     <Button x:Name="BtnSearch" Click="BtnSearch_Click">
@@ -62,21 +62,23 @@
                     </Button>
                 </StackPanel>
             </Viewbox>-->
-            
-            
+
+
             <!--=========LISTBOX MIT ITEMS============-->
             <ListBox x:Name="OrderListbox" Grid.Row="1" ItemsSource="{Binding OrdersList}" ItemTemplate="{StaticResource OrderItemLayout}" SelectedItem="{Binding SelectedOrder}"/>
 
         </Grid>
         <!--OrderDeatailspage-->
         <Grid Grid.Column="1">
-            <ContentControl Content="{Binding OrderDetailsView}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
-                        <views:OrderDetailsView></views:OrderDetailsView>
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
+            <Border BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="5">
+                <ContentControl Content="{Binding OrderDetailsView}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodels:OrderDetailsVm}">
+                            <views:OrderDetailsView></views:OrderDetailsView>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

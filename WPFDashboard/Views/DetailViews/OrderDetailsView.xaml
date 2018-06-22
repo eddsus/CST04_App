@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
-    <Border BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="5">
+   
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"/>
@@ -27,7 +27,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--===========View Name==========-->
-                <Label Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                <Label Background="Beige" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 <!--======================ORDER DETAILS====================-->
 
                 <Grid Grid.Row="1" >
@@ -171,5 +171,5 @@
             </ContentControl>
 
         </Grid>
-    </Border>
+  
 </UserControl>

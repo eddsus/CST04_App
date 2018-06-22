@@ -16,7 +16,13 @@
         <Binding Path="Comments" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
     <Grid>
-        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfRatings}" CanUserAddRows="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Comments label-->
+        <Label Background="Beige" Content="Comments List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfRatings}" CanUserAddRows="False">
             <DataGrid.Columns>
 
                 <!--<DataGridCheckBoxColumn Header="Publish state" Binding="{Binding Published}"/>-->
@@ -31,9 +37,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}"/>
-                <DataGridTextColumn Header="Product" Binding="{Binding Chocolate.Name}"/>
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Product" Binding="{Binding Chocolate.Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
