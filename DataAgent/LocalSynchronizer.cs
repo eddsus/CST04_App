@@ -27,7 +27,7 @@ namespace LocalSynchronization
         public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action<string> displayInformation, Action<bool> setConnectionStatus)
         {
             dataHandler = new LocalDataHandler();
-            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
             OrderInformer = orderInformer;
             PackageInformer = packageInformer;
             CreationInformer = creationInformer;
@@ -65,8 +65,8 @@ namespace LocalSynchronization
                     //SyncronizeOrders();
                     //SyncronizePackages();
                     //SyncronizeCreations();
-                    SyncronizeIngrdients();
-                    //SynchronizeComments();
+                    SynchronizeIngredients();
+                    SynchronizeComments();
                     DisplayInformation.Invoke("Last sync: "+ DateTime.Now);
                 } else
                 {
@@ -107,17 +107,17 @@ namespace LocalSynchronization
 
         #region SYNC LOCAL DB AND UPDATE GUI
         //::TODO::IMPLEMENT
-        private void SyncronizeOrders()
+        private void SynchronizeOrders()
         {
             OrderInformer.Invoke();
         }
         //::TODO::IMPLEMENT
-        private void SyncronizePackages()
+        private void SynchronizePackages()
         {
             PackageInformer.Invoke();
         }
 
-        private void SyncronizeCreations()
+        private void SynchronizeCreations()
         {
             //set date to the past in case of empty table
             LastUpdate = new DateTime(1983, 11, 20);
@@ -157,7 +157,7 @@ namespace LocalSynchronization
         /**
          * Updates local db using the Modiefied date in case of new or updated ingredients
          * */
-        private void SyncronizeIngrdients()
+        private void SynchronizeIngredients()
         {
             //set date to the past in case of empty table
             LastUpdate = new DateTime(1983, 11, 20);

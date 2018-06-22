@@ -18,7 +18,7 @@ namespace DataAgent
 
         private DataAgentUnit()
         {
-            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
             localDH = new LocalDataHandler();
             GetSynchronizerStatus();
         }
@@ -189,12 +189,13 @@ namespace DataAgent
 
         #region UPDATE METHODS
 
-        public bool DeleteOrderContent<OrderContent>(OrderContent item)
+        public bool DeleteOrderContent<OrderContent>(string ocId, string type)
         {
             GetSynchronizerStatus();
             if (connected)
             {
-                return serviceHandler.CallUpdateService(@"DeleteOrderContentByContentId", item);
+                string param = ocId + "+" + type;
+                return serviceHandler.CallService<bool>(@"DeleteOrderContentByContentId/" + param);
             }
             else
             {
