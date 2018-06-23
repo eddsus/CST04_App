@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900"
               DataContext="{Binding Source={StaticResource Locator}, Path=OrderDetails}">
-    <Border BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="5">
+   
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"/>
@@ -20,39 +20,40 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--===========View Name==========-->
-                <Label Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+            <Label  Background="#FF795548" Foreground="White" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 <!--======================ORDER DETAILS====================-->
 
                 <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
-                        <RowDefinition/>
+                        <!--<RowDefinition/>-->
                     </Grid.RowDefinitions>
 
 
                     <!--Order Id-->
-                    <Label Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Label Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
-                    <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
-                        <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10 0 0 0" Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
+                    <Label Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                    <Label Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </StackPanel>
+                <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
+                    <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
+                </StackPanel>
 
-                    <!--Order Date-->
-                    <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
-
+                   
 
                 </Grid>
 
@@ -69,7 +70,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Viewbox>
-                                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDeleteChocolate,RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                             <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
                                         </Button>
                                     </Viewbox>
@@ -100,7 +101,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Viewbox>
-                                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDelete,RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnDeletePackage,RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                             <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
                                         </Button>
                                     </Viewbox>
@@ -124,30 +125,32 @@
                 <!--==========DUE DATE AND COMMENT==========-->
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--Due date-->
-                    <Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                        <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
+                    <Viewbox Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,10,0" Stretch="Uniform">
+                         <Calendar  DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
                     </Viewbox>
+                    <!--<Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>-->
                     <!--Comment-->
-                    <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                        <TextBox Text="{Binding CurrentOrder.Note}"  Margin="5"/>
+                    <Label  Content="Customer Note:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <Label Content="{Binding CustomerNote}"  Margin="5"/>
+                <Label  Content="Kitchen Note:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                        <TextBox Text="{Binding KitchenNote, UpdateSourceTrigger=PropertyChanged}"  Margin="5"/>
                         <!--==========BUTTON SAVE==========-->
-                        <Button Margin="10" Width="150">
+                        <Button Margin="10" Width="150" Command="{Binding SaveBtn}" HorizontalAlignment="Right">
                             <Grid Width="110">
                                 <materialDesign:PackIcon Kind="ContentSaveAll" VerticalAlignment="Center"/>
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </Grid>
                         </Button>
-                    </StackPanel>
+                </StackPanel>
                 </Grid>
 
 
@@ -171,5 +174,5 @@
             </ContentControl>
 
         </Grid>
-    </Border>
+  
 </UserControl>

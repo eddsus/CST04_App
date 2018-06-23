@@ -26,6 +26,17 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #endregion
 
         #region PROPERTIES
+        private RelayCommand<Chocolate> btnPublish;
+
+        public RelayCommand<Chocolate> BtnPublish
+        {
+            get { return btnPublish; }
+            set { btnPublish = value;
+               
+                RaisePropertyChanged();
+            }
+        }
+
         public Chocolate SelectedChocolate
         {
             get { return selectedChocolate; }
@@ -70,6 +81,39 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
             InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
+            BtnPublish = new RelayCommand<Chocolate>(
+                 (i) =>
+                 {
+                     if (i.Available)
+                     {
+                         SelectedChocolate = i;
+                         SelectedChocolate.Available = false;
+                         //Update the databases
+                         DataAgentUnit.GetInstance().UpdateChocolate(i);
+                         ShowCreationdetails(i);
+                         //and inform the infobar
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been deactivated", 5));
+                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                         Refresh(new RefreshMessage(GetType()));
+                     }
+                     else
+                     {
+                         SelectedChocolate = i;
+                         SelectedChocolate.Available = true;
+                         //Update the databases
+                         DataAgentUnit.GetInstance().UpdateChocolate(i);
+                         ShowCreationdetails(i);
+                         //and inform the infobar
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been activated", 5));
+                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                         Refresh(new RefreshMessage(GetType()));
+                     }
+                 },
+                (i) =>
+                {
+                    //only allow updates when connected and an ingredient is selected
+                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
+                });
         }
 
         private void InitStateList()

@@ -17,12 +17,13 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
-
-
-            <DataGrid.Columns>
+        <!--Ingredients label-->
+        <Label Background="#FF795548" Foreground="White" Content="Ingredients List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
+        <DataGrid.Columns>
                 <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
                 <DataGridTemplateColumn Header="Off/On">
                     <DataGridTemplateColumn.CellTemplate>
@@ -39,8 +40,8 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>
+                <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
+                <!--<DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>-->
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
             </DataGrid.Columns>
         </DataGrid>

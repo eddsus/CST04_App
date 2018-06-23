@@ -24,10 +24,77 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private Order currentOrder;
         private OrderContentChocolate currentOrderContentChocolate;
         private OrderContentPackage currentOrderContentPackage;
+        private RelayCommand<OrderContentChocolate> btnDeleteChocolate;
+        private RelayCommand<OrderContentPackage> btnDeletePackage;
+        private string typeChocolate;
+        private string typePackage;
+        private string contentID;
+        private List<OrderContentChocolate> deletedOrderContentChocolates;
+        private List<OrderContentPackage> deletedOrderContentPackages;
+        private string kitchenNote;
+
         #endregion
 
 
         #region Properties
+        private string customerNote;
+
+        public string CustomerNote
+        {
+            get { return customerNote; }
+            set { customerNote = value; RaisePropertyChanged(); }
+        }
+
+        public string KitchenNote
+        {
+            get { return kitchenNote; }
+            set { kitchenNote = value; RaisePropertyChanged(); }
+        }
+
+        public string ContentID
+        {
+            get { return contentID; }
+            set { contentID = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public string TypePackage
+        {
+            get { return typePackage; }
+            set { typePackage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public string TypeChocolate
+        {
+            get { return typeChocolate; }
+            set { typeChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RelayCommand<OrderContentPackage> BtnDeletePackage
+        {
+            get { return btnDeletePackage; }
+            set { btnDeletePackage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public RelayCommand<OrderContentChocolate> BtnDeleteChocolate
+        {
+            get { return btnDeleteChocolate; }
+            set { btnDeleteChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RelayCommand SaveBtn { get; set; }
         public OrderContentPackage CurrentOrderContentPackage
         {
             get { return currentOrderContentPackage; }
@@ -37,7 +104,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 if (CurrentOrderContentPackage != null)
                     ShowPackageDetails(value);
                 RaisePropertyChanged();
-                
+
                 RaisePropertyChanged();
             }
         }
@@ -63,7 +130,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
         public ObservableCollection<string> OrderStateStrings { get; set; }
-        
+
         public ObservableCollection<OrderContentChocolate> OrderContentChocolates
         {
             get { return orderContentChocolates; }
@@ -87,7 +154,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public RelayCommand<OrderContent> BtnDelete { get; set; }
 
-        
+
         public Order CurrentOrder
         {
             get { return currentOrder; }
@@ -119,24 +186,64 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public OrderDetailsVm()
         {
-            //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
+            KitchenNote = "";
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
-            Messenger.Default.Register<RefreshMessage>(this, Refresh);
-
-            OrderStateStrings = new ObservableCollection<string>();
-            foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
-            {
-                OrderStateStrings.Add(item.Decription);
-            }
+            SaveBtn = new RelayCommand(SaveOrderDetails, ()=> KitchenNote.Equals("")?false:true);
+            InitOrderStates();
         }
 
-        /// <summary>
-        /// PLEASE COMPLETE REFRESH IMPLEMENTATION
-        /// </summary>
-        /// <param name="obj"></param>
-        private void Refresh(RefreshMessage obj)
+        private void SaveOrderDetails()
         {
-            //throw new NotImplementedException();
+            if (deletedOrderContentChocolates != null && deletedOrderContentChocolates.Count > 0)
+            {
+                TypeChocolate = "0";
+                foreach (var item in deletedOrderContentChocolates)
+                {
+                    ContentID = item.OrderContentId.ToString();
+                    DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID, TypeChocolate);
+                }
+                deletedOrderContentChocolates.Clear();
+            }
+            if (deletedOrderContentPackages != null && deletedOrderContentPackages.Count > 0)
+            {
+                TypePackage = "1";
+                foreach (var item in deletedOrderContentPackages)
+                {
+                    ContentID = item.OrderContentId.ToString();
+                    DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID, TypePackage);
+                }
+                deletedOrderContentPackages.Clear();
+            }
+            DataAgentUnit.GetInstance().UpdateOrder(new Order()
+            {
+                OrderId = CurrentOrder.OrderId,
+                Customer = CurrentOrder.Customer,
+                DateOfDelivery = CurrentOrder.DateOfDelivery,
+                DateOfOrder = CurrentOrder.DateOfOrder,
+                Note = "CN: "+ CustomerNote + "; KN: " + KitchenNote,
+                Status = GetStatusObjectfromString(SelectedOrderState)
+            });
+            Messenger.Default.Send<string>("Order saved @ " + DateTime.Now);
+        }
+
+        private void DeletePackageFromList(OrderContentPackage p)
+        {
+            OrderContentPackages.Remove(p);
+            if (deletedOrderContentPackages== null)
+            {
+                deletedOrderContentPackages = new List<OrderContentPackage>();
+            }
+            deletedOrderContentPackages.Add(p);
+        }
+
+        private void DeleteChocolateFromList(OrderContentChocolate p)
+        {
+            OrderContentChocolates.Remove(p);
+            if(deletedOrderContentChocolates == null)
+            {
+                deletedOrderContentChocolates = new List<OrderContentChocolate>();
+            }
+            deletedOrderContentChocolates.Add(p);
         }
 
         private void DisplayOrderInfo(Order currentOrder)
@@ -144,9 +251,11 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             CurrentOrder = currentOrder;
             FillOrderContent();
             SelectedOrderState = CurrentOrder.Status.Decription;
+            CustomerNote = CurrentOrder.Note;
+            KitchenNote = "";
             RaisePropertyChanged("CurrentOrder");
             RaisePropertyChanged("SelectedOrderState");
-           
+
         }
 
         private void FillOrderContent()
@@ -177,22 +286,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 RaisePropertyChanged("OrderContentPackages");
 
             }
-
-            BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-           
         }
-
-        /// <summary>
-        /// NOT COMPLETED DELETE IMPLEMENTATION
-        /// </summary>
-        /// <param name="p"></param>
-        private void DeleteItem(OrderContent p)
-        {
-            //::TODO::also inform localdb and serverdb
-            //OrderContentDetailsList.Remove(p);
-        }
-
-
 
         private void ShowPackageDetails(OrderContentPackage p)
         {
@@ -206,6 +300,60 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             Messenger.Default.Send(p.Chocolate);
             CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
             RaisePropertyChanged("CurrentDetail");
+        }
+        private void InitOrderStates()
+        {
+            OrderStateStrings = new ObservableCollection<string>();
+            foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
+            {
+                if (!item.Decription.Equals("New"))
+                    OrderStateStrings.Add(item.Decription);
+            }
+
+            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p)=> { DeleteChocolateFromList(p);});
+            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p)=> { DeletePackageFromList(p); });
+        }
+        private OrderStatus GetStatusObjectfromString(string selectedOrderState)
+        {
+            switch (selectedOrderState)
+            {
+                //case "InProgress":
+                //    return new OrderStatus()
+                //    {
+                //        OrderStatusId = new Guid("1d7ed2c9-e273-49e7-b7fd-b014f71a8a40"),
+                //        Decription = "InProgress"
+                //    };
+                case "Delayed":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("83d176ef-0c09-4fdb-9e8e-3f422bed7867"),
+                        Decription = "Delayed"
+                    };
+                case "Paused":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("e9ea67d5-bee2-4372-9abb-408a2afe3640"),
+                        Decription = "Paused"
+                    };
+                case "Completed":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("4f8b49f2-5ce8-45f2-bd17-51b96efffc10"),
+                        Decription = "Completed"
+                    };
+                case "Canceled":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("4677b96e-d1a0-47bc-95db-52730c3d9985"),
+                        Decription = "Canceled"
+                    };
+                default:
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("1d7ed2c9-e273-49e7-b7fd-b014f71a8a40"),
+                        Decription = "InProgress"
+                    };
+            }
         }
 
     }

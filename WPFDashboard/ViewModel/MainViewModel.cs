@@ -86,13 +86,13 @@ namespace WPFDashboard.ViewModel
                 RefreshCurrentView();
             });
             Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
+            Messenger.Default.Register<string>(this, DisplayInformation);
 
             StartSynchronizer();
         }
 
         private void RefreshCurrentView()
         {
-            //GetConnectionStatus();
             Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
         }
 
@@ -109,6 +109,7 @@ namespace WPFDashboard.ViewModel
 
         private void DisplayInformation(string message)
         {
+            RefreshCurrentView();
             InfoMessage = message;
         }
 

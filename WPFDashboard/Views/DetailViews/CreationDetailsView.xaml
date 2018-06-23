@@ -23,7 +23,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label  Content="Creation Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+        <Label Background="#FF795548" Foreground="White" Content="Creation Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
 
             <!--Details window-->
             <Grid Grid.Row="1">
@@ -105,8 +105,8 @@
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Modified" Binding="{Binding Modified}" IsReadOnly="True"/>
+                        <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
+                        <!--<DataGridTextColumn Header="Modified" Binding="{Binding Modified}" IsReadOnly="True"/>-->
                         <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -117,14 +117,14 @@
                 <DataGrid ItemsSource="{Binding Comments}" Grid.Row="4" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Header="Published" IsReadOnly="True" Binding="{Binding Published}"/>
-                        <DataGridTextColumn Header="Name:" Binding="{Binding Customer.FirstName}"/>
+                        <DataGridTextColumn Header="Name:" Binding="{Binding Customer.FirstName}" IsReadOnly="True"/>
 
-                        <DataGridTextColumn Header="Comment:" Binding="{Binding Comment}"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Comment:" Binding="{Binding Comment}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}" IsReadOnly="True"/>
                         <DataGridTemplateColumn Header="Rating">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <materialDesign:RatingBar Value="{Binding Value}"/>
+                                    <materialDesign:RatingBar Value="{Binding Value}" IsEnabled="False"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

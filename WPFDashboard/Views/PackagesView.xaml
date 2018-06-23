@@ -12,39 +12,45 @@
              d:DesignHeight="300" d:DesignWidth="600"
              >
     <UserControl.Resources>
+        <Converter:BoolToPublishConverter x:Key="BoolToPublishConverter"/>
+        <Converter:BoolToToggleConverter x:Key="BoolToToggleConverter"/>
         <Converter:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
-       <!--LISTBOX LAYOUT-->
+        <!--LISTBOX LAYOUT-->
         <DataTemplate x:Key="PackageItemLayout">
-            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+            <Border Background="White" BorderBrush="#FF795548" BorderThickness="2" CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
+
+                        <!--<RowDefinition/>-->
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Name:"/>
-                    <Label Grid.Row="1" Content="Created By:"/>
-                    <Label Grid.Row="2" Content="State:"/>
+                    <Button HorizontalAlignment="Right" CommandParameter="{Binding}" Command="{Binding DataCotext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Grid.ColumnSpan="2" Margin="5">
+                        <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
+                    </Button>
+                    <Label Grid.Row="1" Content="Name:"/>
+                    <Label Grid.Row="2" Content="Created By:"/>
+                    <!--<Label Grid.Row="2" Content="State:"/>-->
                     <Label Grid.Row="3" Content="Rating"/>
                     <!--label contents-->
-                    <Label Grid.Column="1" Content="{Binding Name}"/>
-                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding Customer.Fullname}"/>
-                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding Available, Converter={StaticResource BoolToStatusConverter}}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding Customer.Fullname}"/>
+                    <!--<Label Grid.Column="1" Grid.Row="2" Content="{Binding Available, Converter={StaticResource BoolToStatusConverter}}"/>-->
                     <Viewbox Grid.Column="1" Grid.Row="3">
-                        <materialDesign:RatingBar Value="{Binding AverageRating}"/>
+                        <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
                     </Viewbox>
-                    
+
                 </Grid>
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    
+
     <UserControl.DataContext>
         <Binding Path="Packages" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
@@ -52,21 +58,30 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.1*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        
-
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Package list label-->
+            <Label Background="#FF795548" Foreground="White" Content="Package List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>
             <!--===========Packages List===========-->
-        <!--<Label Content="Package List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>-->
-        <ListBox ItemTemplate="{StaticResource PackageItemLayout}"  ItemsSource="{Binding ListPackages}" SelectedItem="{Binding SelectedPackage}"/>
+            <ListBox Grid.Row="1" ItemTemplate="{StaticResource PackageItemLayout}"  ItemsSource="{Binding ListPackages}" SelectedItem="{Binding SelectedPackage}"/>
 
+        </Grid>
+
+        
         <!--============Package Details View=========-->
-        <ContentControl Grid.Column="1" Content="{Binding PackageDetailsView}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
-                    <detailview:PackageDetailView/>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <Border CornerRadius="5" Grid.Column="1" BorderThickness="2" BorderBrush="#FF795548" Margin="0,0,15,0">
+            <ContentControl  Content="{Binding PackageDetailsView}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
+                        <detailview:PackageDetailView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
     </Grid>
 </UserControl>

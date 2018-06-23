@@ -16,9 +16,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 {
    public  class CommentsVm:ViewModelBase
     {
-
-        //testing wraps
-        //todo: Generate regions for fields and properties
+        
         #region FIELDS
         private ObservableCollection<Rating> listOfRatings;
         private RelayCommand<Rating> btnPublish;
@@ -26,8 +24,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #endregion
 
         #region PROPERTIES
-
-
         public Rating CurrentRating
         {
             get { return currentRating; }
@@ -53,6 +49,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
         #endregion
 
+
+       
         public CommentsVm()
         {
             InitializeCommentsList();
@@ -87,9 +85,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 {
                     return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
+            
+
         }
 
-       
 
         private void Refresh(RefreshMessage obj)
         {
@@ -106,7 +105,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public void InitializeCommentsList()
         {
 
-            ListOfRatings = new ObservableCollection<Rating>(DataAgentUnit.GetInstance().QueryRatings());
+            var temp  = DataAgentUnit.GetInstance().QueryRatings();
+            ListOfRatings = new ObservableCollection<Rating>(temp.OrderBy(x => x.Published).ToList());
+
         }
 
 
