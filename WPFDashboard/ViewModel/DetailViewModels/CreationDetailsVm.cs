@@ -107,8 +107,8 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             DefineStates();
             RaisePropertyChanged("CurrentOrderChocolate");
             RaisePropertyChanged("SelectedOrderChocolateState");
-            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients);
-            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings);
+            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients.OrderBy(x=> x.Available));
+            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings.Where(x => x.Published == true).ToList().OrderBy(x => x.Value));
         }
 
         private void DefineStates()

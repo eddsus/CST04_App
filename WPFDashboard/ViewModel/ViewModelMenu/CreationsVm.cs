@@ -78,7 +78,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         public CreationsVm()
         {
-            InitializeChocolateList();
             InitStateList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
             BtnPublish = new RelayCommand<Chocolate>(
@@ -92,20 +91,21 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          DataAgentUnit.GetInstance().UpdateChocolate(i);
                          ShowCreationdetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been deactivated", 5));
-                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been unpublished", 5));
                          Refresh(new RefreshMessage(GetType()));
                      }
                      else
                      {
+                         i.CreatedBy = new Customer() {
+                             CustomerId = new Guid("c9c1017b-e655-47c4-9d89-31dff469c130")
+                         };
                          SelectedChocolate = i;
                          SelectedChocolate.Available = true;
                          //Update the databases
                          DataAgentUnit.GetInstance().UpdateChocolate(i);
                          ShowCreationdetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been activated", 5));
-                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been published", 5));
                          Refresh(new RefreshMessage(GetType()));
                      }
                  },
@@ -114,6 +114,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                     //only allow updates when connected and an ingredient is selected
                     return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
+            InitializeChocolateList();
         }
 
         private void InitStateList()
@@ -143,7 +144,8 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializeChocolateList()
         {
-            ListOfChocolates = new ObservableCollection<Chocolate>(DataAgentUnit.GetInstance().QueryCreations());
+            var temp = DataAgentUnit.GetInstance().QueryCreations();
+            ListOfChocolates = new ObservableCollection<Chocolate>(temp.OrderBy(x => x.Available).ToList());
         }
     }
 
