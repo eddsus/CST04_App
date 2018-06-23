@@ -128,8 +128,9 @@ namespace DataHandler
 
         public List<SharedDataTypes.Rating> QueryRatings()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
             //writeCode
+            return new List<SharedDataTypes.Rating>();
         }
 
         public List<SharedDataTypes.Package> QueryPackagesWithChocolatesAndIngredients()
