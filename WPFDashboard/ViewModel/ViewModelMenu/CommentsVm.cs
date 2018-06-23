@@ -116,7 +116,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public void InitializeCommentsList()
         {
 
-            ListOfRatings = new ObservableCollection<Rating>(DataAgentUnit.GetInstance().QueryRatings());
+            var temp  = DataAgentUnit.GetInstance().QueryRatings();
+            ListOfRatings = new ObservableCollection<Rating>(temp.OrderBy(x => x.Published).ToList());
+
         }
 
 

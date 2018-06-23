@@ -265,6 +265,30 @@ namespace DataAgent
             }
         }
 
+        public bool UpdateOrder(Order order)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                Order orderLight = new Order()
+                {
+                    OrderId = order.OrderId,
+                    Customer = order.Customer,
+                    DateOfDelivery = order.DateOfDelivery,
+                    DateOfOrder = order.DateOfOrder,
+                    Note = order.Note,
+                    Status = order.Status
+                };
+                return serviceHandler.CallUpdateService(@"UpdateOrder", orderLight);
+            }
+            else
+            {
+                //In a future version of this project we would update the local db here but since offline updates are
+                //not in the scope of this project this code ends here
+                return false;
+            }
+        }
+
         #endregion
 
 

@@ -28,6 +28,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
 
         #region Properties
+        public RelayCommand SaveBtn { get; set; }
         public OrderContentPackage CurrentOrderContentPackage
         {
             get { return currentOrderContentPackage; }
@@ -37,7 +38,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 if (CurrentOrderContentPackage != null)
                     ShowPackageDetails(value);
                 RaisePropertyChanged();
-                
+
                 RaisePropertyChanged();
             }
         }
@@ -63,7 +64,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
         }
         public ObservableCollection<string> OrderStateStrings { get; set; }
-        
+
         public ObservableCollection<OrderContentChocolate> OrderContentChocolates
         {
             get { return orderContentChocolates; }
@@ -87,7 +88,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public RelayCommand<OrderContent> BtnDelete { get; set; }
 
-        
+
         public Order CurrentOrder
         {
             get { return currentOrder; }
@@ -119,14 +120,77 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public OrderDetailsVm()
         {
-            //PackageDetail = SimpleIoc.Default.GetInstance<PackageDetailVm>();
+
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
+            SaveBtn = new RelayCommand(SaveOrderDetails);
+            InitOrderStates();
+        }
 
+        private void SaveOrderDetails()
+        {
+            DataAgentUnit.GetInstance().UpdateOrder(new Order()
+            {
+                OrderId = CurrentOrder.OrderId,
+                Customer = CurrentOrder.Customer,
+                DateOfDelivery = CurrentOrder.DateOfDelivery,
+                DateOfOrder = CurrentOrder.DateOfOrder,
+                Note = CurrentOrder.Note,
+                Status = getStatusObjectfromString(SelectedOrderState)
+            });
+            Refresh(new RefreshMessage(GetType()));
+        }
+
+        private OrderStatus getStatusObjectfromString(string selectedOrderState)
+        {
+            switch (selectedOrderState)
+            {
+                //case "InProgress":
+                //    return new OrderStatus()
+                //    {
+                //        OrderStatusId = new Guid("1d7ed2c9-e273-49e7-b7fd-b014f71a8a40"),
+                //        Decription = "InProgress"
+                //    };
+                case "Delayed":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("83d176ef-0c09-4fdb-9e8e-3f422bed7867"),
+                        Decription = "Delayed"
+                    };
+                case "Paused":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("e9ea67d5-bee2-4372-9abb-408a2afe3640"),
+                        Decription = "Paused"
+                    };
+                case "Completed":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("4f8b49f2-5ce8-45f2-bd17-51b96efffc10"),
+                        Decription = "Completed"
+                    };
+                case "Canceled":
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("4677b96e-d1a0-47bc-95db-52730c3d9985"),
+                        Decription = "Canceled"
+                    };
+                default:
+                    return new OrderStatus()
+                    {
+                        OrderStatusId = new Guid("1d7ed2c9-e273-49e7-b7fd-b014f71a8a40"),
+                        Decription = "InProgress"
+                    };
+            }
+        }
+
+        private void InitOrderStates()
+        {
             OrderStateStrings = new ObservableCollection<string>();
             foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
             {
-                OrderStateStrings.Add(item.Decription);
+                if (!item.Decription.Equals("New"))
+                    OrderStateStrings.Add(item.Decription);
             }
         }
 
@@ -146,7 +210,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             SelectedOrderState = CurrentOrder.Status.Decription;
             RaisePropertyChanged("CurrentOrder");
             RaisePropertyChanged("SelectedOrderState");
-           
+
         }
 
         private void FillOrderContent()
@@ -179,7 +243,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             }
 
             BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-           
+
         }
 
         /// <summary>

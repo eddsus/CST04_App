@@ -93,7 +93,6 @@ namespace WPFDashboard.ViewModel
 
         private void RefreshCurrentView()
         {
-            //GetConnectionStatus();
             Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
         }
 
