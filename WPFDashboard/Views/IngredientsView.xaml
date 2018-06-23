@@ -40,8 +40,8 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>
+                <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
+                <!--<DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>-->
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
             </DataGrid.Columns>
         </DataGrid>
