@@ -68,7 +68,7 @@ namespace LocalSynchronization
                     //SyncronizeCreations();
                     SynchronizeIngredients();
                     SynchronizeComments();
-                    DisplayInformation.Invoke("Last sync: "+ DateTime.Now);
+                    DisplayInformation.Invoke("Last sync @ "+ DateTime.Now);
                 } else
                 {
                     SetConnectionStatus(false);

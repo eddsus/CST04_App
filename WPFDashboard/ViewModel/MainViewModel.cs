@@ -109,6 +109,7 @@ namespace WPFDashboard.ViewModel
 
         private void DisplayInformation(string message)
         {
+            RefreshCurrentView();
             InfoMessage = message;
         }
 

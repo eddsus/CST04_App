@@ -32,8 +32,8 @@
 
                 <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -42,12 +42,16 @@
 
 
                     <!--Order Id-->
-                    <Label Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Label Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
-                    <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
-                        <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="10 0 0 0" Content="Order ID:" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding CurrentOrder.OrderId}" FontSize="12"/>
+                    <Label Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                    <Label Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </StackPanel>
+                <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label VerticalAlignment="Center" Content="State: " FontWeight="Bold" HorizontalAlignment="Right"/>
+                    <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
+                </StackPanel>
 
                    
 
@@ -129,14 +133,16 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--Due date-->
-                    <!--<Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>-->
                     <Viewbox Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,10,0" Stretch="Uniform">
                          <Calendar  DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
                     </Viewbox>
+                    <!--<Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>-->
                     <!--Comment-->
-                    <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                        <TextBox Text="{Binding CurrentOrder.Note}"  Margin="5"/>
+                    <Label  Content="Customer Note:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <Label Content="{Binding CustomerNote}"  Margin="5"/>
+                <Label  Content="Kitchen Note:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                        <TextBox Text="{Binding KitchenNote, UpdateSourceTrigger=PropertyChanged}"  Margin="5"/>
                         <!--==========BUTTON SAVE==========-->
                         <Button Margin="10" Width="150" Command="{Binding SaveBtn}" HorizontalAlignment="Right">
                             <Grid Width="110">
@@ -144,10 +150,6 @@
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </Grid>
                         </Button>
-                    <!--Order Date-->
-                    <Label  Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                    <Label   Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
-
                 </StackPanel>
                 </Grid>
 

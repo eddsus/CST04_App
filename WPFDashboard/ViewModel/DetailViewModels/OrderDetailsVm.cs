@@ -29,10 +29,28 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private string typeChocolate;
         private string typePackage;
         private string contentID;
+        private List<OrderContentChocolate> deletedOrderContentChocolates;
+        private List<OrderContentPackage> deletedOrderContentPackages;
+        private string kitchenNote;
+
         #endregion
 
 
         #region Properties
+        private string customerNote;
+
+        public string CustomerNote
+        {
+            get { return customerNote; }
+            set { customerNote = value; RaisePropertyChanged(); }
+        }
+
+        public string KitchenNote
+        {
+            get { return kitchenNote; }
+            set { kitchenNote = value; RaisePropertyChanged(); }
+        }
+
         public string ContentID
         {
             get { return contentID; }
@@ -168,28 +186,134 @@ namespace WPFDashboard.ViewModel.DetailViewModels
 
         public OrderDetailsVm()
         {
-
+            KitchenNote = "";
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
-            Messenger.Default.Register<RefreshMessage>(this, Refresh);
-            SaveBtn = new RelayCommand(SaveOrderDetails);
+            SaveBtn = new RelayCommand(SaveOrderDetails, ()=> KitchenNote.Equals("")?false:true);
             InitOrderStates();
         }
 
         private void SaveOrderDetails()
         {
+            if (deletedOrderContentChocolates != null && deletedOrderContentChocolates.Count > 0)
+            {
+                TypeChocolate = "0";
+                foreach (var item in deletedOrderContentChocolates)
+                {
+                    ContentID = item.OrderContentId.ToString();
+                    DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID, TypeChocolate);
+                }
+                deletedOrderContentChocolates.Clear();
+            }
+            if (deletedOrderContentPackages != null && deletedOrderContentPackages.Count > 0)
+            {
+                TypePackage = "1";
+                foreach (var item in deletedOrderContentPackages)
+                {
+                    ContentID = item.OrderContentId.ToString();
+                    DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID, TypePackage);
+                }
+                deletedOrderContentPackages.Clear();
+            }
             DataAgentUnit.GetInstance().UpdateOrder(new Order()
             {
                 OrderId = CurrentOrder.OrderId,
                 Customer = CurrentOrder.Customer,
                 DateOfDelivery = CurrentOrder.DateOfDelivery,
                 DateOfOrder = CurrentOrder.DateOfOrder,
-                Note = CurrentOrder.Note,
-                Status = getStatusObjectfromString(SelectedOrderState)
+                Note = "CN: "+ CustomerNote + "; KN: " + KitchenNote,
+                Status = GetStatusObjectfromString(SelectedOrderState)
             });
-            Refresh(new RefreshMessage(GetType()));
+            Messenger.Default.Send<string>("Order saved @ " + DateTime.Now);
         }
 
-        private OrderStatus getStatusObjectfromString(string selectedOrderState)
+        private void DeletePackageFromList(OrderContentPackage p)
+        {
+            OrderContentPackages.Remove(p);
+            if (deletedOrderContentPackages== null)
+            {
+                deletedOrderContentPackages = new List<OrderContentPackage>();
+            }
+            deletedOrderContentPackages.Add(p);
+        }
+
+        private void DeleteChocolateFromList(OrderContentChocolate p)
+        {
+            OrderContentChocolates.Remove(p);
+            if(deletedOrderContentChocolates == null)
+            {
+                deletedOrderContentChocolates = new List<OrderContentChocolate>();
+            }
+            deletedOrderContentChocolates.Add(p);
+        }
+
+        private void DisplayOrderInfo(Order currentOrder)
+        {
+            CurrentOrder = currentOrder;
+            FillOrderContent();
+            SelectedOrderState = CurrentOrder.Status.Decription;
+            CustomerNote = CurrentOrder.Note;
+            KitchenNote = "";
+            RaisePropertyChanged("CurrentOrder");
+            RaisePropertyChanged("SelectedOrderState");
+
+        }
+
+        private void FillOrderContent()
+        {
+            if (DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId) != null)
+            {
+
+                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
+                RaisePropertyChanged("OrderContentChocolates");
+                // RaisePropertyChanged("CurrentDetail");
+            }
+            else
+            {
+                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>();
+                RaisePropertyChanged("OrderContentChocolates");
+
+            }
+
+            if (DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId) != null)
+            {
+                OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
+                RaisePropertyChanged("OrderContentPackages");
+                //RaisePropertyChanged("CurrentDetail");
+            }
+            else
+            {
+                OrderContentPackages = new ObservableCollection<OrderContentPackage>();
+                RaisePropertyChanged("OrderContentPackages");
+
+            }
+        }
+
+        private void ShowPackageDetails(OrderContentPackage p)
+        {
+            Messenger.Default.Send(p.Package);
+            CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
+            RaisePropertyChanged("CurrentDetail");
+        }
+
+        private void ShowChocolateDetails(OrderContentChocolate p)
+        {
+            Messenger.Default.Send(p.Chocolate);
+            CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
+            RaisePropertyChanged("CurrentDetail");
+        }
+        private void InitOrderStates()
+        {
+            OrderStateStrings = new ObservableCollection<string>();
+            foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
+            {
+                if (!item.Decription.Equals("New"))
+                    OrderStateStrings.Add(item.Decription);
+            }
+
+            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p)=> { DeleteChocolateFromList(p);});
+            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p)=> { DeletePackageFromList(p); });
+        }
+        private OrderStatus GetStatusObjectfromString(string selectedOrderState)
         {
             switch (selectedOrderState)
             {
@@ -230,124 +354,6 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                         Decription = "InProgress"
                     };
             }
-        }
-
-        private void InitOrderStates()
-        {
-            OrderStateStrings = new ObservableCollection<string>();
-            foreach (var item in DataAgentUnit.GetInstance().QueryOrderStates())
-            {
-                if (!item.Decription.Equals("New"))
-                    OrderStateStrings.Add(item.Decription);
-            }
-
-            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p)=> { DeleteChocolateFromList(p);});
-            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p)=> { DeletePackageFromList(p); });
-        }
-
-
-        /// <summary>
-        /// UPDATE IMPLEMENTATION OF DELETE CONTENT PACKAGES FROM LIST
-        /// </summary>
-        /// <param name="p"></param>
-        private void DeletePackageFromList(OrderContentPackage p)
-        {
-            ContentID = p.OrderContentId.ToString();
-            TypePackage = "1";
-            //UPDATE HERE 
-            //DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID,TypePackage);
-            OrderContentPackages.Remove(p);
-        }
-
-        /// <summary>
-        /// UPDATE IMPLEMENTATION OF DELETE CONTENT CHOCOLATES FROM LIST
-        /// </summary>
-        /// <param name="p"></param>
-        private void DeleteChocolateFromList(OrderContentChocolate p)
-        {
-            ContentID = p.OrderContentId.ToString();
-            TypeChocolate = "0";
-            //UPDATE HERE
-            //DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID,TypeChocolate);
-            OrderContentChocolates.Remove(p);
-        }
-
-        /// <summary>
-        /// PLEASE COMPLETE REFRESH IMPLEMENTATION
-        /// </summary>
-        /// <param name="obj"></param>
-        private void Refresh(RefreshMessage obj)
-        {
-            //throw new NotImplementedException();
-        }
-
-        private void DisplayOrderInfo(Order currentOrder)
-        {
-            CurrentOrder = currentOrder;
-            FillOrderContent();
-            SelectedOrderState = CurrentOrder.Status.Decription;
-            RaisePropertyChanged("CurrentOrder");
-            RaisePropertyChanged("SelectedOrderState");
-
-        }
-
-        private void FillOrderContent()
-        {
-            if (DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId) != null)
-            {
-
-                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>(DataAgentUnit.GetInstance().QueryOrdersContentChocolate(CurrentOrder.OrderId));
-                RaisePropertyChanged("OrderContentChocolates");
-                // RaisePropertyChanged("CurrentDetail");
-            }
-            else
-            {
-                OrderContentChocolates = new ObservableCollection<OrderContentChocolate>();
-                RaisePropertyChanged("OrderContentChocolates");
-
-            }
-
-            if (DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId) != null)
-            {
-                OrderContentPackages = new ObservableCollection<OrderContentPackage>(DataAgentUnit.GetInstance().QueryOrdersContentPackage(CurrentOrder.OrderId));
-                RaisePropertyChanged("OrderContentPackages");
-                //RaisePropertyChanged("CurrentDetail");
-            }
-            else
-            {
-                OrderContentPackages = new ObservableCollection<OrderContentPackage>();
-                RaisePropertyChanged("OrderContentPackages");
-
-            }
-
-            BtnDelete = new RelayCommand<OrderContent>((p) => { DeleteItem(p); });
-
-        }
-
-        /// <summary>
-        /// NOT COMPLETED DELETE IMPLEMENTATION
-        /// </summary>
-        /// <param name="p"></param>
-        private void DeleteItem(OrderContent p)
-        {
-            //::TODO::also inform localdb and serverdb
-            //OrderContentDetailsList.Remove(p);
-        }
-
-
-
-        private void ShowPackageDetails(OrderContentPackage p)
-        {
-            Messenger.Default.Send(p.Package);
-            CurrentDetail = SimpleIoc.Default.GetInstance<PackageDetailsVm>();
-            RaisePropertyChanged("CurrentDetail");
-        }
-
-        private void ShowChocolateDetails(OrderContentChocolate p)
-        {
-            Messenger.Default.Send(p.Chocolate);
-            CurrentDetail = SimpleIoc.Default.GetInstance<CreationDetailsVm>();
-            RaisePropertyChanged("CurrentDetail");
         }
 
     }

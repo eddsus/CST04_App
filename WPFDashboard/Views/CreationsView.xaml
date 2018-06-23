@@ -28,7 +28,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Creations list label-->
-        <Label Content="Creations List"  Background="#FF795548" Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <Label Content="Chocolate List"  Background="#FF795548" Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
         <!--============Creations List===================-->
         <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
             <DataGrid.Columns>
@@ -42,7 +42,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>
+                <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>-->
                 <DataGridTemplateColumn Header="Publish">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
