@@ -18,7 +18,8 @@ namespace DataAgent
 
         private DataAgentUnit()
         {
-            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            //serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
             localDH = new LocalDataHandler();
             GetSynchronizerStatus();
         }
