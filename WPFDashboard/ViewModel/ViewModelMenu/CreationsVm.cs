@@ -26,6 +26,16 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #endregion
 
         #region PROPERTIES
+        private RelayCommand<Chocolate> btnPublish;
+
+        public RelayCommand<Chocolate> BtnPublish
+        {
+            get { return btnPublish; }
+            set { btnPublish = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public Chocolate SelectedChocolate
         {
             get { return selectedChocolate; }

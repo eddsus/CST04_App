@@ -15,16 +15,17 @@
     <UserControl.DataContext>
         <Binding Path="Ingredients" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
-
-
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />
-                <DataGridTemplateColumn Header="Toggle">
+        <!--Ingredients label-->
+        <Label Background="Beige" Content="Ingredients List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
+        <DataGrid.Columns>
+                <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
+                <DataGridTemplateColumn Header="Off/On">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>

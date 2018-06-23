@@ -15,9 +15,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Creations list label-->
+        <Label Content="Creations List" Background="Beige" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
         <!--============Creations List===================-->
-        <DataGrid SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
+        <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
@@ -46,7 +51,7 @@
         </DataGrid>
 
         <!--==============Creation Details=============-->
-        <ContentControl Grid.Column="1" Content="{Binding CreationDetailView}">
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CreationDetailView}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
                     <detailview:CreationDetailsView></detailview:CreationDetailsView>

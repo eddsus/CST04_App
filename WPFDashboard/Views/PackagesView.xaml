@@ -15,7 +15,7 @@
         <Converter:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
        <!--LISTBOX LAYOUT-->
         <DataTemplate x:Key="PackageItemLayout">
-            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -37,7 +37,7 @@
                     <Label Grid.Column="1" Grid.Row="1" Content="{Binding Customer.Fullname}"/>
                     <Label Grid.Column="1" Grid.Row="2" Content="{Binding Available, Converter={StaticResource BoolToStatusConverter}}"/>
                     <Viewbox Grid.Column="1" Grid.Row="3">
-                        <materialDesign:RatingBar Value="{Binding AverageRating}"/>
+                        <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
                     </Viewbox>
                     
                 </Grid>
@@ -54,18 +54,28 @@
             <ColumnDefinition Width="1.1*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Package list label-->
+            <Label Background="Beige" Content="Package List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <!--===========Packages List===========-->
+            <ListBox Grid.Row="1" ItemTemplate="{StaticResource PackageItemLayout}"  ItemsSource="{Binding ListPackages}" SelectedItem="{Binding SelectedPackage}"/>
 
-        <!--===========Packages List===========-->
-       
-        <ListBox ItemTemplate="{StaticResource PackageItemLayout}"  ItemsSource="{Binding ListPackages}" SelectedItem="{Binding SelectedPackage}"/>
+        </Grid>
 
+        
         <!--============Package Details View=========-->
-        <ContentControl Grid.Column="1" Content="{Binding PackageDetailsView}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
-                    <detailview:PackageDetailView/>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <Border Grid.Column="1" BorderThickness="2" BorderBrush="SaddleBrown">
+            <ContentControl  Content="{Binding PackageDetailsView}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type detailviewmodel:PackageDetailsVm}">
+                        <detailview:PackageDetailView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
     </Grid>
 </UserControl>
