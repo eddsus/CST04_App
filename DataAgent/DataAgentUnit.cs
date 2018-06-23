@@ -61,6 +61,19 @@ namespace DataAgent
             }
         }
 
+        public List<Customer> QueryCustomers()
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<Customer>>(@"QueryCustomers");
+            }
+            else
+            {
+                return localDH.QueryCustomers();
+            }
+        }
+
         public List<Shape> QueryShapes()
         {
             GetSynchronizerStatus();
@@ -117,7 +130,15 @@ namespace DataAgent
             }
             else
             {
-                return localDH.QueryOrders();
+                var temp = localDH.QueryOrders();
+                foreach (var item in temp)
+                {
+                    item.Content = new List<OrderContent>();
+                    item.Content.AddRange(localDH.QueryOrdersContentChocolate(item.OrderId));
+                    item.Content.AddRange(localDH.QueryOrdersContentPackage(item.OrderId));
+                }
+
+                return temp;
             }
         }
 
@@ -130,9 +151,11 @@ namespace DataAgent
             }
             else
             {
-                return new List<OrderContentChocolate>();
+                return localDH.QueryOrdersContentChocolate(orderId);
             }
         }
+
+
         public List<OrderContentPackage> QueryOrdersContentPackage(string orderId)
         {
             GetSynchronizerStatus();
@@ -186,6 +209,8 @@ namespace DataAgent
         }
 
         #endregion
+
+
 
         #region UPDATE METHODS
 

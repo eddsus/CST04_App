@@ -43,6 +43,7 @@
         <AssociationConnector Association="LocalDbModel.FK_Package_has_Chocolate_Package" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Package_Wrapping" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDbModel.FK_Rating_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="LocalDbModel.FK_Package_Customer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
