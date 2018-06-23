@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WPFDashboard.Views.CreationsView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,9 +7,17 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:detailview="clr-namespace:WPFDashboard.Views.DetailViews"
              xmlns:detailviewmodel="clr-namespace:WPFDashboard.ViewModel.DetailViewModels"
+             xmlns:Converter="clr-namespace:WPFDashboard.Helpers.Converter" x:Class="WPFDashboard.Views.CreationsView"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600"
-              DataContext="{Binding Source={StaticResource Locator}, Path=Creations}">
+              >
+    <UserControl.Resources>
+        <Converter:BoolToToggleConverter x:Key="BoolToToggleConverter"/>
+        <Converter:BoolToPublishConverter x:Key="BoolToPublishConverter"/>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="Creations" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,13 +28,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Creations list label-->
-        <Label Content="Creations List" Background="Beige" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <Label Content="Creations List"  Background="#FF795548" Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
         <!--============Creations List===================-->
         <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
-                
+
                 <DataGridTemplateColumn Header="Rating">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -39,14 +47,14 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>
-                                <Button Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
+                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                    <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
                                 </Button>
                             </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
             </DataGrid.Columns>
         </DataGrid>
 
@@ -54,7 +62,7 @@
         <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CreationDetailView}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
-                    <detailview:CreationDetailsView></detailview:CreationDetailsView>
+                    <detailview:CreationDetailsView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

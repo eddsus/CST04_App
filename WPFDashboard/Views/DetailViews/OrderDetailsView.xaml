@@ -20,14 +20,14 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--===========View Name==========-->
-                <Label Background="Beige" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+            <Label  Background="#FF795548" Foreground="White" Content="Order Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 <!--======================ORDER DETAILS====================-->
 
                 <Grid Grid.Row="1" >
@@ -37,7 +37,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
-                        <RowDefinition/>
+                        <!--<RowDefinition/>-->
                     </Grid.RowDefinitions>
 
 
@@ -49,10 +49,7 @@
                         <ComboBox Width="100" Height="30" ItemsSource="{Binding OrderStateStrings}" SelectedIndex="1" SelectedItem="{Binding SelectedOrderState}"/>
                     </StackPanel>
 
-                    <!--Order Date-->
-                    <Label Grid.Row="1" Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Right" FontWeight="Bold"/>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
-
+                   
 
                 </Grid>
 
@@ -124,17 +121,17 @@
                 <!--==========DUE DATE AND COMMENT==========-->
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--Due date-->
-                    <Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
-                    <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-                        <Calendar DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
+                    <!--<Label  Content="Due Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>-->
+                    <Viewbox Grid.RowSpan="2" HorizontalAlignment="Left" Margin="10,0,10,0" Stretch="Uniform">
+                         <Calendar  DisplayDate="{Binding CurrentOrder.DateOfDelivery}"/>
                     </Viewbox>
                     <!--Comment-->
                     <Label  Content="Comment:" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
@@ -147,7 +144,11 @@
                                 <TextBlock Text="Save" HorizontalAlignment="Center"/>
                             </Grid>
                         </Button>
-                    </StackPanel>
+                    <!--Order Date-->
+                    <Label  Content="Order Date:" VerticalAlignment="Center"  HorizontalAlignment="Left" FontWeight="Bold"/>
+                    <Label   Content="{Binding CurrentOrder.DateOfOrder}"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                </StackPanel>
                 </Grid>
 
 

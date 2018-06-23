@@ -27,6 +27,14 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
 
         #region PROPERTIES
+        private RelayCommand<Package> btnPublish;
+
+        public RelayCommand<Package> BtnPublish
+        {
+            get { return btnPublish; }
+            set { btnPublish = value; }
+        }
+
         public Package SelectedPackage
         {
             get { return selectedPackage; }
@@ -62,6 +70,39 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         {
             InitializePackageList();
             Messenger.Default.Register<RefreshMessage>(this, Refresh);
+            BtnPublish = new RelayCommand<Package>(
+                 (i) =>
+                 {
+                     if (i.Available)
+                     {
+                         SelectedPackage = i;
+                         SelectedPackage.Available = false;
+                         //Update the databases
+                         DataAgentUnit.GetInstance().UpdatePackage(i);
+                         ShowPackageDetails(i);
+                         //and inform the infobar
+                         Messenger.Default.Send(new PropertyChanged<Package>(i, "has been deactivated", 5));
+                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                         Refresh(new RefreshMessage(GetType()));
+                     }
+                     else
+                     {
+                         SelectedPackage = i;
+                         SelectedPackage.Available = true;
+                         //Update the databases
+                         DataAgentUnit.GetInstance().UpdatePackage(i);
+                         ShowPackageDetails(i);
+                         //and inform the infobar
+                         Messenger.Default.Send(new PropertyChanged<Package>(i, "has been activated", 5));
+                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                         Refresh(new RefreshMessage(GetType()));
+                     }
+                 },
+                (i) =>
+                {
+                    //only allow updates when connected and an ingredient is selected
+                    return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
+                });
         }
 
         private void ShowPackageDetails(Package p)
