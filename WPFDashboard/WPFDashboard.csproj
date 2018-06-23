@@ -91,6 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Converter\BoolToBrushConverter.cs" />
+    <Compile Include="Helpers\Converter\BoolToConnected.cs" />
     <Compile Include="Helpers\Converter\BoolToPublishConverter.cs" />
     <Compile Include="Helpers\Converter\BoolToStatusConverter.cs" />
     <Compile Include="Helpers\Converter\BoolToToggleConverter.cs" />
