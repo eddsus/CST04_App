@@ -57,44 +57,110 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
-           // IntitializeBaseData();
+            IntitializeBaseData();
             while (true)
             {
                 if (Connected())
                 {
                     SetConnectionStatus(true);
-                    //SyncronizeOrders();
-                    //SyncronizePackages();
-                    //SyncronizeCreations();
+                    //SynchronizeOrders();
                     SynchronizeIngredients();
+                    SynchronizeCustomers();
+                    SynchronizeCreations();
+                    SynchronizePackages();
                     SynchronizeComments();
-                    DisplayInformation.Invoke("Last sync @ "+ DateTime.Now);
-                } else
+                    DisplayInformation.Invoke("Last sync: " + DateTime.Now);
+                }
+                else
                 {
                     SetConnectionStatus(false);
                 }
-                Thread.Sleep(60000);
+                Thread.Sleep(30000);
             }
         }
+
+
+
         #region INIT BASE DATA
         private void IntitializeBaseData()
         {
-            InitializeOrederStatus();
+            InitializeOrderStatus();
+            InitializeWrappings();
+            InitializeShapes();
+
         }
 
-        private void InitializeOrederStatus()
+        private void InitializeShapes()
         {
             //Get list from server
-            var serverTemplist = serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
+            var serverTemplist = serviceHandler.CallService<List<Shape>>(@"QueryShapes");
             //get local list
-            var localTempList = dataHandler.QueryOrderStates();
-            if(serverTemplist != null && localTempList != null)
+            var localTempList = dataHandler.QueryShapes();
+            if (serverTemplist != null && localTempList != null)
             {
                 if (serverTemplist.Count != localTempList.Count)
                 {
                     //Empty local list
-                    dataHandler.ClearOrderStatus();
+                    dataHandler.ClearShapes();
                     //And refill it with the fresh ones
+                    foreach (var item in serverTemplist)
+                    {
+                        dataHandler.InsertShape(item);
+                    }
+                }
+            }
+        }
+
+        private void InitializeWrappings()
+        {
+            var serverTemplist = serviceHandler.CallService<List<Wrapping>>(@"QueryWrappings");
+            var localTempList = dataHandler.QueryWrappings();
+
+
+            if (serverTemplist != null && localTempList != null)
+            {
+                if (serverTemplist.Count != localTempList.Count)
+                {
+                    dataHandler.ClearWrappings();
+                    foreach (var item in serverTemplist)
+                    {
+                        dataHandler.InsertWrapping(item);
+                    }
+                }
+            }
+        }
+
+        private void InitializeCustomStyles()
+        {
+
+            var serverTemplist = serviceHandler.CallService<List<CustomStyle>>(@"QueryWrappings");
+            var localTempList = dataHandler.QueryWrappings();
+
+
+            if (serverTemplist != null && localTempList != null)
+            {
+                if (serverTemplist.Count != localTempList.Count)
+                {
+                    dataHandler.ClearCustomStyles();
+                    foreach (var item in serverTemplist)
+                    {
+                        dataHandler.InsertCustomStyle(item);
+                    }
+                }
+            }
+        }
+
+        private void InitializeOrderStatus()
+        {
+            var serverTemplist = serviceHandler.CallService<List<OrderStatus>>(@"QueryOrderStates");
+            var localTempList = dataHandler.QueryOrderStates();
+
+
+            if (serverTemplist != null && localTempList != null)
+            {
+                if (serverTemplist.Count != localTempList.Count)
+                {
+                    dataHandler.ClearOrderStatus();
                     foreach (var item in serverTemplist)
                     {
                         dataHandler.AddOrderStatus(item);
@@ -107,15 +173,98 @@ namespace LocalSynchronization
         #endregion
 
         #region SYNC LOCAL DB AND UPDATE GUI
-        //::TODO::IMPLEMENT
         private void SynchronizeOrders()
         {
-            OrderInformer.Invoke();
+
+
+            LastUpdate = new DateTime(1983, 11, 20);
+
+            if (dataHandler.QueryOrders().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryOrders().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+
+            List<Order> ServerOrders = serviceHandler.CallService<List<Order>>(@"QueryOrders");
+
+
+            if (ServerOrders != null)
+            {
+                List<Order> newOrders = ServerOrders.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newOrders)
+                {
+                    if (dataHandler.QueryOrders().Where(p => p.OrderId.Equals(item.OrderId)).Count() == 0)
+                    {
+                        dataHandler.InsertOrder(item);
+                        SynchronizeCustomers();
+                        //OrderInformer.Invoke();
+                    }
+                    else
+                    {
+                        //dataHandler.UpdatePackage(item);
+                        OrderInformer.Invoke();
+                    }
+                }
+            }
         }
-        //::TODO::IMPLEMENT
+
+        private void SynchronizeCustomers()
+        {
+            LastUpdate = new DateTime(1983, 11, 20);
+
+            if (dataHandler.QueryCustomers().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryCustomers().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+
+            List<Customer> ServerCustomers = serviceHandler.CallService<List<Customer>>(@"QueryCustomers");
+            if (ServerCustomers != null)
+            {
+                List<Customer> newCustomers = ServerCustomers.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newCustomers)
+                {
+                    if (dataHandler.QueryCustomers().Where(p => p.CustomerId.Equals(item.CustomerId)).Count() == 0)
+                    {
+                        dataHandler.InsertCustomer(item);
+                    }
+                    else
+                    {
+                        dataHandler.UpdateCustomer(item);
+                    }
+                }
+            };
+        }
+
         private void SynchronizePackages()
         {
-            PackageInformer.Invoke();
+
+            LastUpdate = new DateTime(1983, 11, 20);
+
+            if (dataHandler.QueryPackagesWithChocolatesAndIngredients().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryPackagesWithChocolatesAndIngredients().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+
+            List<Package> ServerPackages = serviceHandler.CallService<List<Package>>(@"QueryPackagesWithChocolatesAndIngredients");
+            if (ServerPackages != null)
+            {
+                List<Package> newPackages = ServerPackages.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newPackages)
+                {
+                    if (dataHandler.QueryPackagesWithChocolatesAndIngredients().Where(p => p.PackageId.Equals(item.PackageId)).Count() == 0)
+                    {
+                        if (dataHandler.InsertPackage(item))
+                            PackageInformer.Invoke();
+                    }
+                    else
+                    {
+                        if (dataHandler.UpdatePackage(item))
+                            PackageInformer.Invoke();
+                    }
+                }
+            }
         }
 
         private void SynchronizeCreations()
@@ -138,69 +287,81 @@ namespace LocalSynchronization
                     //in case of new
                     if (dataHandler.QueryCreations().Where(p => p.ChocolateId.Equals(item.ChocolateId)).Count() == 0)
                     {
-                        if (dataHandler.AddCreation(item))
+                        if (dataHandler.InsertChocolate(item))
                             CreationInformer.Invoke();
                     }
-                    //incase an existing has been updated
+                    //in case an existing has been updated
                     else
                     {
-                        //delete modified item from local db
-                        if (dataHandler.RemoveCreationById(item.ChocolateId))
-                        {
-                            //and add the new version
-                            if (dataHandler.AddCreation(item))
-                                CreationInformer.Invoke();
-                        }
+                        if (dataHandler.UpdateChocolate(item))
+                            CreationInformer.Invoke();
                     }
                 }
             }
         }
+
+
         /**
          * Updates local db using the Modiefied date in case of new or updated ingredients
          * */
         private void SynchronizeIngredients()
         {
-            //set date to the past in case of empty table
             LastUpdate = new DateTime(1983, 11, 20);
-            //get latest Date when the list was synchronized
+
             if (dataHandler.QueryIngredients().Count > 0)
             {
                 LastUpdate = dataHandler.QueryIngredients().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
             }
+
             List<Ingredient> ServerIngredients = serviceHandler.CallService<List<Ingredient>>(@"QueryIngredients");
             if (ServerIngredients != null)
             {
-                //save all ingredients which are new or have been updated to newIngredients List
                 List<Ingredient> newIngredients = ServerIngredients.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
 
                 foreach (var item in newIngredients)
                 {
-                    //in case of new ingredients
                     if (dataHandler.QueryIngredients().Where(p => p.IngredientId.Equals(item.IngredientId)).Count() == 0)
                     {
-                        if (dataHandler.AddIngredient(item))
+                        if (dataHandler.InsertIngredient(item))
                             IngredientInformer.Invoke();
                     }
-                    //incase an existing ingredient has been updated
                     else
                     {
-                        //delete modified item from local db
-                        if (dataHandler.RemoveIngredientById(item.IngredientId))
-                        {
-                            //and add the new version
-                            if (dataHandler.AddIngredient(item))
-                                IngredientInformer.Invoke();
-                        }
+                        if (dataHandler.UpdateIngredient(item))
+                            IngredientInformer.Invoke();
                     }
                 }
             }
         }
-        /**
-         * ::TODO::IMPLEMENT
-         * */
+
         private void SynchronizeComments()
         {
-            CommentsInformer.Invoke();
+            LastUpdate = new DateTime(1983, 11, 20);
+
+            if (dataHandler.QueryRatings().Count > 0)
+            {
+                LastUpdate = dataHandler.QueryRatings().OrderByDescending(i => i.Modified).Select(j => j.Modified.GetValueOrDefault()).First();
+            }
+            List<Rating> ServerRatings = serviceHandler.CallService<List<Rating>>(@"QueryRatings");
+            if (ServerRatings != null)
+            {
+                List<Rating> newRatings = ServerRatings.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
+
+                foreach (var item in newRatings)
+                {
+                    if (dataHandler.QueryRatings().Where(p => p.RatingId.Equals(item.RatingId)).Count() == 0)
+                    {
+                        if (dataHandler.InsertRating(item))
+                            CommentsInformer.Invoke();
+                    }
+                    else
+                    {
+                        if (dataHandler.UpdateRating(item))
+                            CommentsInformer.Invoke();
+                    }
+                }
+            }
+
         }
         #endregion
     }

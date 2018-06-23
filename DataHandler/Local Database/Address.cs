@@ -25,6 +25,7 @@ namespace DataHandler.Local_Database
         public int ZIP { get; set; }
         public string City { get; set; }
         public int HouseNumber { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer_has_Address> Customer_has_Address { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LocalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LocalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="ID_Address" />
@@ -14,6 +14,7 @@
           <Property Name="ZIP" Type="int" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="HouseNumber" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Chocolate">
           <Key>
@@ -66,6 +67,7 @@
           <Property Name="ID_CustomStyle" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -364,6 +366,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Package_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Package_has_Chocolate_Chocolate">
           <End Role="Chocolate" Type="Self.Chocolate" Multiplicity="1" />
           <End Role="Package_has_Chocolate" Type="Self.Package_has_Chocolate" Multiplicity="*" />
@@ -514,6 +528,10 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderContent" EntitySet="OrderContent" />
           </AssociationSet>
+          <AssociationSet Name="FK_Package_Customer" Association="Self.FK_Package_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
           <AssociationSet Name="FK_Package_has_Chocolate_Chocolate" Association="Self.FK_Package_has_Chocolate_Chocolate">
             <End Role="Chocolate" EntitySet="Chocolate" />
             <End Role="Package_has_Chocolate" EntitySet="Package_has_Chocolate" />
@@ -539,8 +557,7 @@
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LocalDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -554,6 +571,7 @@
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HouseNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer_has_Address" Relationship="Self.FK_Customer_has_Address_Address" FromRole="Address" ToRole="Customer_has_Address" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
         </EntityType>
         <EntityType Name="Chocolate">
           <Key>
@@ -603,6 +621,7 @@
           <NavigationProperty Name="Customer_has_Address" Relationship="Self.FK_Customer_has_Address_Customer" FromRole="Customer" ToRole="Customer_has_Address" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Customer" FromRole="Customer" ToRole="Rating" />
+          <NavigationProperty Name="Package" Relationship="LocalDbModel.FK_Package_Customer" FromRole="Customer" ToRole="Package" />
         </EntityType>
         <EntityType Name="Customer_has_Address">
           <Key>
@@ -623,6 +642,7 @@
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Chocolate" Relationship="Self.FK_Chocolate_CustomStyle" FromRole="CustomStyle" ToRole="Chocolate" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="7" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -714,6 +734,7 @@
           <NavigationProperty Name="Package_has_Chocolate" Relationship="Self.FK_Package_has_Chocolate_Package" FromRole="Package" ToRole="Package_has_Chocolate" />
           <NavigationProperty Name="Wrapping1" Relationship="Self.FK_Package_Wrapping" FromRole="Package" ToRole="Wrapping" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Package" FromRole="Package" ToRole="Rating" />
+          <NavigationProperty Name="Customer" Relationship="LocalDbModel.FK_Package_Customer" FromRole="Package" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Package_has_Chocolate">
           <Key>
@@ -1119,7 +1140,23 @@
             <End Role="Package" EntitySet="Package" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
+          <AssociationSet Name="FK_Package_Customer" Association="LocalDbModel.FK_Package_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Package_Customer">
+          <End Type="LocalDbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="LocalDbModel.Package" Role="Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1129,6 +1166,7 @@
           <EntitySetMapping Name="Address">
             <EntityTypeMapping TypeName="LocalDbModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ID_Address" ColumnName="ID_Address" />
                 <ScalarProperty Name="StreetName" ColumnName="StreetName" />
                 <ScalarProperty Name="ZIP" ColumnName="ZIP" />
@@ -1186,6 +1224,7 @@
           <EntitySetMapping Name="CustomStyle">
             <EntityTypeMapping TypeName="LocalDbModel.CustomStyle">
               <MappingFragment StoreEntitySet="CustomStyle">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ID_CustomStyle" ColumnName="ID_CustomStyle" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

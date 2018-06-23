@@ -21,6 +21,7 @@ namespace DataHandler.Local_Database
             this.Customer_has_Address = new HashSet<Customer_has_Address>();
             this.Order = new HashSet<Order>();
             this.Rating = new HashSet<Rating>();
+            this.Package = new HashSet<Package>();
         }
     
         public System.Guid ID_Customer { get; set; }
@@ -38,5 +39,7 @@ namespace DataHandler.Local_Database
         public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Package> Package { get; set; }
     }
 }
