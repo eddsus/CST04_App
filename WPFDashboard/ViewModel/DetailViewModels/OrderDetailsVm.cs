@@ -24,10 +24,58 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private Order currentOrder;
         private OrderContentChocolate currentOrderContentChocolate;
         private OrderContentPackage currentOrderContentPackage;
+        private RelayCommand<OrderContentChocolate> btnDeleteChocolate;
+        private RelayCommand<OrderContentPackage> btnDeletePackage;
+        private string typeChocolate;
+        private string typePackage;
+        private string contentID;
         #endregion
 
 
         #region Properties
+        public string ContentID
+        {
+            get { return contentID; }
+            set { contentID = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public string TypePackage
+        {
+            get { return typePackage; }
+            set { typePackage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public string TypeChocolate
+        {
+            get { return typeChocolate; }
+            set { typeChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RelayCommand<OrderContentPackage> BtnDeletePackage
+        {
+            get { return btnDeletePackage; }
+            set { btnDeletePackage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public RelayCommand<OrderContentChocolate> BtnDeleteChocolate
+        {
+            get { return btnDeleteChocolate; }
+            set { btnDeleteChocolate = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public RelayCommand SaveBtn { get; set; }
         public OrderContentPackage CurrentOrderContentPackage
         {
@@ -192,6 +240,36 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 if (!item.Decription.Equals("New"))
                     OrderStateStrings.Add(item.Decription);
             }
+
+            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p)=> { DeleteChocolateFromList(p);});
+            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p)=> { DeletePackageFromList(p); });
+        }
+
+
+        /// <summary>
+        /// UPDATE IMPLEMENTATION OF DELETE CONTENT PACKAGES FROM LIST
+        /// </summary>
+        /// <param name="p"></param>
+        private void DeletePackageFromList(OrderContentPackage p)
+        {
+            ContentID = p.OrderContentId.ToString();
+            TypePackage = "1";
+            //UPDATE HERE 
+            //DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID,TypePackage);
+            OrderContentPackages.Remove(p);
+        }
+
+        /// <summary>
+        /// UPDATE IMPLEMENTATION OF DELETE CONTENT CHOCOLATES FROM LIST
+        /// </summary>
+        /// <param name="p"></param>
+        private void DeleteChocolateFromList(OrderContentChocolate p)
+        {
+            ContentID = p.OrderContentId.ToString();
+            TypeChocolate = "0";
+            //UPDATE HERE
+            //DataAgentUnit.GetInstance().DeleteOrderContent<OrderContent>(ContentID,TypeChocolate);
+            OrderContentChocolates.Remove(p);
         }
 
         /// <summary>

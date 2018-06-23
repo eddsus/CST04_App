@@ -41,7 +41,7 @@
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" IsReadOnly="True" MinWidth="900"/>
-                <DataGridTemplateColumn Header="Delete">
+                <!--<DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Viewbox>
@@ -51,7 +51,7 @@
                             </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

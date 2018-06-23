@@ -21,18 +21,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         private ObservableCollection<Rating> listOfRatings;
         private RelayCommand<Rating> btnPublish;
         private Rating currentRating;
-        private RelayCommand<Rating> btnDelete;
         #endregion
 
         #region PROPERTIES
-        public RelayCommand<Rating> BtnDelete
-        {
-            get { return btnDelete; }
-            set { btnDelete = value;
-            }
-        }
-
-
         public Rating CurrentRating
         {
             get { return currentRating; }
@@ -59,9 +50,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         #endregion
 
 
-        /// <summary>
-        /// Implement BtnDelete
-        /// </summary>
+       
         public CommentsVm()
         {
             InitializeCommentsList();
