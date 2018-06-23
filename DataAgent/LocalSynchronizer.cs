@@ -28,6 +28,7 @@ namespace LocalSynchronization
         {
             dataHandler = new LocalDataHandler();
             serviceHandler = new ServiceHandler("http://localhost:8733/AppServiceService/");
+            //serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
             OrderInformer = orderInformer;
             PackageInformer = packageInformer;
             CreationInformer = creationInformer;
