@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFDashboard.Helpers;
+using WPFDashboard.Helpers.MessengerWrappers;
 
 namespace WPFDashboard.ViewModel.ViewModelMenu
 {
@@ -64,7 +65,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         DataAgentUnit.GetInstance().UpdateIngredient(i);
                         //and inform the infobar
                         Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been deactivated", 5));
-                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                        Messenger.Default.Send(new IngredientDeactivatedMessage(i));
                         Refresh(new RefreshMessage(GetType()));
                     }
                     else
@@ -75,7 +76,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         DataAgentUnit.GetInstance().UpdateIngredient(i);
                         //and inform the infobar
                         Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been activated", 5));
-                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
                         Refresh(new RefreshMessage(GetType()));
                     }
                 },

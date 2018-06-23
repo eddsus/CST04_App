@@ -9,6 +9,9 @@
 *.userosscache
 *.sln.docstates
 WPFDashboard/App.config 
+WPFDashboard\App.config 
+/WPFDashboard/App.config 
+\WPFDashboard\App.config 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
