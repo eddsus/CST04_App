@@ -16,16 +16,21 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 {
    public  class CommentsVm:ViewModelBase
     {
-
-        //testing wraps
-        //todo: Generate regions for fields and properties
+        
         #region FIELDS
         private ObservableCollection<Rating> listOfRatings;
         private RelayCommand<Rating> btnPublish;
         private Rating currentRating;
+        private RelayCommand<Rating> btnDelete;
         #endregion
 
         #region PROPERTIES
+        public RelayCommand<Rating> BtnDelete
+        {
+            get { return btnDelete; }
+            set { btnDelete = value;
+            }
+        }
 
 
         public Rating CurrentRating
@@ -53,6 +58,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         }
         #endregion
 
+
+        /// <summary>
+        /// Implement BtnDelete
+        /// </summary>
         public CommentsVm()
         {
             InitializeCommentsList();
@@ -87,9 +96,10 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 {
                     return SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus;
                 });
+            
+
         }
 
-       
 
         private void Refresh(RefreshMessage obj)
         {

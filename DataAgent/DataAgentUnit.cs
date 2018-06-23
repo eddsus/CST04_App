@@ -219,6 +219,21 @@ namespace DataAgent
             }
         }
 
+        public bool UpdateChocolate<Chocolate>(Chocolate item)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallUpdateService(@"UpdateChocolate", item);
+            }
+            else
+            {
+                //In a future version of this project we would update the local db here but since offline updates are
+                //not in the scope of this project this code ends here
+                return false;
+            }
+        }
+
         public bool UpdateIngredient<Ingredient>(Ingredient item)
         {
             GetSynchronizerStatus();
@@ -233,6 +248,22 @@ namespace DataAgent
                 return false;
             }
         }
+
+        public bool UpdatePackage<Package>(Package item)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallUpdateService(@"UpdatePackage", item);
+            }
+            else
+            {
+                //In a future version of this project we would update the local db here but since offline updates are
+                //not in the scope of this project this code ends here
+                return false;
+            }
+        }
+
         #endregion
 
 

@@ -15,7 +15,7 @@ namespace WPFDashboard.Helpers.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool temp = (bool)value;
-            if (temp)
+            if (temp==true)
             {
                 return undo;
             }
