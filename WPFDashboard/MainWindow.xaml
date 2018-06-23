@@ -57,9 +57,12 @@
             </Button>
 
         </StackPanel>
+        
+        <!--======CONNECTED STATUS=========-->
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Connected" FontSize="15" FontWeight="Bold"/>
-            <Ellipse Width="20" Height="20" Margin="10 0" Fill="{Binding ConnectStatus, Converter={StaticResource BoolToBrushConverter}}"/>
+            <!--<Label Content="Connected" FontSize="15" FontWeight="Bold"/>-->
+            <materialDesign:PackIcon Foreground="#FF795548" Kind="{Binding ConnectStatus, Converter={StaticResource BoolToBrushConverter}}" Width="50" Height="50" Margin="0,0,35,0" />
+            <!--<Ellipse Width="20" Height="20" Margin="10 0" Fill="{Binding ConnectStatus, Converter={StaticResource BoolToBrushConverter}}"/>-->
         </StackPanel>
 
 
@@ -89,8 +92,12 @@
                 <ColumnDefinition Width="1*"/>
 
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Margin="25"  Text="{Binding InfoMessage}"/>
-            <Button Grid.Column="1" Width="130" Margin="20 5 20 5" Foreground="White" Command="{Binding BtnRefresh}" HorizontalAlignment="Right">
+            
+            <!--Info message-->
+                <TextBlock Grid.Column="0" Margin="25"  Text="{Binding InfoMessage}"/>
+
+            <!--=======Refresh button======-->
+                <Button Grid.Column="1" Width="130" Margin="20 5 20 5" Foreground="White" Command="{Binding BtnRefresh}" HorizontalAlignment="Right">
                 <Grid Width="110">
                     <materialDesign:PackIcon Kind="Reload" VerticalAlignment="Center"/>
                     <TextBlock Text="Refresh" HorizontalAlignment="Center"/>
