@@ -32,7 +32,9 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
         public RelayCommand<Package> BtnPublish
         {
             get { return btnPublish; }
-            set { btnPublish = value; }
+            set { btnPublish = value;
+                RaisePropertyChanged();
+            }
         }
 
         public Package SelectedPackage
