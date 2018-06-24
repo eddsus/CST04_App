@@ -188,7 +188,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         {
             KitchenNote = "";
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
-            SaveBtn = new RelayCommand(SaveOrderDetails, ()=> KitchenNote.Equals("")?false:true);
+            SaveBtn = new RelayCommand(SaveOrderDetails, ()=> KitchenNote.Equals("")?false: (SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus)?true:false);
             InitOrderStates();
         }
 
