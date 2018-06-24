@@ -85,7 +85,6 @@ namespace DataHandler
         }
 
 
-
         public SharedDataTypes.Customer QueryCustomerByPackageId(Guid packageId)
         {
             //couldnt access customer object from localDb.package table
@@ -121,6 +120,17 @@ namespace DataHandler
             return tempIngredients;
         }
 
+        public List<SharedDataTypes.CustomStyle> QueryCustomStyles()
+        {
+            List<SharedDataTypes.CustomStyle> tempCs = new List<SharedDataTypes.CustomStyle>();
+
+            foreach (var item in localDb.CustomStyle.Select(p => p))
+            {
+                tempCs.Add(converter.ConvertToSharedCustomerStyle(item));
+            }
+
+            return tempCs;
+        }
 
         internal SharedDataTypes.Customer QueryCustomerById(Guid creator_Customer_ID)
         {
@@ -138,17 +148,6 @@ namespace DataHandler
             return tempIngredients;
         }
 
-        public bool InsertCustomer(SharedDataTypes.Customer c)
-        {
-            localDb.Customer.Add(converter.ConvertToDBCustomer(c));
-            return localDb.SaveChanges() == 1;
-        }
-
-
-        public void UpdateChocoById(Guid chocolateId)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<SharedDataTypes.Shape> QueryShapes()
         {
@@ -274,8 +273,8 @@ namespace DataHandler
         }
         #endregion 
 
-
-        #region UPDATE METHODS
+        //not all are implemented
+        #region UPDATE METHODS 
         public bool UpdateRating(SharedDataTypes.Rating r)
         {
             var temp = localDb.Rating.Where(p => p.ID_Rating.Equals(r.RatingId)).Select(p => p).First();
@@ -354,7 +353,15 @@ namespace DataHandler
             temp.Image = p.Image;
             temp.ModifyDate = DateTime.Now;
 
-            return localDb.SaveChanges() == 1;
+            int cnt = 1;
+            foreach (var item in p.Chocolates)
+            {
+                localDb.Package_has_Chocolate.Add(converter.ConvertToDBPackageHasChoco(item.ChocolateId, p.PackageId));
+                cnt++;
+            }
+            return localDb.SaveChanges() == cnt;
+
+
         }
         public bool UpdateCustomer(SharedDataTypes.Customer c)
         {
@@ -370,13 +377,22 @@ namespace DataHandler
             return localDb.SaveChanges() == 1;
 
         }
-
+        
+        public void UpdateChocoById(Guid chocolateId)
+        {
+            throw new NotImplementedException();
+        }
 
 
         #endregion
 
 
         #region INSERT METHODS
+        public bool InsertCustomer(SharedDataTypes.Customer c)
+        {
+            localDb.Customer.Add(converter.ConvertToDBCustomer(c));
+            return localDb.SaveChanges() == 1;
+        }
 
         public bool InsertChocolate(SharedDataTypes.Chocolate c)
         {
@@ -458,7 +474,7 @@ namespace DataHandler
         //    localDb.OrderContent.Add(converter);
         //    int cnt = 1;
 
-            
+
         //    foreach (var item in o.Content)
         //    {
         //        if (item)

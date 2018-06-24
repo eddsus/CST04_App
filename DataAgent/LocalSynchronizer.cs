@@ -69,7 +69,7 @@ namespace LocalSynchronization
                     SynchronizeCreations();
                     SynchronizePackages();
                     SynchronizeComments();
-                    DisplayInformation.Invoke("Last sync: " + DateTime.Now);
+                    DisplayInformation.Invoke("Last sync @ " + DateTime.Now);
                 }
                 else
                 {
@@ -84,10 +84,10 @@ namespace LocalSynchronization
         #region INIT BASE DATA
         private void IntitializeBaseData()
         {
+            InitializeCustomStyles();
             InitializeOrderStatus();
             InitializeWrappings();
             InitializeShapes();
-            InitializeCustomStyles();
 
         }
 
@@ -133,9 +133,8 @@ namespace LocalSynchronization
 
         private void InitializeCustomStyles()
         {
-
-            var serverTemplist = serviceHandler.CallService<List<CustomStyle>>(@"QueryWrappings");
-            var localTempList = dataHandler.QueryWrappings();
+            var serverTemplist = serviceHandler.CallService<List<CustomStyle>>(@"QueryCustomStyles");
+            var localTempList = dataHandler.QueryCustomStyles();
 
 
             if (serverTemplist != null && localTempList != null)
@@ -196,6 +195,7 @@ namespace LocalSynchronization
                 {
                     if (dataHandler.QueryOrders().Where(p => p.OrderId.Equals(item.OrderId)).Count() == 0)
                     {
+                        //continue point
                         //dataHandler.InsertOrder(item);
                         SynchronizeCustomers();
                         //OrderInformer.Invoke();
@@ -238,7 +238,7 @@ namespace LocalSynchronization
         }
 
         private void SynchronizePackages()
-        {
+            {
 
             LastUpdate = new DateTime(1983, 11, 20);
 

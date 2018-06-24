@@ -142,6 +142,17 @@ namespace DataHandler
             return tempSharedOrderContent;
         }
 
+        internal SharedDataTypes.CustomStyle ConvertToSharedCustomerStyle(Local_Database.CustomStyle cs)
+        {
+            return new SharedDataTypes.CustomStyle
+            {
+                CustomStyleId = cs.ID_CustomStyle,
+                Name = cs.Name,
+                Description = cs.Description,
+                Modified = cs.ModifyDate
+            };
+        }
+
 
         //public SharedDataTypes.OrderContent ConvertToSharedChocolateOrderContentChocolate(Local_Database.Chocolate choco)
         //{
