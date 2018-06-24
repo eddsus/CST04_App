@@ -183,6 +183,7 @@ namespace DataHandler
             return tempSharedPackages;
         }
 
+
         public List<SharedDataTypes.Chocolate> QueryChocolatesWithIngredientsByPackageId(Guid packageId)
         {
             List<SharedDataTypes.Chocolate> sharedChocolates = new List<SharedDataTypes.Chocolate>();
@@ -199,6 +200,7 @@ namespace DataHandler
             }
             return sharedChocolates;
         }
+
 
         public List<SharedDataTypes.Wrapping> QueryWrappings()
         {
@@ -336,7 +338,17 @@ namespace DataHandler
             temp.Customer_ID = o.Customer.CustomerId;
             temp.Note = o.Note;
             temp.ModifyDate = DateTime.Now;
+            //test
+            localDb.SaveChanges();
 
+            //foreach (SharedDataTypes.OrderContent item in o.Content)
+            //{
+            //    var a = localDb.OrderContent.Where(p => p.ID_OrderContent.Equals(item.OrderContentId)).First();
+            //    a.ID_OrderContent = item.OrderContentId;
+            //    a.Order_ID = o.OrderId;
+            //    //test
+            //    localDb.SaveChanges();
+            //}
             return localDb.SaveChanges() == 1;
         }
 
@@ -377,17 +389,78 @@ namespace DataHandler
             return localDb.SaveChanges() == 1;
 
         }
-        
-        public void UpdateChocoById(Guid chocolateId)
+
+        public bool UpdateOrderContent(SharedDataTypes.OrderContent oc, string orderId)
         {
-            throw new NotImplementedException();
+            var temp = localDb.OrderContent.Where(p => p.ID_OrderContent.Equals(oc.OrderContentId)).Select(p => p).First();
+
+            temp.ID_OrderContent = oc.OrderContentId;
+            temp.Order_ID = orderId;
+            temp.ModifyDate = DateTime.Now;
+
+            return localDb.SaveChanges() == 1;
         }
 
+        public bool UpdateOcHasPackage(OrderContentPackage ocPackage)
+        {
+            var temp = localDb.OrderContent_has_Package.Where(p => p.OrderContent_ID.Equals(ocPackage.OrderContentId)).Select(p => p).First(); ;
+
+            temp.OrderContent_ID = ocPackage.OrderContentId;
+            temp.Package_ID = ocPackage.Package.PackageId;
+            temp.ModifyDate = DateTime.Now;
+
+            return localDb.SaveChanges() == 1;
+        }
+
+
+        public bool UpdateOcHasChoco(OrderContentChocolate ocChoco)
+        {
+            var temp = localDb.OrderContent_has_Chocolate.Where(p => p.OrderContent_ID.Equals(ocChoco.OrderContentId)).Select(p => p).First(); ;
+
+            temp.OrderContent_ID = ocChoco.OrderContentId;
+            temp.Chocolate_ID = ocChoco.Chocolate.ChocolateId;
+            temp.ModifyDate = DateTime.Now;
+
+            return localDb.SaveChanges() == 1;
+        }
+
+        //public void UpdateChocoById(Guid chocolateId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
 
 
         #region INSERT METHODS
+
+
+        public bool InsertOcHasPackage(OrderContentPackage ocPackage)
+        {
+            localDb.OrderContent_has_Package.Add(converter.ConvertToDBOcHasPackage(ocPackage, ocPackage.Package));
+
+            return localDb.SaveChanges() == 1;
+        }
+        public bool InsertOcHasChoco(OrderContentChocolate ocChoco)
+        {
+            localDb.OrderContent_has_Chocolate.Add(converter.ConvertToDBOcHasChoco(ocChoco, ocChoco.Chocolate));
+
+            return localDb.SaveChanges() == 1;
+        }
+        public bool InsertOrderContent(SharedDataTypes.OrderContent oc, string orderId)
+        {
+            localDb.OrderContent.Add(converter.ConvertToDBOrderContent(oc, orderId));
+
+            return localDb.SaveChanges() == 1;
+        }
+
+        public bool InsertOrder(SharedDataTypes.Order o)
+        {
+            localDb.Order.Add(converter.ConvertToDBOrder(o));
+
+            return localDb.SaveChanges() == 1;
+        }
+
         public bool InsertCustomer(SharedDataTypes.Customer c)
         {
             localDb.Customer.Add(converter.ConvertToDBCustomer(c));

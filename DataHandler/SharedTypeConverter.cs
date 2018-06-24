@@ -366,6 +366,37 @@ namespace DataHandler
             };
         }
 
+        internal Local_Database.OrderContent ConvertToDBOrderContent(SharedDataTypes.OrderContent oc, string orderId)
+        {
+            return new Local_Database.OrderContent
+            {
+                Order_ID = orderId,
+                ID_OrderContent = oc.OrderContentId,
+                ModifyDate = DateTime.Now
+            };
+        }
+
+        internal Local_Database.OrderContent_has_Package ConvertToDBOcHasPackage(SharedDataTypes.OrderContent oc, SharedDataTypes.Package p)
+        {
+            return new OrderContent_has_Package
+            {
+                OrderContent_ID = oc.OrderContentId,
+                Amount = oc.Amount,
+                Package_ID = p.PackageId,
+                ModifyDate = DateTime.Now
+            };
+        }
+
+        internal Local_Database.OrderContent_has_Chocolate ConvertToDBOcHasChoco(SharedDataTypes.OrderContent oc, SharedDataTypes.Chocolate c)
+        {
+            return new OrderContent_has_Chocolate
+            {
+                OrderContent_ID = oc.OrderContentId,
+                Amount = oc.Amount,
+                Chocolate_ID = c.ChocolateId,
+                ModifyDate = DateTime.Now
+            };
+        }
 
         public Local_Database.Wrapping ConvertToDBWrapping(SharedDataTypes.Wrapping w)
         {

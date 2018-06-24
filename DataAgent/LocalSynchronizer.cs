@@ -57,18 +57,27 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
+            while (!connected)
+            {
+                if (connected)
+                {
+                    break;
+                }
+                Thread.Sleep(10000);
+            }
             IntitializeBaseData();
+
             while (true)
             {
                 if (Connected())
                 {
                     SetConnectionStatus(true);
-                    //SynchronizeOrders();
                     SynchronizeIngredients();
                     SynchronizeCustomers();
                     SynchronizeCreations();
                     SynchronizePackages();
                     SynchronizeComments();
+                    SynchronizeOrders();
                     DisplayInformation.Invoke("Last sync @ " + DateTime.Now);
                 }
                 else
@@ -84,10 +93,10 @@ namespace LocalSynchronization
         #region INIT BASE DATA
         private void IntitializeBaseData()
         {
+            InitializeShapes();
             InitializeCustomStyles();
             InitializeOrderStatus();
             InitializeWrappings();
-            InitializeShapes();
 
         }
 
@@ -176,7 +185,6 @@ namespace LocalSynchronization
         private void SynchronizeOrders()
         {
 
-
             LastUpdate = new DateTime(1983, 11, 20);
 
             if (dataHandler.QueryOrders().Count > 0)
@@ -186,23 +194,64 @@ namespace LocalSynchronization
 
             List<Order> ServerOrders = serviceHandler.CallService<List<Order>>(@"QueryOrders");
 
-
             if (ServerOrders != null)
             {
+
                 List<Order> newOrders = ServerOrders.Where(i => i.Modified > LastUpdate).Select(j => j).ToList();
 
                 foreach (var item in newOrders)
                 {
+                    List<OrderContentPackage> tempOcPackage = serviceHandler.CallService<List<OrderContentPackage>>(@"QueryOrdersContentPackage/" + item.OrderId);
+                    List<OrderContentChocolate> tempOcChoco = serviceHandler.CallService<List<OrderContentChocolate>>(@"QueryOrdersContentChocolate/" + item.OrderId);
+                    item.Content = new List<OrderContent>();
+                    item.Content.AddRange(tempOcPackage);
+                    item.Content.AddRange(tempOcChoco);
+
                     if (dataHandler.QueryOrders().Where(p => p.OrderId.Equals(item.OrderId)).Count() == 0)
                     {
-                        //continue point
-                        //dataHandler.InsertOrder(item);
                         SynchronizeCustomers();
-                        //OrderInformer.Invoke();
+                        dataHandler.InsertOrder(item);
+
+                        foreach (var item2 in item.Content)
+                        {
+                            dataHandler.InsertOrderContent(item2, item.OrderId);
+                        }
+                        if (tempOcChoco.Count > 0)
+                        {
+                            foreach (var item3 in tempOcChoco)
+                            {
+                                dataHandler.InsertOcHasChoco(item3);
+                            }
+                        }
+                        else if (tempOcPackage.Count > 0)
+                        {
+                            foreach (var item4 in tempOcPackage)
+                            {
+                                dataHandler.InsertOcHasPackage(item4);
+                            }
+                        }
+
+
+                        OrderInformer.Invoke();
                     }
                     else
                     {
-                        //dataHandler.UpdatePackage(item);
+                        dataHandler.UpdateOrder(item);
+
+                        foreach (var item2 in item.Content)
+                        {
+                            dataHandler.UpdateOrderContent(item2, item.OrderId);
+                        }
+
+                        foreach (var item3 in tempOcChoco)
+                        {
+                            dataHandler.UpdateOcHasChoco(item3);
+                        }
+
+                        foreach (var item4 in tempOcPackage)
+                        {
+                            dataHandler.UpdateOcHasPackage(item4);
+                        }
                         OrderInformer.Invoke();
                     }
                 }
@@ -238,7 +287,7 @@ namespace LocalSynchronization
         }
 
         private void SynchronizePackages()
-            {
+        {
 
             LastUpdate = new DateTime(1983, 11, 20);
 
