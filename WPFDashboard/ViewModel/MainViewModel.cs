@@ -68,6 +68,13 @@ namespace WPFDashboard.ViewModel
 
         public MainViewModel()
         {
+            // Get the application configuration file.
+            //System.Configuration.Configuration config =
+            //        ConfigurationManager.OpenExeConfiguration(
+            //        ConfigurationUserLevel.None);
+            //System.Configuration.ConfigurationSettings config = ConfigurationManager
+            //AppDomain.CurrentDomain.GetData[];
+
             GetConnectionStatus();
 
             CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();

@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAgent", "DataAgent\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDataTypes", "..\CST04_Synchronizer\SharedDataTypes\SharedDataTypes.csproj", "{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup and Deployment", "Setup and Deployment", "{AE91ACB7-0882-40DF-84D9-0D450A046DFA}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupKitchenApp", "SetupKitchenApp\SetupKitchenApp.vdproj", "{781BD637-CA10-4F4F-B2C7-0B7FA4890B41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,8 @@ Global
 		{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{781BD637-CA10-4F4F-B2C7-0B7FA4890B41}.Debug|Any CPU.ActiveCfg = Debug
+		{781BD637-CA10-4F4F-B2C7-0B7FA4890B41}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{78EF4221-09BA-4386-B48A-B49991C2B252} = {946CD640-C01A-4E69-9251-EE6AB453FC0B}
 		{30265273-10C7-4035-A133-82D401CF94F1} = {9437AFED-D0EA-4B66-8AE6-579B2D8C4FDC}
 		{FA03A1B3-B0FD-45DA-A08A-76ED7D25DB97} = {A9667F7E-89F4-4612-BCB3-4CB999783B6C}
+		{781BD637-CA10-4F4F-B2C7-0B7FA4890B41} = {AE91ACB7-0882-40DF-84D9-0D450A046DFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1AE631DA-987A-4B51-B6A8-4EE95FCA9A17}

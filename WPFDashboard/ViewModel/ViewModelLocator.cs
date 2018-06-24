@@ -14,8 +14,15 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using System;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Xml.Linq;
 using WPFDashboard.ViewModel.DetailViewModels;
 using WPFDashboard.ViewModel.ViewModelMenu;
+using System.Configuration;
+using System.Collections.Generic;
 
 namespace WPFDashboard.ViewModel
 {
@@ -25,6 +32,8 @@ namespace WPFDashboard.ViewModel
       
         public ViewModelLocator()
         {
+
+            //ChangeConnectionString();
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
          
 
@@ -41,6 +50,56 @@ namespace WPFDashboard.ViewModel
             SimpleIoc.Default.Register<PackageDetailsVm>(true);
             SimpleIoc.Default.Register<CreationDetailsVm>(true);
 
+        }
+
+        private static void ChangeConnectionString()
+        {
+            try
+            {
+                XDocument doc = XDocument.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                var query = from p in doc.Descendants("connectionStrings").Descendants()
+                            select p;
+                foreach (var child in query)
+                {
+                    foreach (var atr in child.Attributes())
+                    {
+                        if (atr.NextAttribute != null && atr.NextAttribute.Name == "connectionString")
+                        {
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            string[] items = atr.NextAttribute.Value.TrimEnd(';').Split(';');
+                            foreach (string item in items)
+                            {
+                                if (item.Contains("="))
+                                {
+                                    string[] keyValue = item.Split('=');
+                                    dictionary.Add(keyValue[0], keyValue[1]);
+                                }
+                            }
+                            SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
+                            connectionStringBuilder.AttachDBFilename = @"C:\Users\aidan\source\repos\CaseStudy4\GitHub\AppUpdated\DataHandler\LocalDb.mdf;";
+                            connectionStringBuilder.ApplicationName = "LocalDbEntities";
+                            //connectionStringBuilder. = dictionary["provider"];
+                            //connectionStringBuilder. = dictionary["metadata"];
+                            //connectionStringBuilder["provider connection string"] = dictionary["provider connection string"];
+                            connectionStringBuilder.DataSource = @"(LocalDB)\MSSQLLocalDB;";
+                            connectionStringBuilder.MultipleActiveResultSets = true;
+                            connectionStringBuilder.IntegratedSecurity = true;
+                            
+
+                            EntityConnectionStringBuilder entityBuilder = new EntityConnectionStringBuilder(atr.NextAttribute.Value);
+                            entityBuilder.ProviderConnectionString = connectionStringBuilder.ToString();
+                            atr.NextAttribute.Value = entityBuilder.ToString();
+
+                        }
+                    }
+
+                }
+                doc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                ConfigurationManager.RefreshSection("connectionString");
+            }
+            catch (Exception x)
+            {
+            }
         }
 
         //Creation Details View
