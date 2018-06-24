@@ -35,17 +35,6 @@
             <!--============Creations List===================-->
             <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
-
-                    <DataGridTemplateColumn Header="Rating">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>-->
                     <DataGridTemplateColumn Header="Publish">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -57,6 +46,17 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
+
+                    <DataGridTemplateColumn Header="Rating">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>-->
 
                 </DataGrid.Columns>
             </DataGrid>

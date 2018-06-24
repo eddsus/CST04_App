@@ -26,7 +26,7 @@
             <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
-                    <DataGridTemplateColumn Header="Off/On">
+                    <DataGridTemplateColumn Header="Publish">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Viewbox>
