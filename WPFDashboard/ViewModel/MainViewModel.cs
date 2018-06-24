@@ -86,10 +86,12 @@ namespace WPFDashboard.ViewModel
                 RefreshCurrentView();
             });
             Messenger.Default.Register<PropertyChanged<Ingredient>>(this, DisplayInformation);
+            Messenger.Default.Register<PropertyChanged<Chocolate>>(this, DisplayInformation);
             Messenger.Default.Register<string>(this, DisplayInformation);
 
             StartSynchronizer();
         }
+
 
         private void RefreshCurrentView()
         {
@@ -100,6 +102,11 @@ namespace WPFDashboard.ViewModel
         {
             ConnectStatus = msg;
             RefreshCurrentView();
+        }
+        private void DisplayInformation(PropertyChanged<Chocolate> message)
+        {
+            InfoMessage = String.Format("{0} {1}", message.ChangedProperty.Name, message.Message);
+
         }
 
         private void DisplayInformation(PropertyChanged<Ingredient> message)

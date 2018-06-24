@@ -35,12 +35,12 @@
                         <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
                     </Button>
                     <Label Grid.Row="1" Content="Name:"/>
-                    <Label Grid.Row="2" Content="Created By:"/>
+                    <!--<Label Grid.Row="2" Content="Created By:"/>-->
                     <!--<Label Grid.Row="2" Content="State:"/>-->
                     <Label Grid.Row="3" Content="Rating"/>
                     <!--label contents-->
                     <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name}"/>
-                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding Customer.Fullname}"/>
+                    <Label Grid.ColumnSpan="2" Grid.Row="2" Content="{Binding Customer.Fullname}"/>
                     <!--<Label Grid.Column="1" Grid.Row="2" Content="{Binding Available, Converter={StaticResource BoolToStatusConverter}}"/>-->
                     <Viewbox Grid.Column="1" Grid.Row="3">
                         <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>

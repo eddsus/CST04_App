@@ -66,7 +66,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         DataAgentUnit.GetInstance().UpdateRating(i);
                         //and inform the infobar
                         Messenger.Default.Send(new PropertyChanged<Rating>(i, "has been unpublished", 5));
-                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                        Messenger.Default.Send<string>("Comment has been unpublished");
                         Refresh(new RefreshMessage(GetType()));
                     }
                     else
@@ -77,7 +77,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         DataAgentUnit.GetInstance().UpdateRating(i);
                         //and inform the infobar
                         Messenger.Default.Send(new PropertyChanged<Rating>(i, "has been published", 5));
-                        //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                        Messenger.Default.Send<string>("Comment has been published");
                         Refresh(new RefreshMessage(GetType()));
                     }
                 },

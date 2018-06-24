@@ -16,7 +16,7 @@
     <UserControl.Resources>
         <Converter:OrderStatusToBrush x:Key="OrderStatusToBrush"/>
         <DataTemplate x:Key="OrderItemLayout">
-            <Border Width="170" Background="{Binding Status.Decription, Converter={StaticResource OrderStatusToBrush}}" BorderBrush="#FF795548" BorderThickness="2" CornerRadius="5">
+            <Border Width="175" Background="{Binding Status.Decription, Converter={StaticResource OrderStatusToBrush}}" BorderBrush="#FF795548" BorderThickness="2" CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -46,8 +46,8 @@
     <!--Main Order window Grid-->
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*"/>
-            <ColumnDefinition Width="10.5*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
 
         <Grid>

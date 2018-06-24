@@ -103,7 +103,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializeIngredientList()
         {
-            IngredientList = new ObservableCollection<Ingredient>(DataAgentUnit.GetInstance().QueryIngredients());
+            IngredientList = new ObservableCollection<Ingredient>(DataAgentUnit.GetInstance().QueryIngredients().OrderByDescending(x => x.Available).ToList());
         }
 
     }
