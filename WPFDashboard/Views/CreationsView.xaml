@@ -18,53 +18,57 @@
     <UserControl.DataContext>
         <Binding Path="Creations" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <!--Creations list label-->
-        <Label Content="Chocolate List"  Background="#FF795548" Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
-        <!--============Creations List===================-->
-        <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
+    <!--MAIN WINDOW CHOCOLATE-->
+    <Border BorderThickness="2" BorderBrush="#FF795548" CornerRadius="5" Margin="15">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--Creations list label-->
+            <Label Content="Chocolate List"  Background="#FF795548" Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
 
-                <DataGridTemplateColumn Header="Rating">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>-->
-                <DataGridTemplateColumn Header="Publish">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                    <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
-                                </Button>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+            <!--============Creations List===================-->
+            <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedChocolate}" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding ListOfChocolates}" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Chocolate name" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Created by" Binding="{Binding CreatedBy.Fullname}" IsReadOnly="True"/>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                    <DataGridTemplateColumn Header="Rating">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:RatingBar Value="{Binding AverageRating}" IsEnabled="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True"/>-->
+                    <DataGridTemplateColumn Header="Publish">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Viewbox>
+                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
+                                    </Button>
+                                </Viewbox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-        <!--==============Creation Details=============-->
-        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CreationDetailView}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
-                    <detailview:CreationDetailsView/>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
-    </Grid>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!--==============Creation Details=============-->
+            <ContentControl Grid.RowSpan="2" Grid.Column="1" Content="{Binding CreationDetailView}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type detailviewmodel:CreationDetailsVm}">
+                        <detailview:CreationDetailsView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+    </Border>
 </UserControl>

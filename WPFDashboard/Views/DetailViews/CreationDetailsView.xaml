@@ -16,121 +16,108 @@
     <UserControl.DataContext>
         <Binding Path="CreationDetail" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    
-        <Grid Margin="10">
-            <!--Title row-->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+
+    <Grid>
+        <!--=================TITLE ROW=====================-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Label Background="#FF795548" Foreground="White" Content="Chocolate Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
 
-            <!--Details window-->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="1.2*"/>
-                </Grid.ColumnDefinitions>
+        <!--==============DETAILS WINDOW=================-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <!--<ColumnDefinition Width="1.2*"/>-->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <!--=============CHOCO NAME, WRAPPING,SHAPE AND PRICE SECTIONS===============-->
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
+                <!--CHOCOLATE NAME-->
 
-                
-
-
-                <!--=============CHOCO NAME, WRAPPING,SHAPE AND PRICE SECTIONS===============-->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3000"/>
-                </Grid.ColumnDefinitions>
-
-                    <!--CHOCOLATE NAME-->
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Height="35">
-                        <Label Margin="5 0 0 0" Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Label Content="{Binding CurrentOrderChocolate.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <!--WRAPPING TEXT-->
-                    <StackPanel Orientation="Horizontal" Height="35">
-                        <Label Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Wrapping:" FontWeight="Bold" FontSize="12"/>
-                        <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.Wrapping.Name}"/>
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="Shape:" FontWeight="Bold" FontSize="12"/>
-                        <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.Shape.Name}"/>
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="Style:" FontWeight="Bold" FontSize="12"/>
-                        <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.CustomStyle.Description}"/>
-                    </StackPanel>
-                    <!--SHAPE TEXT-->
-                    <StackPanel Orientation="Horizontal" Height="35">
-                        <!--DESCRIPTION-->
-                        <Label Grid.Row="1"  Content="Description:" Margin="5" FontWeight="Bold" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentOrderChocolate.Description}" Margin="5" VerticalAlignment="Center"/>
-                    </StackPanel>
-
+                <StackPanel Orientation="Horizontal" Height="35">
+                    <Label Margin="5 0 0 0" Content="Name:" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="{Binding CurrentOrderChocolate.Name}" Margin="5" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                    
-
-                </Grid>
-
-                <!--DESCRIPTIONS-->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                
                 <!--STATE-->
-                <Label VerticalAlignment="Center" Content="State" FontWeight="Bold" HorizontalAlignment="Right" FontSize="12"/>
-                <Label Grid.Column="1" VerticalAlignment="Center" Content="{Binding CurrentState}"  HorizontalAlignment="Left" FontSize="12"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center" Content="State" FontWeight="Bold" HorizontalAlignment="Right" FontSize="12"/>
+                    <Label VerticalAlignment="Center" Content="{Binding CurrentState}"  HorizontalAlignment="Left" FontSize="12"/>
+                </StackPanel>
 
+                <!--WRAPPING TEXT-->
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Height="35">
+                    <!--wrapping-->
+                    <Label Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Wrapping:" FontWeight="Bold" FontSize="12"/>
+                    <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.Wrapping.Name}"/>
+                    <!--Shape-->
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="Shape:" FontWeight="Bold" FontSize="12"/>
+                    <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.Shape.Name}"/>
+                    <!--Style-->
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="Style:" FontWeight="Bold" FontSize="12"/>
+                    <Label VerticalAlignment="Center" Content="{Binding CurrentOrderChocolate.CustomStyle.Description}"/>
+                </StackPanel>
+
+                <!--DESCRIPTION-->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Height="35">
+                    <Label Grid.Row="1"  Content="Description:" Margin="5" FontWeight="Bold" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentOrderChocolate.Description}" Margin="5" VerticalAlignment="Center"/>
+                </StackPanel>
             </Grid>
+
+
+
             <!--=================DATA GRID WITH INGREDIENT LIST===========-->
 
-                <Label Content="Ingredients List:" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12"/>
-                <DataGrid ItemsSource="{Binding Ingredients}" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
-                        <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
-                        <!--<DataGridTextColumn Header="Modified" Binding="{Binding Modified}" IsReadOnly="True"/>-->
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
-                    </DataGrid.Columns>
-                </DataGrid>
+            <Label Content="Ingredients List:" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12"/>
+            <DataGrid ItemsSource="{Binding Ingredients}" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
+                    <!--<DataGridTextColumn Header="Modified" Binding="{Binding Modified}" IsReadOnly="True"/>-->
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
+                </DataGrid.Columns>
+            </DataGrid>
 
 
-                <!--COMMENTS-->
-                <Label Content="Comments:" FontSize="12" FontWeight="Bold" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <DataGrid ItemsSource="{Binding Comments}" Grid.Row="4" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <!--<DataGridCheckBoxColumn Header="Published" IsReadOnly="True" Binding="{Binding Published}"/>-->
-                        <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}" IsReadOnly="True"/>
+            <!--COMMENTS-->
+            <Label Content="Comments:" FontSize="12" FontWeight="Bold" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <DataGrid Margin="10" ItemsSource="{Binding Comments}" Grid.Row="4" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <!--<DataGridCheckBoxColumn Header="Published" IsReadOnly="True" Binding="{Binding Published}"/>-->
+                    <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}" IsReadOnly="True"/>
 
-                        <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Date}" IsReadOnly="True"/>
-                        <DataGridTemplateColumn Header="Rating">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <materialDesign:RatingBar Value="{Binding Value}" IsEnabled="False"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-
+                    <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Rating">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:RatingBar Value="{Binding Value}" IsEnabled="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
-    
+
+    </Grid>
+
 </UserControl>

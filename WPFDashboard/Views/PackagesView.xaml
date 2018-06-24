@@ -31,7 +31,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button HorizontalAlignment="Right" CommandParameter="{Binding}" Command="{Binding DataCotext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Grid.ColumnSpan="2" Margin="5">
+                    <Button HorizontalAlignment="Right" CommandParameter="{Binding}" Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Grid.ColumnSpan="2" Margin="5">
                         <materialDesign:PackIcon Kind="Publish" VerticalAlignment="Center"/>
                     </Button>
                     <Label Grid.Row="1" Content="Name:"/>

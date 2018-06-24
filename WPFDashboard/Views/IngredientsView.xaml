@@ -15,35 +15,37 @@
     <UserControl.DataContext>
         <Binding Path="Ingredients" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <!--Ingredients label-->
-        <Label Background="#FF795548" Foreground="White" Content="Ingredients List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
-        <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
-        <DataGrid.Columns>
-                <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
-                <DataGridTemplateColumn Header="Off/On">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Viewbox>
-                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnToggle, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                    <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
-                                </Button>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+    <Border BorderBrush="#FF795548" BorderThickness="2" CornerRadius="5" Margin="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--Ingredients label-->
+            <Label Background="#FF795548" Foreground="White" Content="Ingredients List" FontSize="15" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+            <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding IngredientList}" SelectedItem="{Binding CurrentIngredient}" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <!--<DataGridCheckBoxColumn Header="State" Binding="{Binding Available}" IsReadOnly="True" />-->
+                    <DataGridTemplateColumn Header="Off/On">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Viewbox>
+                                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnToggle, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        <materialDesign:PackIcon Kind="{Binding Available, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
+                                    </Button>
+                                </Viewbox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
-                <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
-                <!--<DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>-->
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Unit Type" Binding="{Binding UnitType}" IsReadOnly="True"/>
+                    <!--<DataGridTextColumn Header="Price" Binding="{Binding Price}" IsReadOnly="True"/>-->
+                    <!--<DataGridTextColumn Header="Modified" Binding="{Binding DatedModified}" IsReadOnly="True"/>-->
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True" MaxWidth="450" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
 </UserControl>
