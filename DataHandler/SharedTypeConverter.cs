@@ -304,7 +304,7 @@ namespace DataHandler
                 Availability = p.Available,
                 Customer_ID = p.Customer.CustomerId,
                 Image = p.Image,
-                
+
                 ModifyDate = DateTime.Now,
             };
         }
@@ -416,6 +416,20 @@ namespace DataHandler
                 LastName = c.LastName,
                 Mail = c.Mail,
                 PhoneNumber = c.PhoneNumber,
+                ModifyDate = DateTime.Now
+            };
+        }
+
+        internal Local_Database.Order ConvertToDBOrder(SharedDataTypes.Order o)
+        {
+            return new Local_Database.Order
+            {
+                ID_Order = o.OrderId,
+                Customer_ID = o.Customer.CustomerId,
+                Status_ID = o.Status.OrderStatusId,
+                DateOfOrder = o.DateOfOrder,
+                DateOfDelivery = o.DateOfDelivery,
+                Note = o.Note,
                 ModifyDate = DateTime.Now
             };
         }

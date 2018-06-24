@@ -121,14 +121,6 @@ namespace DataHandler
             return tempIngredients;
         }
 
-        public void InsertOrder(SharedDataTypes.Order o)
-        {
-            //insert into order, oc, oc has package/oc has choco
-
-
-
-            throw new NotImplementedException();
-        }
 
         internal SharedDataTypes.Customer QueryCustomerById(Guid creator_Customer_ID)
         {
@@ -446,8 +438,6 @@ namespace DataHandler
             return localDb.SaveChanges() == 1;
         }
 
-
-
         public bool AddOrderStatus(SharedDataTypes.OrderStatus toBeAdded)
         {
             localDb.OrderStatus.Add(new Local_Database.OrderStatus()
@@ -457,6 +447,27 @@ namespace DataHandler
             });
             return localDb.SaveChanges() > 0;
         }
+
+        //public void InsertOrder(SharedDataTypes.Order o)
+        //{
+        //    //insert into order, oc, oc has package/oc has choco
+
+        //    localDb.Order.Add(converter.ConvertToDBOrder(o));
+        //    localDb.SaveChanges();
+
+        //    localDb.OrderContent.Add(converter);
+        //    int cnt = 1;
+
+            
+        //    foreach (var item in o.Content)
+        //    {
+        //        if (item)
+
+        //            cnt++;
+        //    }
+
+        //    return localDb.SaveChanges() > 1;
+        //}
 
         #endregion
 

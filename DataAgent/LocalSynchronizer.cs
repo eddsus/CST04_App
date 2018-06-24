@@ -75,7 +75,7 @@ namespace LocalSynchronization
                 {
                     SetConnectionStatus(false);
                 }
-                Thread.Sleep(30000);
+                Thread.Sleep(10000);
             }
         }
 
@@ -87,6 +87,7 @@ namespace LocalSynchronization
             InitializeOrderStatus();
             InitializeWrappings();
             InitializeShapes();
+            InitializeCustomStyles();
 
         }
 
@@ -195,7 +196,7 @@ namespace LocalSynchronization
                 {
                     if (dataHandler.QueryOrders().Where(p => p.OrderId.Equals(item.OrderId)).Count() == 0)
                     {
-                        dataHandler.InsertOrder(item);
+                        //dataHandler.InsertOrder(item);
                         SynchronizeCustomers();
                         //OrderInformer.Invoke();
                     }
