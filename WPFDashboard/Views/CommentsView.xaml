@@ -28,10 +28,10 @@
                 <DataGrid.Columns>
 
                     <!--<DataGridCheckBoxColumn Header="Publish state" Binding="{Binding Published}"/>-->
-                    <DataGridTemplateColumn Header="Unpublish/Publish">
+                    <DataGridTemplateColumn Header="Publish">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Viewbox>
+                                <Viewbox HorizontalAlignment="Left">
                                     <Button CommandParameter="{Binding}" Command="{Binding DataContext.BtnPublish, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                         <materialDesign:PackIcon Kind="{Binding Published, Converter={StaticResource BoolToToggleConverter}}" VerticalAlignment="Center"/>
                                     </Button>
@@ -42,6 +42,13 @@
                     <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.Fullname}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" IsReadOnly="True" MinWidth="900"/>
+                    <DataGridTemplateColumn Header="Rating">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:RatingBar Value="{Binding Value}" IsEnabled="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <!--<DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

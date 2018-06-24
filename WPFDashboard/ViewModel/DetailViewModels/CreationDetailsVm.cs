@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataAgent;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using SharedDataTypes;
 using System;
@@ -105,10 +106,16 @@ namespace WPFDashboard.ViewModel.DetailViewModels
             CurrentOrderChocolate = currentOrderChocolate;
             SelectedOrderChocolateState = CurrentOrderChocolate.Available;
             DefineStates();
+            if((Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients.OrderBy(x=> x.Type).ToList() )).Count == 0)
+            {
+                Ingredients = new ObservableCollection<Ingredient>(DataAgentUnit.GetInstance().QueryIngredientsByChocolateId(CurrentOrderChocolate.ChocolateId).OrderBy(x => x.Type).ToList());
+            }
+            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings.Where(x => x.Published == true).ToList().OrderBy(x => x.Value));
             RaisePropertyChanged("CurrentOrderChocolate");
             RaisePropertyChanged("SelectedOrderChocolateState");
-            Ingredients = new ObservableCollection<Ingredient>(CurrentOrderChocolate.Ingredients.OrderBy(x=> x.Available));
-            Comments = new ObservableCollection<Rating>(CurrentOrderChocolate.Ratings.Where(x => x.Published == true).ToList().OrderBy(x => x.Value));
+            RaisePropertyChanged("Ingredients");
+            RaisePropertyChanged("Comments");
+
         }
 
         private void DefineStates()

@@ -83,20 +83,24 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          DataAgentUnit.GetInstance().UpdatePackage(i);
                          ShowPackageDetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Package>(i, "has been deactivated", 5));
-                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = false;
+                         //Messenger.Default.Send(new PropertyChanged<Package>(i, "has been deactivated", 5));
+                         Messenger.Default.Send(i.Name + "has been unpublished");
                          Refresh(new RefreshMessage(GetType()));
                      }
                      else
                      {
+                         i.Customer = new Customer()
+                         {
+                             CustomerId = new Guid("c9c1017b-e655-47c4-9d89-31dff469c130")
+                         };
                          SelectedPackage = i;
                          SelectedPackage.Available = true;
                          //Update the databases
                          DataAgentUnit.GetInstance().UpdatePackage(i);
                          ShowPackageDetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Package>(i, "has been activated", 5));
-                         //IngredientList.Where(j => j.IngredientId == i.IngredientId).Select(k => k).First().Available = true;
+                         //Messenger.Default.Send(new PropertyChanged<Package>(i, "has been activated", 5));
+                         Messenger.Default.Send(i.Name + "has been published");
                          Refresh(new RefreshMessage(GetType()));
                      }
                  },
@@ -129,7 +133,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
 
         private void InitializePackageList()
         {
-            ListPackages = new ObservableCollection<Package>(DataAgentUnit.GetInstance().QueryPackagesWithChocolatesAndIngredients());
+            ListPackages = new ObservableCollection<Package>(DataAgentUnit.GetInstance().QueryPackagesWithChocolatesAndIngredients().OrderBy(x => x.Available).ToList());
            
         }
 

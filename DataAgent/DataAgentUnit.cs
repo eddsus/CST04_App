@@ -115,6 +115,19 @@ namespace DataAgent
             }
         }
 
+        public List<Ingredient> QueryIngredientsByChocolateId(Guid chocolateId)
+        {
+            GetSynchronizerStatus();
+            if (connected)
+            {
+                return serviceHandler.CallService<List<Ingredient>>(@"QueryIngredientsByChocolateIdasstring/" + chocolateId.ToString());
+            }
+            else
+            {
+                return localDH.QueryIngredientsByChocolateId(chocolateId);
+            }
+        }
+
         public List<Order> QueryOrders()
         {
             GetSynchronizerStatus();

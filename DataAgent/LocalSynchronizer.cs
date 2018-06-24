@@ -84,7 +84,7 @@ namespace LocalSynchronization
                 {
                     SetConnectionStatus(false);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(60000);
             }
         }
 
