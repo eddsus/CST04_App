@@ -179,7 +179,7 @@ namespace DataAgent
             }
             else
             {
-                return new List<OrderContentPackage>();
+                return localDH.QueryOrdersContentPackage(orderId);
             }
         }
 

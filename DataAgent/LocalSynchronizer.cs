@@ -59,7 +59,7 @@ namespace LocalSynchronization
         {
             while (!connected)
             {
-                if (connected)
+                if (Connected())
                 {
                     break;
                 }
@@ -193,7 +193,6 @@ namespace LocalSynchronization
             }
 
             List<Order> ServerOrders = serviceHandler.CallService<List<Order>>(@"QueryOrders");
-
             if (ServerOrders != null)
             {
 
@@ -223,7 +222,7 @@ namespace LocalSynchronization
                                 dataHandler.InsertOcHasChoco(item3);
                             }
                         }
-                        else if (tempOcPackage.Count > 0)
+                        if (tempOcPackage.Count > 0)
                         {
                             foreach (var item4 in tempOcPackage)
                             {
@@ -242,15 +241,19 @@ namespace LocalSynchronization
                         {
                             dataHandler.UpdateOrderContent(item2, item.OrderId);
                         }
-
-                        foreach (var item3 in tempOcChoco)
+                        if (tempOcChoco.Count > 0)
                         {
-                            dataHandler.UpdateOcHasChoco(item3);
+                            foreach (var item3 in tempOcChoco)
+                            {
+                                dataHandler.UpdateOcHasChoco(item3);
+                            }
                         }
-
-                        foreach (var item4 in tempOcPackage)
+                        if (tempOcPackage.Count > 0)
                         {
-                            dataHandler.UpdateOcHasPackage(item4);
+                            foreach (var item4 in tempOcPackage)
+                            {
+                                dataHandler.UpdateOcHasPackage(item4);
+                            }
                         }
                         OrderInformer.Invoke();
                     }
