@@ -18,8 +18,8 @@ namespace DataAgent
 
         private DataAgentUnit()
         {
-            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
-            //serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
+            //serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
             localDH = new LocalDataHandler();
             GetSynchronizerStatus();
         }
@@ -136,9 +136,15 @@ namespace DataAgent
                 var temp = serviceHandler.CallService<List<Order>>(@"QueryOrders");
                 foreach (var item in temp)
                 {
-                    item.Content = new List<OrderContent>();
-                    item.Content.AddRange(QueryOrdersContentChocolate(item.OrderId));
-                    item.Content.AddRange(QueryOrdersContentPackage(item.OrderId));
+                    try
+                    {
+                        item.Content = new List<OrderContent>();
+                        item.Content.AddRange(QueryOrdersContentChocolate(item.OrderId));
+                        item.Content.AddRange(QueryOrdersContentPackage(item.OrderId));
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
                 return temp;
             }

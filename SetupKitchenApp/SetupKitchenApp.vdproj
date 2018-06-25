@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:SetupKitchenApp"
+"ProjectName" = "8:CC Kitchen Application Installer"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -173,6 +173,12 @@
         {
         "MsmKey" = "8:_3EA24A11FFCA2E9153242E3020D59E94"
         "OwnerKey" = "8:_6044123C4FAC49ACAC798745A473551A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3EF85E5A8824485EBE8A4219125346D5"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -598,12 +604,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0A7F6533B3BF92228A365D78461067AB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6044123C4FAC49ACAC798745A473551A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -985,6 +985,12 @@
         "OwnerKey" = "8:_3E344E05BA95962C55312418041D928C"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0A7F6533B3BF92228A365D78461067AB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -993,7 +999,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\SetupKitchenApp.msi"
+        "OutputFilename" = "8:Debug\\CC Kitchen Application.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1003,6 +1009,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -1019,6 +1041,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -1239,7 +1277,7 @@
             "SourcePath" = "8:..\\DataHandler\\LocalDb_log.ldf"
             "TargetName" = "8:LocalDb_log.ldf"
             "Tag" = "8:"
-            "Folder" = "8:_949EA29830E34D0B803F772D8D8868F1"
+            "Folder" = "8:_71C3BD9393E747C7853DB78384B6E557"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1655,6 +1693,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3EF85E5A8824485EBE8A4219125346D5"
+            {
+            "SourcePath" = "8:..\\chocolate.ico"
+            "TargetName" = "8:chocolate.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_71C3BD9393E747C7853DB78384B6E557"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_47FFFFFC375201B6D0D57E403D0A227E"
@@ -2282,7 +2340,7 @@
             "SourcePath" = "8:..\\DataHandler\\LocalDb.mdf"
             "TargetName" = "8:LocalDb.mdf"
             "Tag" = "8:"
-            "Folder" = "8:_949EA29830E34D0B803F772D8D8868F1"
+            "Folder" = "8:_71C3BD9393E747C7853DB78384B6E557"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3153,7 +3211,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_71C3BD9393E747C7853DB78384B6E557"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\CC Kitchen Application"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
@@ -3161,17 +3219,6 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_949EA29830E34D0B803F772D8D8868F1"
-                    {
-                    "Name" = "8:LocalDataBase"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_FC2F950A3FFD4694AB4370D2FB04F7EF"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_8B986A84D5DF4F91868BD3129FD775FE"
@@ -3183,17 +3230,6 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_51CC80141CDC4E86B92EB9AEE7FE5B26"
-                    {
-                    "Name" = "8:CC Kitchen Application"
-                    "AlwaysCreate" = "11:TRUE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_C6AAF3610116406B81F9A9E3157AFC27"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
         }
@@ -3213,7 +3249,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SetupKitchenApp"
         "ProductCode" = "8:{835E579A-0E25-46FD-9041-27D50EFF0971}"
-        "PackageCode" = "8:{E36080F6-79F9-442C-957B-557417D2C260}"
+        "PackageCode" = "8:{B870C970-334E-460A-8125-7D0A95CD5013}"
         "UpgradeCode" = "8:{264BF91D-6C15-4FFD-AA6B-57AF8F7C68AA}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3333,7 +3369,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5F51C1E445E34424BE476AA12AC39644"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_015D7BDA001C48CFB3EE78D9D58883C6"
             {
             "Name" = "8:CC Kitchen Application"
             "Arguments" = "8:"
@@ -3341,24 +3377,24 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_34A802B3126E443DA9E341DB17135DE4"
+            "Target" = "8:_6044123C4FAC49ACAC798745A473551A"
             "Folder" = "8:_34A802B3126E443DA9E341DB17135DE4"
-            "WorkingFolder" = "8:_34A802B3126E443DA9E341DB17135DE4"
-            "Icon" = "8:"
+            "WorkingFolder" = "8:_71C3BD9393E747C7853DB78384B6E557"
+            "Icon" = "8:_3EF85E5A8824485EBE8A4219125346D5"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D09689ED17394F77AF5C475759F073DF"
             {
-            "Name" = "8:Shortcut to Primary output from WPFDashboard (Active)"
+            "Name" = "8:CC Kitchen Application"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_6044123C4FAC49ACAC798745A473551A"
-            "Folder" = "8:_51CC80141CDC4E86B92EB9AEE7FE5B26"
+            "Folder" = "8:_8B986A84D5DF4F91868BD3129FD775FE"
             "WorkingFolder" = "8:_71C3BD9393E747C7853DB78384B6E557"
-            "Icon" = "8:"
+            "Icon" = "8:_3EF85E5A8824485EBE8A4219125346D5"
             "Feature" = "8:"
             }
         }
@@ -3658,7 +3694,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_3EF85E5A8824485EBE8A4219125346D5"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -3682,8 +3719,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1203"
+                            "Setting" = "3:2"
+                            "Value" = "8:The installer will guide you through the steps required to install CC Kitchen Application \"le Chocolate Customizer\" on your computer."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -3706,7 +3743,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_3EF85E5A8824485EBE8A4219125346D5"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -3728,7 +3766,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_3EF85E5A8824485EBE8A4219125346D5"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -3740,7 +3779,7 @@
                             "ContextData" = "8:1;True=1;False=0"
                             "Attributes" = "3:0"
                             "Setting" = "3:0"
-                            "Value" = "3:1"
+                            "Value" = "3:0"
                             "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -3762,7 +3801,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6044123C4FAC49ACAC798745A473551A"
             {
-            "SourcePath" = "8:..\\WPFDashboard\\obj\\Debug\\WPFDashboard.exe"
+            "SourcePath" = "8:..\\WPFDashboard\\obj\\Debug\\CC Kitchen Application.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_71C3BD9393E747C7853DB78384B6E557"

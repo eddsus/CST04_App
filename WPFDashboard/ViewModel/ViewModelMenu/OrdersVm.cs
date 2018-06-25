@@ -71,6 +71,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                     if (orderContent is OrderContentChocolate)
                     {
                         OrderContentChocolate occ = (OrderContentChocolate)orderContent;
+                        occ.Chocolate.Ingredients = DataAgentUnit.GetInstance().QueryIngredientsByChocolateId(occ.Chocolate.ChocolateId).ToList();
                         foreach (var item in occ.Chocolate.Ingredients)
                         {
                             if (item.IngredientId == ing.DeactivatedIngredient.IngredientId)
@@ -87,6 +88,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         OrderContentPackage ocp = (OrderContentPackage)orderContent;
                         foreach (var choco in ocp.Package.Chocolates)
                         {
+                            choco.Ingredients = DataAgentUnit.GetInstance().QueryIngredientsByChocolateId(choco.ChocolateId).ToList();
                             foreach (var item in choco.Ingredients)
                             {
                                 if (item.IngredientId == ing.DeactivatedIngredient.IngredientId)

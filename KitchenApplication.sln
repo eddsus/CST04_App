@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "Presen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A9667F7E-89F4-4612-BCB3-4CB999783B6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDashboard", "WPFDashboard\WPFDashboard.csproj", "{78EF4221-09BA-4386-B48A-B49991C2B252}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC Kitchen Application", "WPFDashboard\CC Kitchen Application.csproj", "{78EF4221-09BA-4386-B48A-B49991C2B252}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAgent", "DataAgent\DataAgent.csproj", "{30265273-10C7-4035-A133-82D401CF94F1}"
 EndProject

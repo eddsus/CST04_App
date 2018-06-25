@@ -54,7 +54,7 @@ namespace DataAgent
             webClient.Encoding = Encoding.UTF8;
             try
             {
-                webClient.UploadString(BaseUrl + serviceCall, "POST", data);
+               webClient.UploadString(BaseUrl + serviceCall, "POST", data);
                 return true;
             }
             catch (Exception)
