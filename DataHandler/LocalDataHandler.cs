@@ -40,6 +40,13 @@ namespace DataHandler
             return tempCustomers;
         }
 
+        public string GetDataDirectory()
+        {
+            string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = (System.IO.Path.GetDirectoryName(executable));
+            return path;
+        }
+
 
         //private List<SharedDataTypes.Order> QueryOrder()
         //{

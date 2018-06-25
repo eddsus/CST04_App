@@ -245,6 +245,10 @@
       <Project>{30265273-10c7-4035-a133-82d401cf94f1}</Project>
       <Name>DataAgent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataHandler\LocalDataHandling.csproj">
+      <Project>{170D6FA8-ABF6-4B9E-9798-B7519F565045}</Project>
+      <Name>LocalDataHandling</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="chocolate.ico" />

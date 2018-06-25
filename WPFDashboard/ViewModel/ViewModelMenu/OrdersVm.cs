@@ -33,8 +33,6 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                 if (SelectedOrder != null)
                     ShowOrderDetails(value);
                 RaisePropertyChanged();
-               
-                RaisePropertyChanged();
             }
         }
         
