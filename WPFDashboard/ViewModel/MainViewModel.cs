@@ -68,6 +68,13 @@ namespace WPFDashboard.ViewModel
 
         public MainViewModel()
         {
+            // Get the application configuration file.
+            //System.Configuration.Configuration config =
+            //        ConfigurationManager.OpenExeConfiguration(
+            //        ConfigurationUserLevel.None);
+            //System.Configuration.ConfigurationSettings config = ConfigurationManager
+            //AppDomain.CurrentDomain.GetData[];
+
             GetConnectionStatus();
 
             CurrentView = SimpleIoc.Default.GetInstance<OrdersVm>();
@@ -96,6 +103,7 @@ namespace WPFDashboard.ViewModel
         private void RefreshCurrentView()
         {
             Messenger.Default.Send(new RefreshMessage(CurrentView.GetType()));
+            GetConnectionStatus();
         }
 
         private void SetConnectionStatus(bool msg)
@@ -134,7 +142,29 @@ namespace WPFDashboard.ViewModel
         }
         private bool GetConnectionStatus()
         {
-            return ConnectStatus = DataAgentUnit.GetInstance().GetSynchronizerStatus();
+            //if (ConnectStatus)
+            //{
+                ConnectStatus = DataAgentUnit.GetInstance().GetSynchronizerStatus();
+            //} else
+            //{
+            //    Task.Factory.StartNew(WaitForConnection);
+            //}
+            return ConnectStatus;
         }
+
+        //private void WaitForConnection()
+        //{
+        //    while (ConnectStatus)
+        //    {
+        //        if (DataAgentUnit.GetInstance().GetSynchronizerStatus())
+        //        {
+        //            ConnectStatus = true;
+        //            break;
+        //        }
+        //        ConnectStatus = false;
+        //        DisplayInformation("waiting for connection...");
+        //        Thread.Sleep(30000);
+        //    }
+        //}
     }
 }

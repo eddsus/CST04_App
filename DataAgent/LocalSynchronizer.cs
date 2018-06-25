@@ -27,8 +27,8 @@ namespace LocalSynchronization
         public LocalSynchronizer(Action orderInformer, Action packageInformer, Action creationInformer, Action ingredientInformer, Action commentsInformer, Action<string> displayInformation, Action<bool> setConnectionStatus)
         {
             dataHandler = new LocalDataHandler();
-            serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
-            //serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
+            //serviceHandler = new ServiceHandler("http://localhost:8090/AppServiceService/");
+            serviceHandler = new ServiceHandler("http://wi-gate.technikum-wien.at:60935/AppServiceService/");
             OrderInformer = orderInformer;
             PackageInformer = packageInformer;
             CreationInformer = creationInformer;
@@ -61,10 +61,15 @@ namespace LocalSynchronization
             {
                 if (Connected())
                 {
+                    SetConnectionStatus(true);
                     break;
                 }
+                SetConnectionStatus(false);
+                DisplayInformation.Invoke("waiting for connection");
                 Thread.Sleep(10000);
             }
+            DisplayInformation.Invoke("connected, waiting for sync");
+
             IntitializeBaseData();
 
             while (true)

@@ -9,8 +9,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:WPFDashboard.Converter" x:Class="WPFDashboard.MainWindow"
         mc:Ignorable="d"
-        Title="Kitchen " Height="1000" Width="1200" 
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        Title="CC Kitchen Application " Height="1000" Width="1400" 
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}" WindowStartupLocation="CenterOwner" WindowState="Maximized" Icon="chocolate.ico"
         >
     <Window.Resources>
         <Converter:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
@@ -55,9 +55,9 @@
                     <TextBlock Text="Comments" HorizontalAlignment="Center"/>
                 </Grid>
             </Button>
-
         </StackPanel>
-        
+        <Label Content="le Chocolate Customizer" HorizontalAlignment="Right" Margin="0 10 200 5" VerticalAlignment="Center" FontSize="35" Background="White" Foreground="#FF795649" FontFamily="Segoe Print"/>
+        <Image Source="chocolate.ico" RenderTransformOrigin="2.483,0.555" HorizontalAlignment="Right" Margin="0 10 120 10"/>
         <!--======CONNECTED STATUS=========-->
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
             <!--<Label Content="Connected" FontSize="15" FontWeight="Bold"/>-->
