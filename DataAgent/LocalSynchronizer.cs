@@ -68,7 +68,7 @@ namespace LocalSynchronization
                 DisplayInformation.Invoke("waiting for connection");
                 Thread.Sleep(10000);
             }
-            DisplayInformation.Invoke("connected, waiting for sync");
+            DisplayInformation.Invoke("connected - waiting for sync");
 
             IntitializeBaseData();
 
@@ -84,12 +84,15 @@ namespace LocalSynchronization
                     SynchronizeComments();
                     SynchronizeOrders();
                     DisplayInformation.Invoke("Last sync @ " + DateTime.Now);
+                    Thread.Sleep(60000);
+
                 }
                 else
                 {
                     SetConnectionStatus(false);
+                    DisplayInformation.Invoke("waiting for connection");
+                    Thread.Sleep(1000);
                 }
-                Thread.Sleep(60000);
             }
         }
 
