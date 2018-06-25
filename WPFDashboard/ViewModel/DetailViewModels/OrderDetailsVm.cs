@@ -54,7 +54,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public string ContentID
         {
             get { return contentID; }
-            set { contentID = value;
+            set
+            {
+                contentID = value;
                 RaisePropertyChanged();
             }
         }
@@ -63,7 +65,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public string TypePackage
         {
             get { return typePackage; }
-            set { typePackage = value;
+            set
+            {
+                typePackage = value;
                 RaisePropertyChanged();
             }
         }
@@ -72,7 +76,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public string TypeChocolate
         {
             get { return typeChocolate; }
-            set { typeChocolate = value;
+            set
+            {
+                typeChocolate = value;
                 RaisePropertyChanged();
             }
         }
@@ -80,7 +86,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public RelayCommand<OrderContentPackage> BtnDeletePackage
         {
             get { return btnDeletePackage; }
-            set { btnDeletePackage = value;
+            set
+            {
+                btnDeletePackage = value;
                 RaisePropertyChanged();
             }
         }
@@ -89,7 +97,9 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         public RelayCommand<OrderContentChocolate> BtnDeleteChocolate
         {
             get { return btnDeleteChocolate; }
-            set { btnDeleteChocolate = value;
+            set
+            {
+                btnDeleteChocolate = value;
                 RaisePropertyChanged();
             }
         }
@@ -188,7 +198,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         {
             KitchenNote = "";
             Messenger.Default.Register<Order>(this, DisplayOrderInfo);
-            SaveBtn = new RelayCommand(SaveOrderDetails, ()=> KitchenNote.Equals("")?false: (SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus)?true:false);
+            SaveBtn = new RelayCommand(SaveOrderDetails, () => KitchenNote.Equals("") ? false : (SimpleIoc.Default.GetInstance<MainViewModel>().ConnectStatus) ? true : false);
             InitOrderStates();
         }
 
@@ -220,7 +230,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 Customer = CurrentOrder.Customer,
                 DateOfDelivery = CurrentOrder.DateOfDelivery,
                 DateOfOrder = CurrentOrder.DateOfOrder,
-                Note = "CN: "+ CustomerNote + "; KN: " + KitchenNote,
+                Note = "CN: " + CustomerNote + "; KN: " + KitchenNote,
                 Status = GetStatusObjectfromString(SelectedOrderState)
             });
             Messenger.Default.Send<string>("Order saved @ " + DateTime.Now);
@@ -229,7 +239,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private void DeletePackageFromList(OrderContentPackage p)
         {
             OrderContentPackages.Remove(p);
-            if (deletedOrderContentPackages== null)
+            if (deletedOrderContentPackages == null)
             {
                 deletedOrderContentPackages = new List<OrderContentPackage>();
             }
@@ -239,7 +249,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
         private void DeleteChocolateFromList(OrderContentChocolate p)
         {
             OrderContentChocolates.Remove(p);
-            if(deletedOrderContentChocolates == null)
+            if (deletedOrderContentChocolates == null)
             {
                 deletedOrderContentChocolates = new List<OrderContentChocolate>();
             }
@@ -310,8 +320,8 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                     OrderStateStrings.Add(item.Decription);
             }
 
-            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p)=> { DeleteChocolateFromList(p);});
-            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p)=> { DeletePackageFromList(p); });
+            BtnDeleteChocolate = new RelayCommand<OrderContentChocolate>((p) => { DeleteChocolateFromList(p); });
+            BtnDeletePackage = new RelayCommand<OrderContentPackage>((p) => { DeletePackageFromList(p); });
         }
         private OrderStatus GetStatusObjectfromString(string selectedOrderState)
         {

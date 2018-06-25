@@ -313,7 +313,6 @@ namespace DataHandler
         {
 
             var temp = localDb.Chocolate.Where(p => p.ID_Chocolate.Equals(c.ChocolateId)).Select(p => p).First();
-            string kitchen = "Kitchen";
 
             temp.Name = c.Name;
             temp.Description = c.Description;
@@ -321,11 +320,10 @@ namespace DataHandler
             temp.Image = c.Image;
             temp.WrappingID = c.Wrapping.WrappingId;
             temp.Shape_ID = c.Shape.ShapeId;
-            //published choco => becomes standard choco
-            temp.Customer.FirstName = kitchen;
+            temp.Creator_Customer_ID = c.CreatedBy.CustomerId;
             temp.ModifyDate = DateTime.Now;
 
-            return localDb.SaveChanges() == 2;
+            return localDb.SaveChanges() == 1;
         }
 
         public bool UpdateOrder(SharedDataTypes.Order o)
@@ -365,13 +363,7 @@ namespace DataHandler
             temp.Image = p.Image;
             temp.ModifyDate = DateTime.Now;
 
-            int cnt = 1;
-            foreach (var item in p.Chocolates)
-            {
-                localDb.Package_has_Chocolate.Add(converter.ConvertToDBPackageHasChoco(item.ChocolateId, p.PackageId));
-                cnt++;
-            }
-            return localDb.SaveChanges() == cnt;
+            return localDb.SaveChanges() == 1;
 
 
         }
@@ -469,10 +461,9 @@ namespace DataHandler
 
         public bool InsertChocolate(SharedDataTypes.Chocolate c)
         {
-            int cnt = 0;
             localDb.Chocolate.Add(converter.ConvertToDBChoco(c));
             localDb.SaveChanges();
-            cnt++;
+            int cnt = 1;
 
             foreach (var item in c.Ingredients)
             {
