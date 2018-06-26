@@ -134,18 +134,18 @@ namespace DataAgent
             if (connected)
             {
                 var temp = serviceHandler.CallService<List<Order>>(@"QueryOrders");
-                foreach (var item in temp)
-                {
                     try
                     {
+                foreach (var item in temp)
+                {
                         item.Content = new List<OrderContent>();
                         item.Content.AddRange(QueryOrdersContentChocolate(item.OrderId));
                         item.Content.AddRange(QueryOrdersContentPackage(item.OrderId));
+                }
                     }
                     catch (Exception)
                     {
                     }
-                }
                 return temp;
             }
             else

@@ -230,7 +230,7 @@ namespace WPFDashboard.ViewModel.DetailViewModels
                 Customer = CurrentOrder.Customer,
                 DateOfDelivery = CurrentOrder.DateOfDelivery,
                 DateOfOrder = CurrentOrder.DateOfOrder,
-                Note = "CN: " + CustomerNote + "; KN: " + KitchenNote,
+                Note = "k- " + KitchenNote + " ; *" + CustomerNote,
                 Status = GetStatusObjectfromString(SelectedOrderState)
             });
             Messenger.Default.Send<string>("Order saved @ " + DateTime.Now);

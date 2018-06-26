@@ -57,6 +57,8 @@ namespace LocalSynchronization
         }
         private void StartSynchronizing()
         {
+            DisplayInformation.Invoke("waiting for connection");
+            Connected();
             while (!connected)
             {
                 if (Connected())
@@ -65,10 +67,9 @@ namespace LocalSynchronization
                     break;
                 }
                 SetConnectionStatus(false);
-                DisplayInformation.Invoke("waiting for connection");
                 Thread.Sleep(10000);
             }
-            DisplayInformation.Invoke("connected - waiting for sync");
+            DisplayInformation.Invoke("connected");
 
             IntitializeBaseData();
 
@@ -83,7 +84,7 @@ namespace LocalSynchronization
                     SynchronizePackages();
                     SynchronizeComments();
                     SynchronizeOrders();
-                    DisplayInformation.Invoke("Last sync @ " + DateTime.Now);
+                    DisplayInformation.Invoke("last sync @ " + DateTime.Now);
                     Thread.Sleep(60000);
 
                 }
@@ -91,7 +92,7 @@ namespace LocalSynchronization
                 {
                     SetConnectionStatus(false);
                     DisplayInformation.Invoke("waiting for connection");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
             }
         }
