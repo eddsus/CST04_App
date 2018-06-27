@@ -77,7 +77,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                                 order.Status.OrderStatusId = new Guid("e9ea67d5-bee2-4372-9abb-408a2afe3640");
                                 DataAgentUnit.GetInstance().UpdateOrder(order);
                                 RaisePropertyChanged("OrderList");
-                                Messenger.Default.Send("Orders have been paused because " + item.Name + "was deactivated. Check the orders view to take action.");
+                                Messenger.Default.Send("Orders have been paused because " + item.Name + " was deactivated. Check the orders view to take action.");
                             } 
                         } 
 
@@ -94,7 +94,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                                     order.Status.OrderStatusId = new Guid("e9ea67d5-bee2-4372-9abb-408a2afe3640");
                                     DataAgentUnit.GetInstance().UpdateOrder(order);
                                     RaisePropertyChanged("OrderList");
-                                    Messenger.Default.Send("Orders have been paused because " + item.Name + "was deactivated. Check the orders view to take action.");
+                                    Messenger.Default.Send("Orders have been paused because " + item.Name + " was deactivated. Check the orders view to take action.");
                                 }
                             }
                         }

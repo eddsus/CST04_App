@@ -84,7 +84,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          ShowPackageDetails(i);
                          //and inform the infobar
                          //Messenger.Default.Send(new PropertyChanged<Package>(i, "has been deactivated", 5));
-                         Messenger.Default.Send(i.Name + "has been unpublished");
+                         Messenger.Default.Send(i.Name + " has been unpublished");
                          Refresh(new RefreshMessage(GetType()));
                      }
                      else
@@ -100,7 +100,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          ShowPackageDetails(i);
                          //and inform the infobar
                          //Messenger.Default.Send(new PropertyChanged<Package>(i, "has been activated", 5));
-                         Messenger.Default.Send(i.Name + "has been published");
+                         Messenger.Default.Send(i.Name + " has been published");
                          Refresh(new RefreshMessage(GetType()));
                      }
                  },

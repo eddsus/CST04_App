@@ -91,7 +91,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          DataAgentUnit.GetInstance().UpdateChocolate(i);
                          ShowCreationdetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been unpublished", 5));
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, " has been unpublished", 5));
                          Refresh(new RefreshMessage(GetType()));
                      }
                      else
@@ -105,7 +105,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                          DataAgentUnit.GetInstance().UpdateChocolate(i);
                          ShowCreationdetails(i);
                          //and inform the infobar
-                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, "has been published", 5));
+                         Messenger.Default.Send(new PropertyChanged<Chocolate>(i, " has been published", 5));
                          Refresh(new RefreshMessage(GetType()));
                      }
                  },

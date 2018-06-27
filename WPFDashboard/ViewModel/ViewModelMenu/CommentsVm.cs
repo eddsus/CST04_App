@@ -65,7 +65,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         //Update the databases
                         DataAgentUnit.GetInstance().UpdateRating(i);
                         //and inform the infobar
-                        Messenger.Default.Send(new PropertyChanged<Rating>(i, "has been unpublished", 5));
+                        Messenger.Default.Send(new PropertyChanged<Rating>(i, " has been unpublished", 5));
                         Messenger.Default.Send<string>("Comment has been unpublished");
                         Refresh(new RefreshMessage(GetType()));
                     }

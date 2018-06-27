@@ -64,7 +64,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         //Update the databases
                         DataAgentUnit.GetInstance().UpdateIngredient(i);
                         //and inform the infobar
-                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been deactivated", 5));
+                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, " has been deactivated", 5));
                         Messenger.Default.Send(new IngredientDeactivatedMessage(i));
                         Refresh(new RefreshMessage(GetType()));
                     }
@@ -75,7 +75,7 @@ namespace WPFDashboard.ViewModel.ViewModelMenu
                         //Update the databases
                         DataAgentUnit.GetInstance().UpdateIngredient(i);
                         //and inform the infobar
-                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, "has been activated", 5));
+                        Messenger.Default.Send(new PropertyChanged<Ingredient>(i, " has been activated", 5));
                         Refresh(new RefreshMessage(GetType()));
                     }
                 },
